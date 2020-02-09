@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var page = '';
+	var winopen = function() {
+		page = window.open('myArray01.html', 'page', 'width=300,height=300,left=100,top=100,resizable=1');
+	}
+	var winmoveby = function() {
+		page.moveBy(50,50);
+	}
+	var winmoveto = function() {
+		page.moveTo(50,50);
+	}
+	var winresizeto = function() {
+		page.resizeTo(300, 300);
+	}
+	var winfocus = function() {
+		page.focus();
+	}
+	var winblur = function() {
+		page.blur();
+	}
+</script>
+</head>
+<body>
+	<a href="javascript:winopen()">new1</a>
+	<input type="button" value="new2" onclick="winopen()">
+	<input type="button" value="moveBy" onclick="winmoveby()">
+	<input type="button" value="moveTo" onclick="winmoveto()">
+	<input type="button" value="resizeTo" onclick="winresizeto()">
+	<input type="button" value="focus" onclick="winfocus()">
+	<input type="button" value="blur" onclick="winblur()">
+</body>
+</html>

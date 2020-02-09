@@ -1,0 +1,96 @@
+<%@page import="java.nio.file.Paths"%>
+<%@page import="java.nio.file.Path"%>
+<%@page import="java.nio.file.Files"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.naming.Context"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.io.File"%>
+<%@page import="java.io.FileOutputStream"%>
+<%@page import="java.io.FileInputStream"%>
+<%@page import="java.io.FileReader"%>
+<%@page import="java.io.IOException"%>
+<%@page import="java.io.EOFException"%>
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@page import="AlbumBeans.Design_album01TO"%>
+<%@page import="AlbumBeans.Design_album01DAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	DataSource dataSource = null;
+	for (int i = 0; i < 3; i++) {
+
+		try {
+
+			FileInputStream fis = new FileInputStream(
+					"C:/java/OneDrive/Java/eclipse/jsp-workspace/AlbumEx/WebContent/upload/Penguins.jpg");
+			FileOutputStream fos = new FileOutputStream(
+					"C:/java/OneDrive/Java/eclipse/jsp-workspace/AlbumEx/WebContent/upload/Penguins" + i
+							+ ".jpg");
+			int data = 0;
+
+			while ((data = fis.read()) != -1) {
+				fos.write(data);
+			}
+			Design_album01TO to = new Design_album01TO();
+
+			to.setFilename_ori("Penguins.jpg");
+			to.setFilename_ch("Penguins" + i + ".jpg");
+
+			to.setWriter("writer " + i);
+			to.setSubject("subject " + i);
+			to.setMail("mail" + i + "@" + "mail" + i);
+
+			to.setPassword("123");
+			to.setContent("content " + i);
+			to.setWip("127.0.0.1");
+
+			// DB 연결
+			Context initCtx = new InitialContext();
+
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+
+			dataSource = (DataSource) envCtx.lookup("jdbc/mariadb");
+
+			// DB 저장
+
+			int flag = 0;
+
+			conn = dataSource.getConnection();
+			String sql = "insert into album_board1 values(0, ?, ?, ?, ?, ?, ?, ?, 0, ?, now())";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, to.getWriter());
+			pstmt.setString(2, to.getSubject());
+			pstmt.setString(3, to.getMail());
+			pstmt.setString(4, to.getPassword());
+			pstmt.setString(5, to.getContent());
+			pstmt.setString(6, to.getFilename_ori());
+			pstmt.setString(7, to.getFilename_ch());
+			pstmt.setString(8, to.getWip());
+
+			int result = pstmt.executeUpdate();
+
+		} catch (IOException e) {
+			System.out.println("error : " + e.getMessage());
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+		}
+
+	}
+%>

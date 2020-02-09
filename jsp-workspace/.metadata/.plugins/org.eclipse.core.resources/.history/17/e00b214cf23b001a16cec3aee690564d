@@ -1,0 +1,31 @@
+package ServletModelPagingSubControllerAction;
+
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import ServletModelPagingModel.ServletPagingBoardDAO;
+import ServletModelPagingModel.ServletPagingBoardListTO;
+import ServletModelPagingModel.ServletPagingBoardTO;
+
+public class ServletPagingListAction implements ServletPagingAction {
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		System.out.println("List1Action 호출");
+
+		ServletPagingBoardDAO dao = new ServletPagingBoardDAO();
+		ServletPagingBoardListTO listTO = new ServletPagingBoardListTO();
+		
+		// boardList메소드를 실행하여 페이징값과, 글목록10개가 저장된 BoardListTO 객체를 받아온다.
+		listTO = dao.boardList(listTO);
+		
+		int cpage = listTO.getCpage();
+		
+		request.setAttribute("cpage", cpage);
+
+	}
+
+}

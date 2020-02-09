@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	* {
+		border : 1px solid orange;
+		text-align : center;
+	}
+</style>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById('div1').onclick = function() {
+			console.log('outer-div');
+		};
+		document.getElementById('div2').onclick = function() {
+			console.log('inner-div');
+		};
+		document.getElementById('h1').onclick = function() {
+			console.log('header');
+		};
+		// 버블링이 더이상 안된다. 여기서 멈춤
+		document.getElementById('p1').onclick = function(e) {
+			console.log('paragraph');
+			if(e.stopPropagation) {
+				e.stopPropagation();
+			}
+		};
+	}
+</script>
+</head>
+<body>
+	<div id="div1">
+		<div id="div2">
+			<h1 id="h1">
+				<p id="p1">Paragraph</p>
+			</h1>
+		</div>
+	</div>
+</body>
+</html>

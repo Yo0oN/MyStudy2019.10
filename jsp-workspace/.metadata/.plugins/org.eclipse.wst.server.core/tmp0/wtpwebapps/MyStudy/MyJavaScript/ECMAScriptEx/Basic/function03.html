@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	// callback = 함수에서 함수를 호출하는것
+	var callFunction = function (callback) {
+		callback();
+	}
+</script>
+</head>
+<body>
+<script type="text/javascript">
+	// 함수 선언을 자료취급한다. = 일급함수★
+	var callback = function() {
+		console.log('callback 호출');
+	}
+	// callback변수에 함수를 담아 다른 함수에서 그 변수를 실행한다.
+	callFunction(callback);
+</script>
+</body>
+</html>

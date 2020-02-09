@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div {
+	width : 150px;
+	height : 50px;
+	border : 1px solid gray;
+	text-align : center;
+	vertical-align : middle;
+	}
+</style>
+<script type="text/javascript">
+	// 동적이벤트를 생성해보자
+	// id를 전부 주어도 괜찮지만, 수가많아지면 번거로워진다.
+	// 이럴땐 for문을 이용하여 생성해주자.
+	
+	window.onload = function() {
+		// 클로저 - 실행과 동시에 없어지는것이 아닌 메모리에 남아있는것
+		// 여기서는 for문 안의 i가 된다.
+		var btns = document.getElementsByTagName('div');
+		
+		for (var i = 0; i < btns.length; i++) {
+			// 페이지를 띄웠을때는 0, 1이 콘솔에 찍힌다.
+			console.log(i);
+			
+			// 실행시점은 버튼을 클릭했을 때이다.
+			// 처음 페이지가 띄워지면 for문은 버튼에 아래함수를 연결을 해주는것 뿐이다.
+			// 실행은아니다!!
+			btns[i].onclick = function() {
+				// 원래라면 페이지가 실행됨과 동시에 i값은 1까지 찍히고 끝나야 했지만,
+				// 이 함수가 다른 버튼들에 할당이 되었기 때문에
+				// i값이 사라지지 않고 변수의 끝이었던 2가 계속 남아있다. 
+				console.log(i);
+				console.log(this.innerHTML);
+				if (this.innerHTML == '이벤트 클릭 1') {
+					this.style.color = 'orange';
+					this.style.backgroundColor = 'gray';
+					alert('이벤트 클릭 1');
+				} else {
+					alert('이벤트 클릭 2');
+				}
+				console.log('끝');
+			};
+		}
+	};
+</script>
+</head>
+<body>
+<div>이벤트 클릭 1</div>
+<br><br>
+<div>이벤트 클릭 2</div>
+</body>
+</html>

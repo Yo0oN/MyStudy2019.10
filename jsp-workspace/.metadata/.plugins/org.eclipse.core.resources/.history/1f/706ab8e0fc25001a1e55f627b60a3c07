@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var arr1 = [];
+		var arr2 = [273, 32, 103, 57, 52, "문자"];
+		
+		console.log(arr1);
+		console.log(arr2);
+		console.log(typeof(arr2));
+		console.log(typeof(arr2[0]));
+		console.log(typeof(arr2[5]));
+	</script>
+</body>
+</html>

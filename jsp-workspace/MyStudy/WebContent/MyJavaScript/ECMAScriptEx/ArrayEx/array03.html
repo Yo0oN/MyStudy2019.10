@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 정렬	
+		var arr = [ 52, 273, 102, 32 ];
+		// 문자의 정렬방식이라 마치 사전처럼 정렬이 된다.
+		arr.sort();
+		console.log(arr);
+		
+		arr.sort(function(left, right) {
+			return left - right;
+		});
+		
+		console.log(arr);
+	</script>
+</body>
+</html>

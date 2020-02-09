@@ -1,0 +1,112 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.io.File"%>
+<%@page import="java.io.FileOutputStream"%>
+<%@page import="java.io.FileInputStream"%>
+<%@page import="java.io.FileReader"%>
+<%@page import="java.io.IOException"%>
+<%@page import="java.io.EOFException"%>
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@page import="AlbumBeans.Design_album01TO"%>
+<%@page import="AlbumBeans.Design_album01DAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	// 이전페이지에서 정보 받아오기
+	Design_album01TO to = new Design_album01TO();
+
+	System.out.println(1);
+	MultipartRequest multi = null;
+
+	try {
+		String path = "C:/java/OneDrive/Java/eclipse/jsp-workspace/AlbumEx/WebContent/upload";
+		int filesize = 1024 * 1024 * 2;
+
+		multi = new MultipartRequest(request, path, filesize, "utf-8", new DefaultFileRenamePolicy());
+
+		if (multi.getOriginalFileName("upload") == null) {
+			to.setFilename_ori("");
+			to.setFilename_ch("");
+		} else {
+			to.setFilename_ori(multi.getOriginalFileName("upload"));
+			to.setFilename_ch(multi.getFilesystemName("upload"));
+		}
+
+		to.setWriter(multi.getParameter("writer"));
+		to.setSubject(multi.getParameter("subject"));
+		if (!multi.getParameter("mail1").trim().equals("") && !multi.getParameter("mail2").trim().equals("")) {
+			to.setMail(multi.getParameter("mail1") + "@" + multi.getParameter("mail2"));
+		} else {
+			to.setMail("");
+		}
+
+		to.setPassword(multi.getParameter("password"));
+		to.setContent(multi.getParameter("content"));
+		to.setWip(request.getRemoteAddr());
+
+		// DB 연결
+		Design_album01DAO dao = new Design_album01DAO();
+
+		// DB 저장
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		DataSource dataSource = null;
+
+		int flag = 0;
+
+		try {
+			conn = dataSource.getConnection();
+			String sql = "insert into album_board1 values(0, ?, ?, ?, ?, ?, ?, ?, 0, ?, now())";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, to.getWriter());
+			pstmt.setString(2, to.getSubject());
+			pstmt.setString(3, to.getMail());
+			pstmt.setString(4, to.getPassword());
+			pstmt.setString(5, to.getContent());
+			pstmt.setString(6, to.getFilename_ori());
+			pstmt.setString(7, to.getFilename_ch());
+			pstmt.setString(8, to.getWip());
+
+			int result = pstmt.executeUpdate();
+
+			if (result == 1) {
+				flag = 1;
+			}
+		} catch (SQLException e) {
+			System.out.println("error : " + e.getMessage());
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+		}
+
+		System.out.println(2);
+		out.println("<script type='text/javascript'>");
+		if (flag == 1) {
+			out.println("alert('글쓰기 성공')");
+			out.println("location.href='board_list1.jsp'");
+		} else {
+			out.println("alert('글쓰기 실패')");
+			out.println("history.back()");
+		}
+		out.println("</script>");
+
+	} catch (EOFException e) {
+		System.out.println("error : " + e.getMessage());
+	} catch (IOException e) {
+		System.out.println("error : " + e.getMessage());
+	}
+%>

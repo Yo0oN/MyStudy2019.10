@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis">
+
+	<!-- binding : 컬럼을 미리 선언해두는것 -->
+	<sql id="userColumns">
+		empno, ename, sal
+	</sql>
+	
+	<select id="selectList1" resultType="DeptTO">
+		select *
+		from dept
+	</select>
+	
+	<select id="selectList2" resultType="EmpTO">
+		select <include refid="userColumns" />, hiredate, deptno
+		from emp
+	</select>
+	
+	<select id="selectList3" resultType="EmpTO">
+		select <include refid="userColumns" />
+		from emp
+	</select>
+	
+	<select id="selectList4" resultType="EmpSalgradeTO">
+		<!-- 부등호를 이용하고싶을 때는 &lt;작다, &gt; 크다를 이용하여야 한다. -->
+		select empno, ename, sal, deptno, grade
+		from emp inner join salgrade
+		where salgrade.losal &lt;= emp.sal and salgrade.hisal &gt;=
+		emp.sal;
+	</select>
+</mapper>

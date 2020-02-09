@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 클래스에 없는 메서드를 강제로 넣어서
+		// 원래 있던 메서드인것처럼 사용하는법
+
+		// 원래 Date클래스에는 두 날짜 사이의 간격을 나타내주는
+		// getInterval 메서드가 없다! (interval : 간격)
+		var now = new Date();
+		
+		// Date클래스의 함수들이 모여있는 protytype에 
+		// getInterval이라는 함수를 강제로 만들어준다.
+		Date.prototype.getInterval = function(date) {
+			var interval = this.getTime() - date.getTime();
+			return interval;
+		}
+
+		var before = new Date(2019, 12 - 1, 1);
+		console.log(now.getInterval(before));
+		// 위의 것은 밀리초로 간격을 나타내 주고 있으니
+		// 일로 바꿔보자.
+		console.log(Math.floor(now.getInterval(before)/(1000*60*60*24)));
+	</script>
+</body>
+</html>

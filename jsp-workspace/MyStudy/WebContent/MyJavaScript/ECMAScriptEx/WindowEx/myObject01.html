@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 이렇게 객체를 생성하면 옵션을 줄 수 없다..아니면 내가 못찾아본거거나?
+		var ob1 = {
+			name : 'tom',
+			region : 'seoul'
+		}
+		console.log(ob1);
+		Object.seal(ob1);
+		// delete로 삭제하려했으나,
+		// 위에서 seal로 속성 삭제 제한을 걸었기 때문에 삭제가 되지 않았다.
+		delete(ob1.name);
+		console.log(ob1);
+
+		// 속성에 새로운 요소를 넣으면서, 속성값을 변경할 수 없게 옵션을 주었다.
+		//Object.defineProperty(ob1, 'name', {
+		//	value : 'rose',
+		//	writable : false
+		//})
+		//console.log(ob1);
+
+		// 다른 객체를 기반으로 하여 새로운 객체를 만들어낸다.
+		// hobby속성만 넣었음에도, 기반이 된 부모객체의 내용도 함께 추가된다. 
+		var ob2 = Object.create(ob1, {
+			hobby : {value : 'soccer', writable : true}
+		});
+		console.log(ob2);
+		console.log(ob2.name + ', ' + ob2.region);
+	</script>
+</body>
+</html>

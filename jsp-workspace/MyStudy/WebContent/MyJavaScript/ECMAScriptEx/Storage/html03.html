@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById('btn1').onclick = function() {
+			// 크롬의 쿠키에 들어가보면 Session이라 적혀있다.
+			// session과 비슷하지만 기간이 지정되어있다.
+			// var cookie = 'name1=value1';
+			
+			// 아래는 쿠키를 하루동안 저장하게 해준다.
+			var date = new Date();
+			date.setDate(date.getDate() +1);
+			var cookie = 'name1=value1;expires=' + date.toString();
+			
+			document.cookie = cookie;
+			console.log('쿠키생성');
+		};
+		document.getElementById('btn2').onclick = function() {
+			var cookies = document.cookie;
+			console.log(cookies);
+			// 쿠키를 읽을 때는 =를 구분자로하여 키와 값을 나누어 읽는다.
+			var key = cookies.split('=')[0];
+			var value = cookies.split('=')[1];
+			console.log(key);
+			console.log(value);
+		}
+	}
+</script>
+</head>
+<body>
+<button id="btn1">쿠키생성</button>
+<button id="btn2">쿠키읽기</button>
+</body>
+</html>

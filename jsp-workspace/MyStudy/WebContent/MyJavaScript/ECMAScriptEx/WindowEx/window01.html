@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var output = '';
+		// 윈도우 객체의 내용을 하나씩 보여주는중
+		for ( var key in window) {
+			if (key != 'external') {
+				output += '*' + key + ' : ' + window[key] + '\n';
+			}
+		}
+		console.log(output);
+		
+		// 브라우저(스크린)의 현재 위치값을 알려준다. 
+		console.log(window['screenTop']);
+		console.log(window['screenLeft']);
+		document.write('window01.html');
+	</script>
+</body>
+</html>

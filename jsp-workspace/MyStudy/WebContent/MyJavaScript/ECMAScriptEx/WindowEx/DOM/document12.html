@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var addTag = function() {
+		var output = '<ul id = "u">';
+		output += '<li>사과</li>';
+		output += '<li>딸기</li>';
+		output += '<li>수박</li>';
+		output += '<li>망고</li>';
+		output += '</ul>';
+		
+		var div = document.getElementById('div');
+		div.innerHTML = output;
+	}
+	var removeTag = function() {
+		var div = document.getElementById('div');
+		//div.innerHTML = ''; 이걸 더 많이 사용하긴함
+		
+		var u = document.getElementById('u');
+		div.removeChild(u);
+	}
+</script>
+</head>
+
+<body>
+<input type="button" value="tag 추가" onmouseover="addTag()" />
+<input type="button" value="tag 삭제" onmouseover="removeTag()" />
+<hr>
+<div id="div"></div>
+</body>
+</html>

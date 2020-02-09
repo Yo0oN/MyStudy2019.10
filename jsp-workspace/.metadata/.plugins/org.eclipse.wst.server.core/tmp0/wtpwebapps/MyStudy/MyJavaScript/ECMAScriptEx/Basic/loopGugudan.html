@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+table {
+	border: 2px solid black;
+	border-collapse: collapse;
+}
+
+td {
+	border: 1px solid black;
+	width: 100px;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<script type="text/javascript">
+		document.write('<table>');
+
+		for (var i = 0; i <= 9; i++) {
+			document.write('<tr>');
+			if (i == 0) {
+				document.write('<td></td>');
+			} else {
+				document.write('<td>' + i + '단' + '</td>');
+			}
+			for (var j = 1; j <= 9; j++) {
+				if (i == 0) {
+					document.write('<td>' + 'x' + j + '</td>');
+				} else {
+					document.write('<td>' + i + ' x ' + j + ' = ' + (i * j)
+							+ '</td>');
+				}
+			}
+			document.write('</tr>');
+		}
+		document.write('</table>');
+	</script>
+</body>
+</html>

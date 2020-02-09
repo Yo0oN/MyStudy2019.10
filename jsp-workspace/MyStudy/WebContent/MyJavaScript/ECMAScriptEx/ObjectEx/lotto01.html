@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 로또 번호 추첨기를 만들어 보자.
+		// 5열 6행의 표 안에 들어가있어야 한다.
+
+		document.write('<table width = "300" border = "1">');
+
+		for (var i = 0; i < 5; i++) {
+			document.write('<tr>');
+			document.write('<td>' + (i + 1) + ' 번</td>');
+			for (var j = 0; j < 6; j++) {
+				var lotto = Math.floor((Math.random() * 45) + 1);
+				document.write('<td>' + lotto + '</td>');
+			}
+			document.write('</tr>');
+		}
+
+		document.write('</ table>');
+
+	</script>
+</body>
+</html>

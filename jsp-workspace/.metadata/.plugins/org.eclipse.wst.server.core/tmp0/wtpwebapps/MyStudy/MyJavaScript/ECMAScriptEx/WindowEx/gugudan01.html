@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var gugudan = function() {
+		var start = Number(document.frm.start.value);
+		var end = Number(document.frm.end.value);
+
+		var gugu += '<table border=1px width=500>';
+
+		for (var i = start - 1; i <= end; i++) {
+			gugu += '<tr>';
+
+			if (i == start - 1) {
+				gugu += '<td></td>';
+			} else {
+				gugu += '<td>' + i + '단</ td>';
+			}
+
+			for (var j = 1; j < 10; j++) {
+				if (i == start - 1) {
+					gugu += '<td>x' + j + '</td>';
+				} else {
+					gugu += '<td>' + (i * j) + '</ td>';
+				}
+			}
+			gugu += '</ tr>';
+		}
+
+		gugu += '</ table>';
+
+		document.getElementById('div').innerHTML = gugu;
+	}
+</script>
+</head>
+<body>
+	<form name="frm">
+		시작단 : <input type="text" size="10" name="start"><br> <br>
+		끝단 : <input type="text" size="10" name="end"><br> <br>
+		<input type="button" value="구구단" onclick="gugudan()">
+		<hr>
+		<div id="div"></div>
+	</form>
+</body>
+</html>

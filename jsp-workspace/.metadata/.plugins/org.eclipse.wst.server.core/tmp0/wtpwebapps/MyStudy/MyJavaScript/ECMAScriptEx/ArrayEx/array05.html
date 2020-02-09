@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var arr = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+		// for (var i = 0; i < arr.length; i++) {
+		// 	console.log(arr[i]);
+		// }
+
+		// arr.forEach(function(element, index, array) {
+		//	console.log('loop' + ' ' + element + ' ' + index);
+		//	console.log(array);
+		// })
+
+		// 배열 안에 있는 것들 전체의 합
+		// var sum = 0;
+		//for (var i = 0; i < arr.length; i++) {
+		//	sum += arr[i];
+		//}
+		// 위와 아래는 같은뜻
+		// arr.forEach(function(element) {
+		//	sum += element;
+		//});
+		//console.log(sum);
+
+		// 각 요소를 제곱하는 배열 생성
+		//var arr2 = [];
+		//arr.forEach(function(element){
+		//	arr2.push(element*element);
+		//});
+		//console.log(arr2);
+		// map : 배열의 내용을 가공하여 새로운요소를 넣고 싶을 때 사용
+		var result = arr.map(function(element) {
+			return element * element;
+		});
+		console.log(result);
+	</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var checkfrm = function() {
+		// html에서 데이터 읽어오기
+		var data1 = document.frm.data1.value;
+		console.log(data1);
+		console.log(typeof (data1));
+		// javasctipt에서 html로 데이터 쓰기
+		document.frm.data2.value = data1;
+	}
+</script>
+</head>
+<body>
+	<form name="frm">
+		<!-- text를 입력한 후 내용읽기버튼을 누르면
+		자바스크립트에 내용을 전달하는 이벤트 -->
+		data1 : <input type="text" name="data1" value="초기값" /> <br> <br>
+		data2 : <input type "text" name="data2" />
+		<input type="button" value="내용읽기" onclick="checkfrm()" />
+	</form>
+</body>
+</html>

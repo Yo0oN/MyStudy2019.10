@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	// 이름은 함수이지만 클래스와 비슷하다.. 
+	var outer = function() {
+		// 임시 함수(한번 사용하고 버림)
+		var inner1 = function() {
+			console.log("inner1() 호출");
+		};
+		inner1();
+	};
+</script>
+</head>
+<body>
+	<script type="text/javascript">
+		outer();
+	</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	// 변수 rfunc에 함수를 하나 담았는데 그것은 또 다른 함수를 리턴하고있다.
+	var rfunc = function() {
+		return function() {
+			console.log('함수 호출');
+		};
+	};
+	
+	var rfunc2 = function(type) {
+		if(type == 1) {
+			return function() {
+				console.log('함수 호출1');
+			};
+		} else {
+			return function() {
+				console.log('함수 호출2');
+			};
+		}
+	};
+</script>
+</head>
+<body>
+<script type="text/javascript">
+	// 변수 result에 rfunc변수를 담아 그 내부의 함수를 실행한다.
+	// 그러면 겉의 함수는 다른 함수를 또 리턴한다.
+	var result = rfunc();
+	result();
+	// rfunc변수를 다른 변수에 담아 사용하지 않고,
+	// 괄호를 두번 써서도 실행 가능하다.
+	rfunc()();
+	
+	rfunc2(1)();
+	rfunc2(2)();
+	rfunc2()();
+</script>
+</body>
+</html>

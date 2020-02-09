@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var checkfrm = function() {
+		/*
+		// 체크가 되어있는지 알 수 있다.
+		console.log(document.frm.f1.checked);
+		console.log(document.frm.f2.checked);
+		console.log(document.frm.f3.checked);
+		console.log(document.frm.f4.checked);
+		// 해당 체크박스의 값을 가져온다.
+		console.log(document.frm.f1.value);
+		console.log(document.frm.f2.value);
+		console.log(document.frm.f3.value);
+		console.log(document.frm.f4.value);
+		*/
+		// 위의 두개를 이용하여 체크가 되어있다면 값을 가져오도록 만들었다.
+		if(document.frm.f1.checked) console.log(document.frm.f1.value);
+		if(document.frm.f2.checked) console.log(document.frm.f2.value);
+		if(document.frm.f3.checked) console.log(document.frm.f3.value);
+		if(document.frm.f4.checked) console.log(document.frm.f4.value);
+	}
+</script>
+</head>
+<body>
+	<form name="frm">
+		<input type="checkbox" name="f1" value="사과" />사과<br />
+		<input type="checkbox" name="f2" value="감귤" />감귤<br />
+		<input type="checkbox" name="f3" value="수박" />수박<br />
+		<input type="checkbox" name="f4" value="딸기" checked="checked"/>딸기<br /><br />
+		<input type="button" value="내용읽기" onclick="checkfrm()"/>
+	</form>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	// 동적 이벤트 생성 - 클릭생성버튼을 누르면 실행
+	var addEvent1 = function() {
+		alert('click1');
+	}
+	
+	window.onload = function() {
+		var btn1 = document.getElementById('btn1');
+		
+		// toggle - on/off기능을 주었음
+		// 클릭이벤트 버튼을 누르면 실행
+		btn1.onclick = function() {
+			alert('click2');
+			// 처음 클릭할때는 실행되지만, 두번째는 실행되지 않는다.
+			btn1.onclick = null;
+		};
+	};
+</script>
+</head>
+<body>
+	<input type="button" value="클릭 생성" onclick="addEvent1()"/><br>
+	<input type="button" id="btn1" value="클릭 이벤트" />
+</body>
+</html>

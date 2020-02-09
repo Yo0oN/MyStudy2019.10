@@ -1,0 +1,28 @@
+package MyBatisModelPagingModel;
+
+import java.util.ArrayList;
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+public interface MapperInter {
+	@Select("select seq, subject, writer, hit, wdate from board1")
+	public ArrayList<MyBatisPagingBoardListTO> selectList();
+	
+	@Select("select seq, subject, writer, mail, content, hit, wip, wdate from board1 where seq=#{seq}")
+	public  MyBatisPagingBoardTO selectView(String seq);
+	
+	@Update("update board1 set hit=hit+1 where seq=#{seq}")
+	public void updateViewHit(String seq);
+	
+	@Insert("insert into board1 values(0, #{subject}, #{writer}, #{mail}, #{password}, #{content}, 0, #{wip}, now())")
+	public  int insertWriteOk();
+	
+	@Select("select seq, subject, writer, mail, content from board1 where seq=#{seq}")
+	public  MyBatisPagingBoardTO selectModify();
+	public  int updateModifyOk();
+	public  MyBatisPagingBoardTO selectDelete();
+	public  int deleteDeleteOk();
+	
+}

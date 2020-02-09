@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	// 자바 실행문
+	// 선언적인 내용(변수나 객체선언)
+</script>
+</head>
+<body>
+	<script type="text/javascript">
+		// 자바 실행문
+		// 실행적인 내용
+	</script>
+</body>
+</html>

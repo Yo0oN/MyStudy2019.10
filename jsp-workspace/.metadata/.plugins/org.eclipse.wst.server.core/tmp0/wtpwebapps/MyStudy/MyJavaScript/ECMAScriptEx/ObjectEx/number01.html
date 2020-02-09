@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 최댓값, 최소값
+		console.log(Number.MAX_VALUE);
+		console.log(Number.MIN_VALUE);
+		
+		var number = 273.5210832;
+		var output = '';
+		// toFixed(n) n의 자리 아래에서 반올림
+		output += number.toFixed(1) + '\n';
+		output += number.toFixed(4);
+		console.log(output);
+		
+		console.log(3.02155.toExponential(3));
+		console.log(1.02153.toExponential(4));
+		
+		console.log(3.02155.toPrecision(3));
+		console.log(1.02153.toPrecision(4));
+	</script>
+</body>
+</html>

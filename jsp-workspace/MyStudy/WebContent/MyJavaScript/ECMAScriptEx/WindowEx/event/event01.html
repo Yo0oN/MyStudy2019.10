@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	#btn {
+		width : 150px;
+		height : 50px;
+		border : 1px solid gray;
+	}
+	
+	.myButton {
+	background-color:#44c767;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+	}
+	.myButton:hover {
+		background-color:#5cbf2a;
+	}
+	.myButton:active {
+		position:relative;
+		top:1px;
+	}
+
+        
+</style>
+<script type="text/javascript">
+	var clickbutton = function() {
+		alert('click');
+	};
+</script>
+</head>
+<body>
+	<!-- 버튼을 클릭하면 해당 함수가 실행된다. = 클릭이벤트 -->
+	<a href="javascript:clickbutton()" class="myButton">클릭 이벤트</a><br>
+	<input type="button" value="클릭이벤트" onclick="clickbutton()" class="myButton" /><br>
+	<button onclick="clickbutton()" class="myButton">클릭이벤트</button><br>
+	<div onclick="clickbutton()" id="btn" class="myButton">클릭이벤트</div>
+</body>
+</html>

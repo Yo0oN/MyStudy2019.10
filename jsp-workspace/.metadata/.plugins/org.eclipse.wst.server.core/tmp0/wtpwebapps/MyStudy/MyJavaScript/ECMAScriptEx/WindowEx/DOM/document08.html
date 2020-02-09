@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var checkAll = function() {
+		for(var i = 0; i < document.frm.f.length; i++){
+			// 아래 다 같은말
+			document.frm.f[i].checked = true;
+			//document.frm.f[i].checked = 1;
+			//document.frm.f[i].checked = "checked";
+		}
+	}
+	var deleteAll = function() {
+		for(var i = 0; i < document.frm.f.length; i++){
+			// 아래 다 같은말
+			document.frm.f[i].checked = false;
+			//document.frm.f[i].checked = 0;
+		}
+	}
+</script>
+</head>
+<body>
+	<form name="frm">
+		<input type="button" value="전체선택" onclick="checkAll()"/>
+		<input type="button" value="전체삭제" onclick="deleteAll()"/>
+		<hr/>
+		<input type="checkbox" name="f" value="사과" />사과<br />
+		<input type="checkbox" name="f" value="감귤" />감귤<br />
+		<input type="checkbox" name="f" value="수박" />수박<br />
+		<input type="checkbox" name="f" value="딸기" />딸기<br /><br />
+	</form>
+</body>
+</html>
