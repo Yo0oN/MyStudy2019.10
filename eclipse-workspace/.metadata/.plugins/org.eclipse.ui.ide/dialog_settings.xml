@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="D:\MyFirstGit\MyStudy2019.10\eclipse-workspace"/>
 		<item value="C:\java\OneDrive\Java\eclipse\eclipse-workspace"/>
 		<item value="C:\Java\OneDrive\Java\eclipse\eclipse-workspace\AccountBook"/>
 		<item value="C:\java\OneDrive\Java\eclipse\ZipSearch"/>
@@ -44,5 +45,13 @@
 			<item key="DIALOG_Y_ORIGIN" value="180"/>
 			<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
 		</section>
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="539"/>
+		<item key="DIALOG_Y_ORIGIN" value="326"/>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
 	</section>
 </section>

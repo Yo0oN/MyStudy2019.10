@@ -97,7 +97,7 @@ public class ChatServer
 
 				// 익셉션 발생시켜 접속종료
 				while (in != null) {
-					var msg = in.readUTF();
+					String msg = in.readUTF();
 					System.out.println(msg);
 					
 					if(msg.contains("exit")) {
