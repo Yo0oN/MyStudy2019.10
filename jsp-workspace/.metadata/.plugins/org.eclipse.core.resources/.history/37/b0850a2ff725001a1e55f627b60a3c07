@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		alert('메세지');
+		confirm('메세지');
+		if (confirm('메세지')){
+			console.log('확인');
+		} else {
+			console.log('취소');
+		} else {
+			console.log('?');
+		}
+	</script>
+</body>
+</html>

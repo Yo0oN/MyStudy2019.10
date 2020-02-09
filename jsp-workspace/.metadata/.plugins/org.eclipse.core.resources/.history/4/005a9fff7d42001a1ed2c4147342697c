@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis1">
+	<select id="list" resultType="SimpleBoard01Model.SimpleBoard01TO">
+		select seq, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, datediff(now(), wdate) wgap
+		from board1
+		order by seq desc
+	</select>
+	<select id="view" parameterType="String" resultType="SimpleBoard01Model.SimpleBoard01TO">
+		select subject, writer, mail, wip, wdate, hit, content
+		from board1
+		where seq=#{seq}
+	</select>
+	<insert id="writeOk" parameterType="SimpleBoard01Model.SimpleBoard01TO" >
+		insert into board1 values (0, #{subject}, #{writer}, #{mail}, #{password}, #{content}, #{hit}, #{wip}, now())
+	</insert>
+	<select id="modify" parameterType="String" resultType="SimpleBoard01Model.SimpleBoard01TO">
+		select subject, writer, mail, content from board1 where seq=#{seq}
+	</select>
+	<update id="modifyOk" parameterType="SimpleBoard01Model.SimpleBoard01TO" >
+		update board1 set subject=#{subject}, mail=#{mail}, content=#{content} where seq=#{seq} and password=#{password}
+	</update>
+	<select id="delete" parameterType="String" resultType="SimpleBoard01Model.SimpleBoard01TO">
+		select subject, writer from board1 where seq=#{seq}
+	</select>
+	
+	<select id="selectList2" parameterType="String" resultType="model1.ZipcodeSearchTO">
+		delete from board1 where seq = ? and password = ?
+	</select>
+
+</mapper>

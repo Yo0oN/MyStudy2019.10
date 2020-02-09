@@ -1,0 +1,19 @@
+package AlbumBeans;
+
+public class Design_album01TO {
+	private int seq;
+	private String writer;
+	private String subject;
+	private String mail;
+	private String password;
+	private String content;
+	private String filename_ori;
+	private String filename_ch;
+	private String hit;
+	private String wip;
+	private String wdate;
+	private String com_writer;
+	private String com_seq;
+	private String com_comment;
+	private String com_date;
+}

@@ -1,0 +1,71 @@
+<%@page import="javax.sql.DataSource"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.naming.Context"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="javax.naming.NamingException"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.io.File"%>
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+
+	int flag = 1;
+	int result = 0;
+	try {
+		Context initCtx = new InitialContext();
+		// 톰캣의 환경설정에 접근
+		Context envCtx = (Context) initCtx.lookup("java:comp/env");
+		// 커넥션 풀링에 접근
+		DataSource dataSource = (DataSource) envCtx.lookup("jdbc/mariadb");
+
+		// 커넥션 풀링에서 커넥션을 얻음
+		conn = dataSource.getConnection();
+		for (int i = 1; i <= 100; i++) {
+		String sql = "insert into pds_board1 values(0, ?, ?, ?, ?, ?, ?, ?, 0, ?, now());";
+		pstmt = conn.prepareStatement(sql);
+
+		pstmt.setString(1, "test subject " + i);
+		pstmt.setString(2, "test" + i);
+		pstmt.setString(3, "test"+i+"@test"+i);
+		pstmt.setString(4, "123");
+		pstmt.setString(5, "test content " + i);
+		pstmt.setString(6, "");
+		pstmt.setInt(7, 0);
+		pstmt.setString(8, request.getRemoteAddr());
+
+		result = pstmt.executeUpdate();
+		}		
+		if (result == 100) {
+			// 글쓰기를 성공하면 flag값이 0이된다.
+			// 이것을 이용해 다음 페이지로 넘어갈것이다.
+			flag = 0;
+		}
+	} catch (NamingException e) {
+		System.out.println("error1 : " + e.getMessage());
+	} catch (SQLException e) {
+		System.out.println("error2 : " + e.getMessage());
+	} finally {
+		if (pstmt != null) {
+			pstmt.close();
+		}
+		if (conn != null) {
+			conn.close();
+		}
+	}
+	
+	out.println("<script type='text/javascript'>");
+	if (flag == 0) {
+		out.println("alert('글쓰기 성공');");
+		out.println("location.href='board_list1.jsp';");
+	} else {
+		out.println("alert('글쓰기 실패');");
+		out.println("history.back();");
+	}
+	out.println("</script>");
+%>

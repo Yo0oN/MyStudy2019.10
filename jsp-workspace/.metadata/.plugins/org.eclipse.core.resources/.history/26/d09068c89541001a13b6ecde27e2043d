@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis">
+	<!-- select 문의 결과로 나온 데이터를 DeptTO에 담겠다. -->
+	<select id="select1" resultType="DeptTO">
+		select deptno, dname, loc
+		from dept
+		where deptno=10;
+	</select>
+	<!-- 값을 나중에 설정해 줄 경우 parameterType으로 설정한다. -->
+	<select id="select2" parameterType="String" resultType="DeptTO">
+		select deptno, dname, loc
+		from dept
+		where deptno=#{deptno};
+	</select>
+</mapper>

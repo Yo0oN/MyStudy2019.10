@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 형변환 관련 함수
+		// Number(), String(), Boolean()
+
+		var data1 = "10";
+		var data2 = "20";
+
+		var sum1 = data1 + data2;
+		console.log(sum1);
+		
+		var sum2 = Number(data1) + Number(data2);
+		console.log(sum2);
+		
+		var data3 = "10일 5일";
+		var data4 = Number(data3);
+		// NaN = Not a Number 숫자가 아님.
+		// 에러가 발생하진 않고 숫자가 없다고만 뜸
+		console.log(data4);
+		// parseInt 앞에서부터 문자가 나오기 전까지만 추출
+		// 문자 이후에 다시 숫자가 나와도 뒤의 숫자는 나오지 않는다.
+		data4 = parseInt(data3);
+		console.log(data4);
+	</script>
+</body>
+</html>

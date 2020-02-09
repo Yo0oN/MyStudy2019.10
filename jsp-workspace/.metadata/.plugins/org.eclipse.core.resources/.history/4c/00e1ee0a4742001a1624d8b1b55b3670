@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis">
+
+	<!-- binding : 컬럼을 미리 선언해두는것 -->
+	<sql id="userColumns">
+		empno, ename, sal
+	</sql>
+	
+	<select id="selectList1" resultType="DeptTO">
+		select *
+		from dept
+	</select>
+	
+	<select id="selectList2" resultType="EmpTO">
+		<!-- 선언해둔 컬럼 뒤에 이어붙이기도 가능하다. -->
+		select <include refid="userColumns" />, hiredate, deptno
+		from emp
+	</select>
+	
+	<select id="selectList3" resultType="EmpTO">
+		select <include refid="userColumns" />
+		from emp
+	</select>
+	
+	<select id="selectList4" resultType="EmpSalgradeTO">
+		<!-- 부등호를 이용하고싶을 때는 &lt;작다, &gt; 크다를 이용하여야 한다. -->
+		select empno, ename, sal, deptno, grade
+		from emp inner join salgrade
+		where salgrade.losal &lt;= emp.sal and salgrade.hisal &gt;=
+		emp.sal;
+	</select>
+	
+	<insert id="insert1" parameterType="DeptTO">
+		insert into dept(deptno, dname, loc)
+		values (#{deptno}, #{dname}, #{loc})
+	</insert>
+	
+	<update id="update1" parameterType="DeptTO">
+		update dept
+		set dname=#{dname}
+		where deptno=#{deptno}
+	</update>
+	
+	<delete id="delete1" parameterType="DeptTO">
+		delete from dept
+		where deptno=#{deptno}
+	</delete>
+	
+	<select id="create1" parameterType="String">
+		create table mybatis3 (test varchar(15))
+	</select>
+	
+	<update id="create2" parameterType="String">
+		create table mybatis3 (test varchar(15))
+	</update>
+	
+	<update id="drop1" parameterType="String">
+		drop table #{tablename}
+	</update>
+</mapper>

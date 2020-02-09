@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var arr1 = [];
+		var arr2 = [ 273, 32, "문자" ];
+
+		console.log(arr1);
+		console.log(arr2);
+		console.log(typeof (arr2));
+		console.log(typeof (arr2[0]));
+		console.log(typeof (arr2[2]));
+		console.log(typeof (arr2[5]));
+
+		document.write(arr1 + '<br>');
+		document.write(arr2 + '<br>');
+		document.write(typeof (arr2) + '<br>');
+		document.write(typeof (arr2[0]) + '<br>');
+		document.write(typeof (arr2[2]) + '<br>');
+	</script>
+</body>
+</html>

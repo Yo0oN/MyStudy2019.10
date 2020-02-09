@@ -1,0 +1,7 @@
+package model1;
+
+public class ELBookEx01 {
+	private String title;
+	private String author;
+	priavte String publisher;
+}

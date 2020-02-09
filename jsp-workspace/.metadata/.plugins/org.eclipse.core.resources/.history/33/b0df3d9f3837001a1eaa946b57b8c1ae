@@ -1,0 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%
+	request.setCharacterEncoding("utf-8");
+
+	String id = request.getParameter("id");
+	String password = request.getParameter("password");
+
+	// 비밀번호와 아이디를 DB에서 확인해야 하지만, 
+	String save_id = "test";
+	String save_password = "123456";
+
+	// 검사하기
+	int flag = 1;
+	if (id.equals(save_id) && password.equals(save_password)) {
+		flag = 0;
+	}
+	out.println("<script type='text/javascript'>");
+
+	if (flag == 0) {
+		out.println("<alert('로그인 성공.')>");
+		out.println("<alert('로그인 성공.')>");
+	} else {
+		out.println("<alert('암호와 비밀번호가 틀렸습니다.')>");
+	}
+
+	out.println("</script>");
+%>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var student = {
+			name : "홍길동",
+			kor : 92,
+			mat : 98,
+			eng : 96,
+			sci : 98
+		}
+	</script>
+</body>
+</html>

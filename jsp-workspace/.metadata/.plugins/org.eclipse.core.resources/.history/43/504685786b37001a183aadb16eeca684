@@ -1,0 +1,35 @@
+package servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ServletEx01 extends HttpServlet {
+	// 우리가 실행하는 메서드가 아니라 tomcat에 의하여 실행된다.(callback 시스템에 의하여 실행되는 메서드)
+	// init()은 클라이언트가 최초로 서블릿에 요청할 때 실행된다. 1번만 실행
+	// service는 클라이언트의 요청이 있을 때 마다 실행된다.
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+		System.out.println("init() 실행");
+	}
+
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		System.out.println("destroy() 실행");
+	}
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("service() 실행");
+	}
+}

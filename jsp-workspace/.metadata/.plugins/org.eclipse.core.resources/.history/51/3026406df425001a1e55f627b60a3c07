@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var outer = function() {
+		var inner1 = function() {
+			console.log("inner1() 호출");
+		};
+		inner1();
+	};
+</script>
+</head>
+<body>
+	<script type="text/javascript">
+		outer();
+	</script>
+</body>
+</html>

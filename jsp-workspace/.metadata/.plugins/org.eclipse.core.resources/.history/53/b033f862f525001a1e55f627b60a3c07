@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 형변환 관련 함수
+		// Number(), String(), Boolean()
+
+		var data1 = "10";
+		var data2 = "20";
+
+		var sum1 = data1 + data2;
+		console.log(sum1);
+		
+		var sum2 = Number(data1) + Number(data2);
+		console.log(sum2);
+	</script>
+</body>
+</html>

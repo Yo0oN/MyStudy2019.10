@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	// 생성자 함수
+	function Student (name, kor, mat) {
+		this.name = name;
+		this.kor = kor;
+		this.mat = mat;
+		
+		this.getSum = function() {
+			return this.kor + this.mat;
+		};
+	}
+	// stu1과 stu2 는 다른 메모리 공간을 사용중이다. 
+	var stu1 = new Student('홍길동', 85, 96);
+	var sty2 = new Student('박문수', 92, 96);
+	
+	console.log(stu1);
+	console.log(stu1.getSum());
+
+	console.log(stu2);
+	console.log(stu2.getSum());
+</script>
+</body>
+</html>

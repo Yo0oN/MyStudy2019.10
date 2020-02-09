@@ -1,0 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	// 내장객체에 담은 후 출력을 해야 한다.
+	String name1 = "홍길동";
+	pageContext.setAttribute("name1", "박문수");
+%>
+이름 :<%=name1%><br>
+이름 : ${name1}

@@ -1,0 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!-- 아래의 문구는 JSTL을 사용할 때 쓰는데, core를 사용할 때 쓴다.
+	prifix를 통하여 아래의 태그에서 어떻게 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%="browser1"%><br>
+${"browser1"}
+<br>

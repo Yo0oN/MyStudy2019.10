@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	var jumsu = 85;
+	// 학점 표현하기.
+	if (jumsu >= 90){
+		document.write("A");
+	} else if (jumsu >= 80) {
+		document.write("B");
+	} else if (jumsu >= 70) {
+		document.write("C");
+	} else if (jumsu >= 60) {
+		document.write("D");
+	} else {
+		document.write("F");
+	};
+	
+	String water = "water";
+	document.write(water);
+	String water = "juice";
+	document.write(water);
+	
+	
+</script>
+</body>
+</html>

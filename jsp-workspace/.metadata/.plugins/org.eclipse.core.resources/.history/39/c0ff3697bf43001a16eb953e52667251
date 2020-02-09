@@ -1,0 +1,8 @@
+package MyBatisModelPagingModel;
+
+import java.util.ArrayList;
+
+public interface MapperInter {
+
+	public ArrayList<MyBatisPagingBoardListTO> selectList() {};
+}

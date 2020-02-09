@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis">
+	<select id="searchZip01" parameterType="String" resultType="ZipcodeSearchTOEx01">
+		select *
+		from zipcode
+		where dong like #{searchDong}
+		<!-- where dong like concat(#searchDong, '%')으로 적고, class쪽에서는 동만 입력해도 검색가능 -->
+	</select>
+</mapper>

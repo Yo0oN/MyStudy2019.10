@@ -1,0 +1,7 @@
+package myBatisEx01;
+
+public class DeptTO {
+	private String deptno;
+	private String dname;
+	private String loc;
+}

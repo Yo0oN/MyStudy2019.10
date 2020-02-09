@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis">
+	<select id="selectList1" resultType="DeptTO">
+		select *
+		from dept
+	</select>
+	<select id="selectList2" resultType="EmpTO">
+		select empno, ename, sal
+		from emp
+		where ename like 's%';
+	</select>
+	<select id="selectList3">
+	<!-- 부등호를 이용하고싶을 때는 &lt;작다, &gt; 크다를 이용하여야 한다. -->
+		select empno, ename, sal, deptno, grade
+		from emp inner join salgrade
+		where salgrade.losal &lt;= emp.sal and salgrade.hisal &gt;=
+		emp.sal;
+	</select>
+</mapper>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var student = {
+			name : "홍길동",
+			kor : 92 : 80,
+			mat : 98,
+			eng : 96,
+			'sci' : 98
+		}
+		// in 객체 내부에 해당 키가 있는지 물어볼 때 사용
+		// 키를 문자열로 표현해주어야한다.
+		console.log(name in student);
+		console.log('name' in student);
+		console.log('name1' in student);
+		console.log('sci' in student);
+		
+		console.log(student.name);
+		// with 구문을 이용하면 위에 있는 것처럼 
+		// 객체.키로 하나씩 쓰는것이 아니라,
+		// 키만 적어서 속성을 뺄 수 있다.
+		var output = '';
+		with (student) {
+			output += name;
+		}
+		console.log(output);
+		
+	</script>
+</body>
+</html>

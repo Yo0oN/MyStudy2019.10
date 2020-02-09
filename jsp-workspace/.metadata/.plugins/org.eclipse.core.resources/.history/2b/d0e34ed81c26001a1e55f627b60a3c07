@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	// 생성자 함수
+	function Student (name, kor, mat) {
+		
+	}
+</script>
+</body>
+</html>
