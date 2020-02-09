@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 3 elements to &apos;KICCampus/src/ScannerEx&apos;&#x0D;&#x0A;- Original project: &apos;ScannerEx01&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/src/ScannerEx&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     ScannerEx01.java&#x0D;&#x0A;     ScannerEx02.java&#x0D;&#x0A;     ScannerBook81p.java&#x0D;&#x0A;- Update references to refactored element" description="Move compilation units" destination="=KICCampus/src&lt;ScannerEx" element1="/src&lt;{ScannerEx01.java" element2="/src&lt;{ScannerEx02.java" element3="/src&lt;{ScannerBook81p.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1575810372265" units="3" version="1.0"/>
+</session>

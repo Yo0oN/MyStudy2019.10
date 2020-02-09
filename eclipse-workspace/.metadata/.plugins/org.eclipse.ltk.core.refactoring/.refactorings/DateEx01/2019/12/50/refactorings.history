@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 5 elements to &apos;KICCampus/src/DateEx&apos;&#x0D;&#x0A;- Original project: &apos;DateEx01&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/src/DateEx&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     CalendarEx02.java&#x0D;&#x0A;     CalendarEx01.java&#x0D;&#x0A;     DateEx02.java&#x0D;&#x0A;     DateEx01.java&#x0D;&#x0A;     DateEx03.java" description="Copy compilation units" destination="=KICCampus/src&lt;DateEx" element1="/src&lt;{CalendarEx02.java" element2="/src&lt;{CalendarEx01.java" element3="/src&lt;{DateEx02.java" element4="/src&lt;{DateEx01.java" element5="/src&lt;{DateEx03.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1575809800038" units="5" version="1.0"/>
+</session>

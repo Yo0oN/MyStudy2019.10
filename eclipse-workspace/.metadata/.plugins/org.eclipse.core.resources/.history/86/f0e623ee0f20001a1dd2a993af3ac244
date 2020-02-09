@@ -1,0 +1,8 @@
+
+public class JoinDialogDAO {
+	public JoinDialogDAO() {
+		String url = "jdbc:mysql://127.0.0.1:3306/accountBook";
+		String user = "root";
+		String password = "123456";
+	}
+}

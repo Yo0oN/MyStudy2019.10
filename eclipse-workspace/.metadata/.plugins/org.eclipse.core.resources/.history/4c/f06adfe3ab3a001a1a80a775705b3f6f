@@ -1,0 +1,22 @@
+package MyQueue;
+
+import java.util.Stack;
+
+public class StackEx03 {
+
+	public static void main(String[] args) {
+		// java.uti.Stack
+		Stack<Integer> stack = new Stack<Integer>();
+		for (int i = 0; i < 10; i++) {
+			stack.add(i);
+			System.out.println(stack.search(i));
+		}
+		
+		
+		
+		
+		System.out.println(stack.search(3));
+		System.out.println(stack.search(30));
+	}
+
+}

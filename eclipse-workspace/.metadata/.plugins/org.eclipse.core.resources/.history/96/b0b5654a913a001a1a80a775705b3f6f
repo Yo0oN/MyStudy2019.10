@@ -1,0 +1,26 @@
+package MyQueue;
+
+import java.util.Random;
+
+class SearchKey {
+	static int searchKey(int[] array, int key) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == key) {
+				return i;
+			}
+		}
+		return -1;
+	}
+}
+
+public class SearchEx01 {
+
+	public static void main(String[] args) {
+		int[] array = new int[10];
+		for (int i = 0; i < 10; i++) {
+			array[i] = new Random().nextInt(20);
+		}
+
+	}
+
+}

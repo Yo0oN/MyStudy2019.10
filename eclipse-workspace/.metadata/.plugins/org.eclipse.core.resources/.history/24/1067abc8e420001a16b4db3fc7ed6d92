@@ -1,0 +1,102 @@
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JPasswordField;
+import javax.swing.JLabel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class ChagePasswordDialog extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+	private JPasswordField nowPasswordField;
+	private JPasswordField chagePasswordField;
+	private JPasswordField passwordCheckField;
+	private ChagePasswordDialogDAO cpdDAO;
+	private MainFrame mainFrame;
+	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			ChagePasswordDialog dialog = new ChagePasswordDialog();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public ChagePasswordDialog() {
+		setTitle("비밀번호 변경");
+		setResizable(false);
+		setBounds(100, 100, 320, 179);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		
+		nowPasswordField = new JPasswordField();
+		nowPasswordField.setBounds(112, 10, 155, 21);
+		contentPanel.add(nowPasswordField);
+		
+		JLabel nowPasswordLabel = new JLabel("현재 비밀번호");
+		nowPasswordLabel.setBounds(12, 13, 88, 15);
+		contentPanel.add(nowPasswordLabel);
+		
+		chagePasswordField = new JPasswordField();
+		chagePasswordField.setBounds(112, 35, 155, 21);
+		contentPanel.add(chagePasswordField);
+		
+		JLabel chagePasswordFieldLabel = new JLabel("변경 비밀번호");
+		chagePasswordFieldLabel.setBounds(12, 38, 88, 15);
+		contentPanel.add(chagePasswordFieldLabel);
+		
+		passwordCheckField = new JPasswordField();
+		passwordCheckField.setBounds(112, 60, 155, 21);
+		contentPanel.add(passwordCheckField);
+		
+		JLabel passwordCheckLabel = new JLabel("비밀번호 확인");
+		passwordCheckLabel.setBounds(12, 63, 88, 15);
+		contentPanel.add(passwordCheckLabel);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						// 마우스 클릭시 만약 현재 비번이 다를경우알림창, 변경비번과 체크비번이 달라도 알림창
+						cpdDAO = new ChagePasswordDialogDAO();
+						mainFrame = new MainFrame();
+						
+						
+						cpdDAO.CheckPassword(mainFrame.getM_num(), nowPasswordField.getText());
+						if (true) {
+							
+						}
+					}
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+	}
+}

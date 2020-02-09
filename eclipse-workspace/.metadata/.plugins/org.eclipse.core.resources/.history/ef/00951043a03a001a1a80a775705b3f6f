@@ -1,0 +1,14 @@
+package MyQueue;
+
+class MyStack02<T> {
+	
+}
+
+public class StackEx02 {
+
+	public static void main(String[] args) {
+		// ArrayList로 만들기
+
+	}
+
+}

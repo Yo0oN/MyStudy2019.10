@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+<libraryInfo home="C:\Program Files\Java\jdk-13.0.1" version="13.0.1"/>
+<libraryInfo home="C:\Java\OneDrive\Java\jdk\jdk-13.0.1" version="13.0.1"/>
+<libraryInfo home="C:\Users\4855c\OneDrive\Java\jdk-13.0.1" version="13.0.1"/>
+<libraryInfo home="C:\Java\OneDrive\Java\jdk\jdk-12.0.2" version="12.0.2"/>
+<libraryInfo home="C:\Users\kitcoop\OneDrive\Java\jdk\jdk-13.0.1" version="13.0.1"/>
+<libraryInfo home="C:\OneDrive\Java\jdk\jdk-13.0.1" version="13.0.1"/>
+<libraryInfo home="C:\Program Files\Java\jre1.8.0_221" version="1.8.0_221">
+<bootpath>
+<entry path="C:\Program Files\Java\jre1.8.0_221\lib\resources.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_221\lib\rt.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_221\lib\sunrsasign.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_221\lib\jsse.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_221\lib\jce.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_221\lib\charsets.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_221\lib\jfr.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_221\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="C:\Program Files\Java\jre1.8.0_221\lib\ext"/>
+<entry path="C:\windows\Sun\Java\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="C:\Program Files\Java\jre1.8.0_221\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo home="C:\Users\4855c\OneDrive\Java\jdk\jdk-13.0.1" version="13.0.1"/>
+<libraryInfo home="C:\MyJava\jdk-13.0.1" version="13.0.1"/>
+</libraryInfos>

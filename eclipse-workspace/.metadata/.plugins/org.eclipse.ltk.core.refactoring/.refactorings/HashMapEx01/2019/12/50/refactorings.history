@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 4 elements to &apos;KICCampus/src/HashMapEx&apos;&#x0D;&#x0A;- Original project: &apos;HashMapEx01&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/src/HashMapEx&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     HashMapEx01.java&#x0D;&#x0A;     PropertiesEx01.java&#x0D;&#x0A;     BookHashMapTest.java&#x0D;&#x0A;     PropertiesEx02.java" description="Copy compilation units" destination="=KICCampus/src&lt;HashMapEx" element1="/src&lt;{HashMapEx01.java" element2="/src&lt;{PropertiesEx01.java" element3="/src&lt;{BookHashMapTest.java" element4="/src&lt;{PropertiesEx02.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1575809967069" units="4" version="1.0"/>
+</session>

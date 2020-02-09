@@ -1,0 +1,46 @@
+package MyChat;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashSet;
+
+public class ChatWord {
+	InputStreamReader goodisr = null;
+	FileInputStream gooddis = null;
+
+	StringBuffer good = null;
+
+	public int good(String good) {
+		try {
+			// 칭찬키워드들을 읽어온다.
+			goodisr = new InputStreamReader(new FileInputStream("C:\\Java\\OneDrive\\Java\\datas\\good.txt"));
+
+			// 칭찬키워드들을 뺀다.
+			while (goodisr.ready()) {
+				this.good.append((char) goodisr.read());
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("error1 : " + e.getMessage());
+		} catch (IOException e) {
+			System.out.println("error2 : " + e.getMessage());
+		} finally {
+			if (goodisr != null) {
+				try {
+					goodisr.close();
+				} catch (IOException e) {
+					System.out.println("error3 : " + e.getMessage());
+				}
+			}
+		}
+		return this.good.indexOf(good);
+	}
+	
+	public static void main(String[] args) {
+		ChatWord my = new ChatWorld();
+		System.out.println();
+	}
+
+}

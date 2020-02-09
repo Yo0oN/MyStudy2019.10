@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 6 packages to &apos;KICCampus/src/ThreadEx&apos;&#x0D;&#x0A;- Original project: &apos;ThreadEx01&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/src/ThreadEx&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     ThreadEx01/src/pack4&#x0D;&#x0A;     ThreadEx01/src/pack5&#x0D;&#x0A;     ThreadEx01/src/pack6&#x0D;&#x0A;     ThreadEx01/src/pack1&#x0D;&#x0A;     ThreadEx01/src/pack2&#x0D;&#x0A;     ThreadEx01/src/pack3&#x0D;&#x0A;- Update references to refactored element" description="Move packages" destination="=KICCampus/src&lt;ThreadEx" element1="/src&lt;pack4" element2="/src&lt;pack5" element3="/src&lt;pack6" element4="/src&lt;pack1" element5="/src&lt;pack2" element6="/src&lt;pack3" flags="589830" fragments="6" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.movePackages" stamp="1575810708207" version="1.0"/>
+</session>

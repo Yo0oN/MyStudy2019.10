@@ -1,0 +1,15 @@
+package MyChat;
+
+import java.util.ArrayList;
+
+public class SimpleChat {
+	ChatWord cw = new ChatWord();
+	public static void main(String[] args) {
+		ArrayList<String> sb1 = new ArrayList<String>();
+		sb1.add("hello클레오파트라");
+		ArrayList<String> sb2 = new ArrayList<String>();
+		sb2.add("1");
+		sb2.add("hello");
+		System.out.println(sb2.contains("hello"));
+	}
+}

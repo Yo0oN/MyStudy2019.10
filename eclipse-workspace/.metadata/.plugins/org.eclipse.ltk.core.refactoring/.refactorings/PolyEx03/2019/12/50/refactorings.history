@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 4 elements to &apos;KICCampus/src/PolyEx03&apos;&#x0D;&#x0A;- Original project: &apos;PolyEx03&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/src/PolyEx03&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     Employee.java&#x0D;&#x0A;     Worker.java&#x0D;&#x0A;     PolyMain.java&#x0D;&#x0A;     Executive.java&#x0D;&#x0A;- Update references to refactored element" description="Move compilation units" destination="=KICCampus/src&lt;PolyEx03" element1="/src&lt;{Employee.java" element2="/src&lt;{Worker.java" element3="/src&lt;{PolyMain.java" element4="/src&lt;{Executive.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1575811726465" units="4" version="1.0"/>
+</session>

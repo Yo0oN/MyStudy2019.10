@@ -1,0 +1,51 @@
+package MyQueue;
+
+import java.util.NoSuchElementException;
+
+class MyStack01<T> {
+	class Node<T> {
+		private T data;
+		private Node<T> next;
+
+		public Node(T data) {
+			this.data = data;
+		}
+	}
+
+	private Node<T> last;
+
+	public T pop() {
+		if (last = null) {
+			throw new NoSuchElementException();
+		}
+		return null;
+	}
+
+	public void push(T data) {
+		Node<T> stack = new Node(data);
+		
+		if (last == null) {
+			last = stack;
+		} else {
+			last.next = last;
+			last = stack;
+		}
+	}
+
+	public T poll() {
+		return null;
+	}
+
+	public boolean isEmpty() {
+		return true;
+	}
+}
+
+public class StackEx01 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

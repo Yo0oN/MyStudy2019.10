@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 5 elements to &apos;KICCampus/src/StringEx&apos;&#x0D;&#x0A;- Original project: &apos;String&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/src/StringEx&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     StringBufferEx01.java&#x0D;&#x0A;     StringEx02.java&#x0D;&#x0A;     FirstUpper.java&#x0D;&#x0A;     FirstUpperA.java&#x0D;&#x0A;     StringEx01.java&#x0D;&#x0A;- Update references to refactored element" description="Move compilation units" destination="=KICCampus/src&lt;StringEx" element1="/src&lt;{StringBufferEx01.java" element2="/src&lt;{StringEx02.java" element3="/src&lt;{FirstUpper.java" element4="/src&lt;{FirstUpperA.java" element5="/src&lt;{StringEx01.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1575810380886" units="5" version="1.0"/>
+</session>

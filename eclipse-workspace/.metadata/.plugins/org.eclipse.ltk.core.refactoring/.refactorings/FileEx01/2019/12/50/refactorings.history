@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 5 elements to &apos;KICCampus/src/FileEx&apos;&#x0D;&#x0A;- Original project: &apos;FileEx01&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/src/FileEx&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     BookUseFileTest.java&#x0D;&#x0A;     FileEx01.java&#x0D;&#x0A;     BookFileTest.java&#x0D;&#x0A;     FileEx02.java&#x0D;&#x0A;     FileEx03.java" description="Copy compilation units" destination="=KICCampus/src&lt;FileEx" element1="/src&lt;{BookUseFileTest.java" element2="/src&lt;{FileEx01.java" element3="/src&lt;{BookFileTest.java" element4="/src&lt;{FileEx02.java" element5="/src&lt;{FileEx03.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1575809828228" units="5" version="1.0"/>
+</session>

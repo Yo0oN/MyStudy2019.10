@@ -1,0 +1,12 @@
+package MyQueue;
+
+import java.util.Stack;
+
+public class StackEx03 {
+
+	public static void main(String[] args) {
+		// java.uti.Stack
+		Stack<Integer> stack = new Stack<Integer>();
+	}
+
+}

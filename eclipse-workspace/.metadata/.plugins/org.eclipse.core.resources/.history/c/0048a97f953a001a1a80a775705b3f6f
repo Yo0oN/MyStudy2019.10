@@ -1,0 +1,31 @@
+package MyQueue;
+
+import java.util.Arrays;
+import java.util.Random;
+
+public class SearchEx02_1 {
+
+	public static void main(String[] args) {
+		// Arrays의 binarySearch메소드
+
+		int[] array = new int[15];
+
+		// 배열에 값을 무작위로 넣고
+		for (int i = 0; i < array.length; i++) {
+			array[i] = new Random().nextInt(40);
+		}
+		// 정렬시킨다.
+		Arrays.sort(array);
+
+		// 찾을 값을 아무 값이나 하나 넣는다.
+		int key = new Random().nextInt(40);
+
+		for (int i : array) {
+			System.out.print(i + "  ");
+		}
+		System.out.println("\n" + key);
+
+		Arrays.binarySearch(array, key);
+	}
+
+}

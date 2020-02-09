@@ -1,0 +1,21 @@
+package MyQueue;
+
+import java.util.Arrays;
+import java.util.Random;
+
+public class SearchEx02 {
+
+	public static void main(String[] args) {
+		// 이진검색. 찾는값과 중앙값을 비교한 후 범위를 다시 정해 그 범위내에서 중앙값을 다시비교한다.
+		// 값을 찾거나, 더이상 배열안에 데이터가 없으면 중지된다.
+		// 값이 일정 규칙으로 정렬되어 있을 경우에만 사용이 가능하다.
+		int[] array = new int[15];
+
+		for (int i = 0; i < array.length; i++) {
+			array[i] = new Random().nextInt(40);
+		}
+
+		Arrays.sort(array);
+	}
+
+}
