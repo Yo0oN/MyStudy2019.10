@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	<!-- 요청처리(Controller?), Model, View의 빈 객체 생성을 하는 webContext.xml -->
+
+	<bean name="/list1.do"
+		class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<!-- /list1.do로 요청이 들어오면 list_view1.jsp로 이동 -->
+		<property name="viewName" value="listview1.jsp"></property>
+	</bean>
+
+	<bean name="/list2.do"
+		class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<!-- /list2.do로 요청이 들어오면 list_view2.jsp로 이동. WEB-INF에 넣어서 외부에서는 경로를 볼 수 
+			없게 해준다. -->
+		<property name="viewName"
+			value="/WEB-INF/views/listview2.jsp"></property>
+	</bean>
+
+	<bean name="/list3.do"
+		class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<!-- /list3.do로 요청이 들어오면 list_view2.jsp로 이동. -->
+		<property name="viewName"
+			value="/WEB-INF/views/listview2.jsp"></property>
+	</bean>
+
+	<bean name="/board/list1.do"
+		class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<!-- /board/list1.do로 요청이 들어오면 boardlist1.jsp로 이동. 가상경로 : 실제로 board폴더는 
+			존재하지 않지만, 이렇게 사용함으로써 겉으로 보기에는 경로가 있는것처럼 보인다. -->
+		<property name="viewName"
+			value="/WEB-INF/views/boardlistview1.jsp"></property>
+	</bean>
+
+	<bean name="/board/list2.do"
+		class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<!-- /list3.do로 요청이 들어오면 list_view2.jsp로 이동. -->
+		<property name="viewName"
+			value="/WEB-INF/views/boardlistview2.jsp"></property>
+	</bean>
+<!-- 
+	<bean id="view"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean> -->
+
+</beans>

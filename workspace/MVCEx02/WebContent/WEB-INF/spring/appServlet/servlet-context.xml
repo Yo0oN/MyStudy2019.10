@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	xml 문서의 문법.
+	beans를 element 또는 tag라 한다.
+	이 안에는 namespace(이름공간)을 설정할 수 있고, xmlns:이름="주소"로 설정한다.
+	원래는 beans가 default 이름공간으로 설정되어서 <beans xmlns="~ 로 시작하지만,
+	mvc모델로 사용하기 위해서는 default를 mvc로 바꿔주어야한다.
+	바꿀 때는 아래와 같이 바꾼다.
+-->
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+	
+	<!-- 이전 방법
+	<beans:bean name="/list1.do" class="xml.ListAction1" />
+	<beans:bean name="/list2.do" class="xml.ListAction2" /> -->
+
+	<!-- 어노테이션 방법 -->
+	<!-- <beans:bean class="annotationController.ConfigController1" />
+	<beans:bean class="annotationController.ConfigController2" /> -->
+
+	<!-- 어노테이션 방법2. 위의 방식으로 모든 클래스를 적어도되지만,
+		아래의 방식처럼 패키지 이름만 적으면 해당 패키지에서
+		어노테이션으로 작성된것들을 모두 가져온다. -->
+	<context:component-scan base-package="annotationController" />
+
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+</beans:beans>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 디폴트 생성자를 호출 -->
+	<bean id="helloSpring01" class="spring.HelloSpringEx01" />
+	<bean id="helloSpring02" class="spring.HelloSpringEx02" />
+	<bean id="helloSpring03_01" class="spring.HelloSpringEx03" />
+	<!-- 매개변수를 받는 생성자 호출 -->
+	<bean id="helloSpring03_02" class="spring.HelloSpringEx03">
+		<constructor-arg>
+			<value>김멍멍</value>
+		</constructor-arg>
+	</bean>
+</beans>

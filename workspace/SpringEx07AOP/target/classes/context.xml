@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<bean id="logginAdvice1" class="aop.LogginAdviceEx02" />
+
+	<!-- AOP 설정 -->
+	<bean id="pointcutAdvisor"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<!-- 공통 관심 사항 = Aspect -->
+		<property name="advice" ref="logginAdvice1" />
+		<!-- pointcut = 적용시킬 위치 = 적용시킬 메서드 : *을 이용하여 메소드를 구분해준다. -->
+		<property name="pointcut">
+			<bean
+				class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+				<property name="pattern" value=".*execute.*" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 핵심기능 -->
+	<bean id="action" class="spring.WriteAction">
+		<property name="writer">
+			<value>홍길동</value>
+		</property>
+	</bean>
+
+	<!-- AOP 적용 = 설정 + 핵심기능 -->
+	<bean id="proxy"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<!-- 어떤 클래스에만 적용시킬 지 제한을 걸어준다. -->
+		<property name="target" ref="action" />
+		<property name="interceptorNames">
+			<list>
+				<value>pointcutAdvisor</value>
+			</list>
+		</property>
+	</bean>
+</beans>
