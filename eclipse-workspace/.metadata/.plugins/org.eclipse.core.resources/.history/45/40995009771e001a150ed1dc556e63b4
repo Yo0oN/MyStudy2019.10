@@ -1,5 +1,0 @@
-package MyChat;
-
-public class SimpleChat {
-	ChatWord cw = new ChatWord();
-}

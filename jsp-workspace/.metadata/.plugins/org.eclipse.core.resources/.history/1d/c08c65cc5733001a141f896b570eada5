@@ -1,9 +1,0 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" trimDirectiveWhitespaces="trim"%>
-<%@ page import="java.io.FileInputStream"%>
-<%@ page import="java.net.URLEncoder"%>
-
-<%
-	String filename = request.getParameter("filename");
-	String downPath = "C:/java/OneDrive/Java/eclipse/jsp-workspace/BoardEx01/WebContent/upload/" + filename;
-%>

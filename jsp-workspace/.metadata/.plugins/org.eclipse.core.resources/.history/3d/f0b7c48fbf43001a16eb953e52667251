@@ -1,5 +1,0 @@
-package MyBatisModelPagingModel;
-
-public interface MapperInter {
-
-}

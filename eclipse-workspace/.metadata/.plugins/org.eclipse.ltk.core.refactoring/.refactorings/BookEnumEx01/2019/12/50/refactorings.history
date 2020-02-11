@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy 2 elements to &apos;KICCampus/src/EnumEx&apos;&#x0D;&#x0A;- Original project: &apos;BookEnumEx01&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/src/EnumEx&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     Season.java&#x0D;&#x0A;     seasonEnumTest.java" description="Copy compilation units" destination="=KICCampus/src&lt;EnumEx" element1="/src&lt;{Season.java" element2="/src&lt;{seasonEnumTest.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1575809775067" units="2" version="1.0"/>
-</session>

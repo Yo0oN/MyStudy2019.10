@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy 4 elements to &apos;KICCampus/src/EnumEx&apos;&#x0D;&#x0A;- Original project: &apos;EnumEx01&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/src/EnumEx&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     Tea.java&#x0D;&#x0A;     Grade.java&#x0D;&#x0A;     EnumMain02.java&#x0D;&#x0A;     EnumMain01.java" description="Copy compilation units" destination="=KICCampus/src&lt;EnumEx" element1="/src&lt;{Tea.java" element2="/src&lt;{Grade.java" element3="/src&lt;{EnumMain02.java" element4="/src&lt;{EnumMain01.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1575809760589" units="4" version="1.0"/>
-</session>

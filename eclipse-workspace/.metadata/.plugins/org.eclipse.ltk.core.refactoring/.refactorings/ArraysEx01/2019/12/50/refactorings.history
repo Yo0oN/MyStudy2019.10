@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;ArraysEx01.java&apos; to &apos;KICCampus/src/ArraysEx&apos;&#x0D;&#x0A;- Original project: &apos;ArraysEx01&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/src/ArraysEx&apos;&#x0D;&#x0A;- Original element: &apos;ArraysEx01.java&apos;" description="Copy compilation unit" destination="=KICCampus/src&lt;ArraysEx" element1="/src&lt;{ArraysEx01.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1575809735198" units="1" version="1.0"/>
-</session>

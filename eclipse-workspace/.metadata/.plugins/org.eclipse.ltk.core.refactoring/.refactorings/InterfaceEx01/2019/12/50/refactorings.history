@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy 5 elements to &apos;KICCampus/src/InterfaceEx&apos;&#x0D;&#x0A;- Original project: &apos;InterfaceEx01&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/src/InterfaceEx&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     Fightable.java&#x0D;&#x0A;     IronManTest.java&#x0D;&#x0A;     Heroable.java&#x0D;&#x0A;     IronMan.java&#x0D;&#x0A;     Transformable.java" description="Copy compilation units" destination="=KICCampus/src&lt;InterfaceEx" element1="/src&lt;{Fightable.java" element2="/src&lt;{IronManTest.java" element3="/src&lt;{Heroable.java" element4="/src&lt;{IronMan.java" element5="/src&lt;{Transformable.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1575809990334" units="5" version="1.0"/>
-</session>

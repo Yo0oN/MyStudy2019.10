@@ -1,7 +1,0 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%
-	String data1 = request.getParameter("data1");
-	out.println("attribute02_sub.jsp");
-	out.println(data1);
-%>

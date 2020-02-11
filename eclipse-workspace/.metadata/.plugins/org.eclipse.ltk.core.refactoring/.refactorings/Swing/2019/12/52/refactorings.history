@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move 2 elements to &apos;KICCampus/SwingEx/SwingMainDialog&apos;&#x0D;&#x0A;- Original project: &apos;Swing&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/SwingEx/SwingMainDialog&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     SubDialogEx01.java&#x0D;&#x0A;     MainFrame.java&#x0D;&#x0A;- Update references to refactored element" description="Move compilation units" destination="=KICCampus/SwingEx&lt;SwingMainDialog" element1="/src&lt;{SubDialogEx01.java" element2="/src&lt;{MainFrame.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1577022648822" units="2" version="1.0"/>
-</session>

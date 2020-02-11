@@ -1,14 +1,9 @@
-INDEX VERSION 1.4+D:\MyFirstGit\MyStudy2019.10\boardEx-workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-2343952566.index
-2483472909.index
-2824739542.index
-425710527.index
-712055654.index
-3297291963.index
-1225650455.index
-2185852928.index
-2948261027.index
+INDEX VERSION 1.4+C:\Users\kitcoop\Desktop\Git\MyStudy2019.10\boardEx-workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+585743870.index
 2448018147.index
-326515601.index
+2483472909.index
+712839681.index
+2687289432.index
 2803414847.index
-1381111019.index
+2185852928.index
+425710527.index

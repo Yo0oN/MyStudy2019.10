@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy 3 elements to &apos;KICCampus/src/PolyEx&apos;&#x0D;&#x0A;- Original project: &apos;PolyEx01&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/src/PolyEx&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     Child.java&#x0D;&#x0A;     PolyMain.java&#x0D;&#x0A;     Parent.java" description="Copy compilation units" destination="=KICCampus/src&lt;PolyEx" element1="/src&lt;{Child.java" element2="/src&lt;{PolyMain.java" element3="/src&lt;{Parent.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1575810147337" units="3" version="1.0"/>
-</session>

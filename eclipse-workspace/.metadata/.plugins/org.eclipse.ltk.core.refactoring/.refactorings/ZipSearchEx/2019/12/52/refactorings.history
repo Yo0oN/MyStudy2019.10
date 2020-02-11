@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move 3 elements to &apos;KICCampus/NetworkEx/zipSearchEx01&apos;&#x0D;&#x0A;- Original project: &apos;ZipSearchEx&apos;&#x0D;&#x0A;- Destination element: &apos;KICCampus/NetworkEx/zipSearchEx01&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     ZipSearch.ZipSearchComboBoxModel.java&#x0D;&#x0A;     ZipSearch.ZipSearchDAO.java&#x0D;&#x0A;     ZipSearch.ZipSearchUI.java&#x0D;&#x0A;- Update references to refactored element" description="Move compilation units" destination="=KICCampus/NetworkEx&lt;zipSearchEx01" element1="/src&lt;ZipSearch{ZipSearchComboBoxModel.java" element2="/src&lt;ZipSearch{ZipSearchDAO.java" element3="/src&lt;ZipSearch{ZipSearchUI.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1577023427659" units="3" version="1.0"/>
-</session>

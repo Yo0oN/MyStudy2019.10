@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Users\kitcoop\Desktop\Git\MyStudy2019.10\boardEx-workspace"/>
+	</list>
 	<section name="SmartImportWizard">
-		<item key="SmartImportRootWizardPage.STORE_HIDE_ALREADY_OPEN" value="false"/>
-		<item key="SmartImportRootWizardPage.STORE_CLOSE_IMPORTED" value="false"/>
-		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
-		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
+		<item value="false" key="SmartImportRootWizardPage.STORE_HIDE_ALREADY_OPEN"/>
+		<item value="false" key="SmartImportRootWizardPage.STORE_CLOSE_IMPORTED"/>
+		<item value="true" key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES"/>
+		<item value="true" key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
 			<item value="C:\java\OneDrive\Java\eclipse\boardEx-workspace"/>
 		</list>
 	</section>
-	<section name="ChooseWorkspaceDialogSettings">
-		<item key="DIALOG_X_ORIGIN" value="539"/>
-		<item key="DIALOG_Y_ORIGIN" value="326"/>
-	</section>
 	<section name="WORKBENCH_SETTINGS">
 		<list key="ENABLED_TRANSFERS">
 		</list>
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item value="539" key="DIALOG_X_ORIGIN"/>
+		<item value="326" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
