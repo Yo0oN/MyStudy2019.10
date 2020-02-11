@@ -1,4 +1,4 @@
-package model1;
+package com.exam.model1;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

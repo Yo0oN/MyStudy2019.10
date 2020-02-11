@@ -1,4 +1,4 @@
-package model1;
+package com.exam.model1;
 
 public class ZipcodeTO {
 	private String zipcode;
