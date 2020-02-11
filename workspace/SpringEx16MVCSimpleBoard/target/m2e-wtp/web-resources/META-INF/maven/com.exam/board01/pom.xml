@@ -2,12 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+	<!-- maven이 이클립스와는 독립적으로 war파일을 만들어줄 때 쓰이는 설정 -->
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.exam</groupId>
 	<artifactId>board01</artifactId>
-	<name>SpringEx16MVCSimpleBoard</name>
+	<name>SpringPagingBoard</name>
 	<packaging>war</packaging>
+	<!-- 변경사항이 있어 새로 빌드할 때 마다 버전 변경하기. -->
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+	
 	<properties>
 		<java-version>1.8</java-version>
 		<org.springframework-version>5.1.5.RELEASE</org.springframework-version>
