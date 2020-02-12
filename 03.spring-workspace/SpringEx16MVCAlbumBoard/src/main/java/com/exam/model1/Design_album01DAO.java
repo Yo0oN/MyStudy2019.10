@@ -14,6 +14,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+
 public class Design_album01DAO {
 	private DataSource dataSource = null;
 

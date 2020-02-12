@@ -125,7 +125,6 @@ public class Design_album01TO {
 		this.wdate = wdate;
 	}
 
-
 	public String getCwriter() {
 		return cwriter;
 	}
@@ -165,6 +164,5 @@ public class Design_album01TO {
 	public void setCom_count(String com_count) {
 		this.com_count = com_count;
 	}
-
 
 }

@@ -136,6 +136,14 @@
 }
 -->
 </style>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById('search').onclick = function() {
+			open( './search.do', 'win', 'top=100,left=100,width=640,height=500' );
+		};		
+	};
+</script>
+
 </head>
 
 <body>
@@ -147,6 +155,23 @@
 					src="./images/home_icon.gif" /> &gt; 커뮤니티 &gt; <strong>여행지리뷰</strong>
 			</p>
 		</div>
+
+		<!-- 로그인 시작 -->
+		<form action="./login_ok.do" method="post">
+		<input type="hidden" name="cpage" value="<%= cpage%>">
+			<div class="con_title">
+				<p style="margin: 0px; text-align: right">
+					아이디 : <input type="text" name="id" class="board_login_input" maxlength="5" />
+					비밀번호 : <input type="password" name="loginPassword" class="board_login_input" />
+					<input type="button" value="로 그 인" class="btn_write btn_txt01" style="cursor: pointer;" />
+					<input type="button" value="회원 가입" class="btn_write btn_txt01" style="cursor: pointer;" onclick="location.href='./join.do'" />
+					&nbsp;
+					<input type="button" id="search" value="찾     기" class="btn_write btn_txt01" style="cursor: pointer;" /> 		
+				</p>
+			</div>
+		</form>
+		<!-- 로그인 끝 -->
+
 		<div class="contents_sub">
 			<div class="board_top">
 				<div class="bold">
