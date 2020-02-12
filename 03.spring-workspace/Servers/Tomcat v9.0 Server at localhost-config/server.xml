@@ -149,7 +149,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="SpringEx15MVCProject" path="/test" reloadable="true" source="org.eclipse.jst.jee.server:SpringEx15MVCProject"/><Context docBase="MVCEx02" path="/MVCEx02" reloadable="true" source="org.eclipse.jst.jee.server:MVCEx02"/><Context docBase="MVCEx03" path="/MVCEx03" reloadable="true" source="org.eclipse.jst.jee.server:MVCEx03"/><Context docBase="MVCEx04" path="/MVCEx04" reloadable="true" source="org.eclipse.jst.jee.server:MVCEx04"/><Context docBase="SpringEx16MVC" path="/mvc01" reloadable="true" source="org.eclipse.jst.jee.server:SpringEx16MVC"/><Context docBase="SpringEx16_1MVCZipSearch" path="/zipsearch" reloadable="true" source="org.eclipse.jst.jee.server:SpringEx16_1MVCZipSearch"/><Context docBase="SpringEx16MVCSimpleBoard" path="/board01" reloadable="true" source="org.eclipse.jst.jee.server:SpringEx16MVCSimpleBoard"/></Host>
+      <Context docBase="SpringEx16MVCSimpleBoard" path="/board01" reloadable="true" source="org.eclipse.jst.jee.server:SpringEx16MVCSimpleBoard"/><Context docBase="SpringEx16MVCAlbumBoard" path="/album01" reloadable="true" source="org.eclipse.jst.jee.server:SpringEx16MVCAlbumBoard"/><Context docBase="loginA" path="/loginA" reloadable="true" source="org.eclipse.jst.jee.server:loginA"/></Host>
     </Engine>
   </Service>
 </Server>
