@@ -292,8 +292,48 @@ public class Design_album01DAO {
 		return flag;
 	}
 
-	public void board_write1() {
+	public Design_albumMemberTO board_write1(Design_albumMemberTO to) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
+		try {
+			conn = dataSource.getConnection();
+			String sql = "select idno, id, mail from login where idno=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, to.getIdno());
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				to.setIdno(rs.getString("idno"));
+				to.setId(rs.getString("id"));
+				to.setMail(rs.getString("mail"));
+			}
+		} catch (SQLException e) {
+			System.out.println("error : " + e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		return to;
 	}
 
 	public int board_write1_ok(Design_album01TO to) {

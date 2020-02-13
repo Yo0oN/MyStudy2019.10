@@ -1,9 +1,12 @@
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.net.URLDecoder"%>
 <%@page import="com.exam.model1.Design_album01TO"%>
 <%@page import="com.exam.model1.Design_album01DAO"%>
 <%@page import="com.exam.model1.Design_album01ListTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 	Design_album01ListTO listTO = (Design_album01ListTO) request.getAttribute("listTO");
@@ -26,7 +29,6 @@
 	ArrayList<Design_album01TO> toLists = listTO.getBoardLists();
 
 	StringBuffer sbHTML = new StringBuffer();
-
 	for (int i = 0; i < toLists.size(); i++) {
 		Design_album01TO dto = toLists.get(i);
 
@@ -102,8 +104,19 @@
 			sbHTML.append("</tr>");
 		}
 	}
-%>
 
+	// 로그인 처리
+	// 로그인 설정시 사용할 flag
+	int loginflag = 1;
+	String id = "";
+	if (session.getAttribute("idno") == null) {
+		// 로그인 세션이 없으면 로그인화면을 보여준다.
+	} else if (session.getAttribute("idno") != null) {
+		// 로그인세션이 있다면 아래로
+		loginflag = 0;
+		id = (String) session.getAttribute("id");
+	}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -138,12 +151,12 @@
 </style>
 <script type="text/javascript">
 	window.onload = function() {
-		document.getElementById('search').onclick = function() {
-			open( './search.do', 'win', 'top=100,left=100,width=640,height=500' );
-		};		
-	};
+<%if (loginflag == 1) {%>
+	<jsp:include page="loginJS.jsp"></jsp:include>
+<%} else {
+			}%>
+	}
 </script>
-
 </head>
 
 <body>
@@ -157,19 +170,24 @@
 		</div>
 
 		<!-- 로그인 시작 -->
-		<form action="./login_ok.do" method="post">
-		<input type="hidden" name="cpage" value="<%= cpage%>">
-			<div class="con_title">
-				<p style="margin: 0px; text-align: right">
-					아이디 : <input type="text" name="id" class="board_login_input" maxlength="5" />
-					비밀번호 : <input type="password" name="loginPassword" class="board_login_input" />
-					<input type="button" value="로 그 인" class="btn_write btn_txt01" style="cursor: pointer;" />
-					<input type="button" value="회원 가입" class="btn_write btn_txt01" style="cursor: pointer;" onclick="location.href='./join.do'" />
-					&nbsp;
-					<input type="button" id="search" value="찾     기" class="btn_write btn_txt01" style="cursor: pointer;" /> 		
-				</p>
-			</div>
-		</form>
+		<%
+			// 로그인이 되어있지않다면 로그인폼보여줌
+			if (loginflag == 1) {
+		%>
+		<jsp:include page='loginform.jsp'>
+			<jsp:param value="<%=cpage%>" name="cpage" />
+		</jsp:include>
+		<%
+			} else {
+				// 로그인이 되어있다면 환영폼보여줌
+		%>
+			<jsp:include page='afterloginform.jsp'>
+				<jsp:param value="<%=id%>" name="id" />
+			</jsp:include>
+			
+		<%
+			}
+		%>
 		<!-- 로그인 끝 -->
 
 		<div class="contents_sub">

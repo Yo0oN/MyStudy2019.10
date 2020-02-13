@@ -4,6 +4,18 @@
 <%
 	Design_album01TO to = (Design_album01TO) request.getAttribute("to");
 
+	//로그인 처리
+	// 로그인 설정시 사용할 flag
+	int loginflag = 1;
+
+	String id = "";
+	if (session.getAttribute("idno") == null) {
+		// 로그인 세션이 없으면 로그인화면을 보여준다.
+	} else if (session.getAttribute("idno") != null) {
+		// 로그인세션이 있다면 아래로
+		loginflag = 0;
+		id = (String) session.getAttribute("id");
+	}
 	String cpage = to.getCpage();
 	String seq = to.getSeq();
 	String writer = to.getWriter();
@@ -36,6 +48,10 @@
 			}
 			document.frm.submit();
 		}
+<%if (loginflag == 1) {%>
+	<jsp:include page="loginJS.jsp"></jsp:include>
+<%} else {
+			}%>
 	}
 </script>
 </head>
@@ -49,7 +65,24 @@
 					src="./images/home_icon.gif" /> &gt; 커뮤니티 &gt; <strong>여행지리뷰</strong>
 			</p>
 		</div>
-
+		<!-- 로그인 시작 -->
+		<%
+			if (loginflag == 1) {
+		%>
+		<jsp:include page='loginform.jsp'>
+			<jsp:param value="<%=cpage%>" name="cpage" />
+		</jsp:include>
+		<%
+			} else {
+				// 로그인이 되어있다면 환영폼보여줌
+		%>
+		<jsp:include page='afterloginform.jsp'>
+			<jsp:param value="<%=id%>" name="id" />
+		</jsp:include>
+		<%
+			}
+		%>
+		<!-- 로그인 끝 -->
 		<form action="./modify_ok.do" method="post" name="frm"
 			enctype="multipart/form-data">
 			<input type="hidden" name="seq" value="<%=seq%>" /> <input

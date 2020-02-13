@@ -9,6 +9,15 @@ public class Design_albumMemberTO {
 	private String mail1;
 	private String mail2;
 	private String cpage;
+	private String seq;
+
+	public String getSeq() {
+		return seq;
+	}
+
+	public void setSeq(String seq) {
+		this.seq = seq;
+	}
 
 	public String getMail1() {
 		return mail1;

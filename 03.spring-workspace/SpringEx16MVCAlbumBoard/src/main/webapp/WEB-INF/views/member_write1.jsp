@@ -54,7 +54,7 @@
 		</div>
 
 		<!-- 로그인 시작 -->
-		<form action="board_list1_login_ok.do" method="post">
+		<form action="./login_ok.do" method="post">
 			<div class="con_title">
 				<p style="margin: 0px; text-align: right">
 					아이디 : <input type="text" name="id" class="board_login_input"

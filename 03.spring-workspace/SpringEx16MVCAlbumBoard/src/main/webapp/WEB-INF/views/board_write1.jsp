@@ -1,8 +1,26 @@
-﻿<%@page import="com.exam.model1.Design_album01TO"%>
+﻿<%@page import="com.exam.model1.Design_albumMemberTO"%>
+<%@page import="com.exam.model1.Design_album01TO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	String cpage = (String) request.getAttribute("cpage");
+	Design_albumMemberTO to = (Design_albumMemberTO) request.getAttribute("to");
+
+	String cpage = to.getCpage();
+	String id = "";
+	String[] mail = new String[2];
+	//로그인 처리
+	// 로그인 설정시 사용할 flag
+	int loginflag = 1;
+
+	if (session.getAttribute("idno") == null) {
+		// 로그인 세션이 없으면 로그인화면을 보여준다.
+		mail[0] = mail[1] = "";
+	} else if (session.getAttribute("idno") != null) {
+		// 로그인세션이 있다면 아래로
+		loginflag = 0;
+		id = to.getId();
+		mail = to.getMail().split("@");
+	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -34,6 +52,10 @@
 			}
 			document.frm.submit();
 		}
+<%if (loginflag == 1) {%>
+	<jsp:include page="loginJS.jsp"></jsp:include>
+<%} else {
+			}%>
 	}
 </script>
 </head>
@@ -47,7 +69,24 @@
 					src="./images/home_icon.gif" /> &gt; 커뮤니티 &gt; <strong>여행지리뷰</strong>
 			</p>
 		</div>
-
+		<!-- 로그인 시작 -->
+		<%
+			if (loginflag == 1) {
+		%>
+		<jsp:include page='loginform.jsp'>
+			<jsp:param value="<%=cpage%>" name="cpage" />
+		</jsp:include>
+		<%
+			} else {
+				// 로그인이 되어있다면 환영폼보여줌
+		%>
+		<jsp:include page='afterloginform.jsp'>
+			<jsp:param value="<%=id%>" name="id" />
+		</jsp:include>
+		<%
+			}
+		%>
+		<!-- 로그인 끝 -->
 		<form action="./write_ok.do" method="post" name="frm"
 			enctype="multipart/form-data">
 			<div class="contents_sub">
@@ -57,7 +96,13 @@
 						<tr>
 							<th class="top">글쓴이</th>
 							<td class="top" colspan="3"><input type="text" name="writer"
-								value="" class="board_view_input_mail" maxlength="5" /></td>
+								value="<%=id%>" class="board_view_input_mail" maxlength="5"
+								<%
+									if (loginflag == 0) {
+										out.println("readonly ");
+									}
+								%> />
+							</td>
 						</tr>
 						<tr>
 							<th>제목</th>
@@ -81,9 +126,20 @@
 						</tr>
 						<tr>
 							<th>이메일</th>
-							<td colspan="3"><input type="text" name="mail1" value=""
-								class="board_view_input_mail" /> @ <input type="text"
-								name="mail2" value="" class="board_view_input_mail" /></td>
+							<td colspan="3"><input type="text" name="mail1"
+								value="<%=mail[0] %>" class="board_view_input_mail"
+								<%
+									if (loginflag == 0) {
+										out.println("readonly ");
+									}
+								%> />
+								@ <input type="text" name="mail2" value="<%=mail[1] %>"
+								class="board_view_input_mail"
+								<%
+									if (loginflag == 0) {
+										out.println("readonly ");
+									}
+								%> /></td>
 						</tr>
 					</table>
 

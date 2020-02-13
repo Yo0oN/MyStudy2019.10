@@ -7,6 +7,19 @@
 	ArrayList<Design_album01TO> toLists = (ArrayList) request.getAttribute("toLists");
 	String cpage = (String) request.getAttribute("cpage");
 
+	// 로그인 처리
+	// 로그인 설정시 사용할 flag
+	int loginflag = 1;
+
+	String id = "";
+	if (session.getAttribute("idno") == null) {
+		// 로그인 세션이 없으면 로그인화면을 보여준다.
+	} else if (session.getAttribute("idno") != null) {
+		// 로그인세션이 있다면 아래로
+		loginflag = 0;
+		id = (String) session.getAttribute("id");
+	}
+
 	// 본문 설정
 	String seq = toLists.get(0).getSeq();
 	String subject = toLists.get(0).getSubject();
@@ -26,6 +39,7 @@
 	}
 	String hit = toLists.get(0).getHit();
 	String wdate = toLists.get(0).getWdate();
+
 	// 댓글 설정
 	String com_writer = "";
 	String com_comment = "";
@@ -44,26 +58,27 @@
 		sbHTML.append("<td class='coment_re' width=''><strong>" + com_writer + "</strong>");
 		sbHTML.append(" (" + com_date + ")");
 		sbHTML.append("<div class='coment_re_txt'>" + com_comment + "</div></td>");
+		if (loginflag == 0) {
+			// 댓글삭제부분
+			sbHTML.append("<td class='coment_re' width='12%' align='right'>");
 
-		// 댓글삭제부분
-		sbHTML.append("<td class='coment_re' width='12%' align='right'>");
+			sbHTML.append(
+					"<form action='./reply_delete_ok.do' name='delcomment' method='post' onsubmit='return comdel("
+							+ cseq + ")'>");
 
-		sbHTML.append(
-				"<form action='./reply_delete_ok.do' name='delcomment' method='post' onsubmit='return comdel("
-						+ cseq + ")'>");
+			sbHTML.append("<input type='hidden' name='seq' value='" + seq + "'>");
+			sbHTML.append("<input type='hidden' name='cpage' value='" + cpage + "'>");
+			sbHTML.append("<input type='hidden' name='cseq' value='" + cseq + "'>");
 
-		sbHTML.append("<input type='hidden' name='seq' value='" + seq + "'>");
-		sbHTML.append("<input type='hidden' name='cpage' value='" + cpage + "'>");
-		sbHTML.append("<input type='hidden' name='cseq' value='" + cseq + "'>");
+			sbHTML.append("		<input type='password' id='" + cseq + "pas' name='" + cseq
+					+ "password' class='coment_input pR10' value='' />'");
+			sbHTML.append(
+					"		<input type='image' src='./images/icon_del.gif' alt='삭제' style='vertical-align: middle' />");
+			sbHTML.append("</form>");
+			sbHTML.append("</td>");
 
-		sbHTML.append("		<input type='password' id='" + cseq + "pas' name='" + cseq
-				+ "password' class='coment_input pR10' value='' />'");
-		sbHTML.append(
-				"		<input type='image' src='./images/icon_del.gif' alt='삭제' style='vertical-align: middle' />");
-		sbHTML.append("</form>");
-		sbHTML.append("</td>");
-
-		sbHTML.append("</tr>");
+			sbHTML.append("</tr>");
+		}
 	}
 %>
 <!DOCTYPE html>
@@ -77,7 +92,13 @@
 <link rel="stylesheet" type="text/css" href="./css/board_view.css">
 <script type="text/javascript">
 	window.onload = function() {
-		document.cfrm.cbutton.onclick = function() {
+<%if (loginflag == 1) {%>
+	document.cfrm.cbutton.onclick = function() {
+			alert('로그인을 해주세요.');
+		}
+		<jsp:include page="loginJS.jsp"></jsp:include>
+<%} else {%>
+	document.cfrm.cbutton.onclick = function() {
 			if (document.cfrm.cwriter.value.trim() == '') {
 				alert('글쓴이를 입력해 주세요.')
 				return false;
@@ -87,7 +108,7 @@
 			}
 			document.cfrm.submit();
 		}
-
+<%}%>
 	}
 
 	var comdel = function(cseq) {
@@ -98,6 +119,7 @@
 		}
 	}
 </script>
+
 </head>
 
 <body>
@@ -109,7 +131,24 @@
 					src="./images/home_icon.gif" /> &gt; 커뮤니티 &gt; <strong>여행지리뷰</strong>
 			</p>
 		</div>
-
+		<!-- 로그인 시작 -->
+		<%
+			if (loginflag == 1) {
+		%>
+		<jsp:include page='loginform.jsp'>
+			<jsp:param value="<%=cpage%>" name="cpage" />
+		</jsp:include>
+		<%
+			} else {
+				// 로그인이 되어있다면 환영폼보여줌
+		%>
+		<jsp:include page='afterloginform.jsp'>
+			<jsp:param value="<%=id%>" name="id" />
+		</jsp:include>
+		<%
+			}
+		%>
+		<!-- 로그인 끝 -->
 		<div class="contents_sub">
 			<!--게시판-->
 			<div class="board_view">
@@ -138,13 +177,18 @@
 					</tr>
 				</table>
 
+				<%
+					if (loginflag == 0) {
+				%>
 				<table>
 					<%=sbHTML%>
 				</table>
-
+				<%
+					}
+				%>
 				<form action="./reply_ok.do" method="post" name="cfrm">
-					<input type="hidden" value="<%=seq%>" name="seq">
-					<input type="hidden" value="<%=cpage%>" name="cpage">
+					<input type="hidden" value="<%=seq%>" name="seq"> <input
+						type="hidden" value="<%=cpage%>" name="cpage">
 					<table>
 						<tr>
 							<td width="94%" class="coment_re">글쓴이 <input type="text"

@@ -3,7 +3,9 @@ package com.exam.album01;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.exam.model1.Design_album01DAO;
 import com.exam.model1.Design_album01ListTO;
 import com.exam.model1.Design_album01TO;
+import com.exam.model1.Design_albumMemberTO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -70,11 +73,11 @@ public class HomeController {
 		String cpage = to.getCpage();
 		String seq = to.getSeq();
 		int flag = dao.board_reply_ok(to);
-		
+
 		modelAndView.addObject("flag", flag);
 		modelAndView.addObject("seq", seq);
 		modelAndView.addObject("cpage", cpage);
-		
+
 		return modelAndView;
 	}
 
@@ -96,11 +99,11 @@ public class HomeController {
 		Design_album01DAO dao = new Design_album01DAO();
 
 		int flag = dao.board_reply_delete_ok(to);
-		
+
 		modelAndView.addObject("flag", flag);
 		modelAndView.addObject("seq", seq);
 		modelAndView.addObject("cpage", cpage);
-		
+
 		return modelAndView;
 	}
 
@@ -109,7 +112,21 @@ public class HomeController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("board_write1");
 
-		modelAndView.addObject("cpage", request.getParameter("cpage"));
+		Design_albumMemberTO to = new Design_albumMemberTO();
+		
+		HttpSession session =  request.getSession();
+		if (session.getAttribute("idno") == null) {
+			// 로그인 세션이 없으면 아무일없이 쓰기창을보여준다.
+		} else if (session.getAttribute("idno") != null) {
+			// 로그인세션이 있다면 쓰기창에서 메일, 이름등을 채워준다.
+			Design_album01DAO dao = new Design_album01DAO();
+			
+			to.setIdno((String)session.getAttribute("idno"));
+			
+			to = dao.board_write1(to);
+		}
+		to.setCpage(request.getParameter("cpage"));
+		modelAndView.addObject("to", to);
 
 		return modelAndView;
 	}
@@ -225,15 +242,15 @@ public class HomeController {
 	@RequestMapping("/delete.do")
 	public ModelAndView board_delete1(Design_album01TO to) {
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		modelAndView.setViewName("board_delete1");
-		
+
 		Design_album01DAO dao = new Design_album01DAO();
-		
+
 		to = dao.board_delete1(to);
 
 		modelAndView.addObject("to", to);
-		
+
 		return modelAndView;
 	}
 
@@ -241,11 +258,11 @@ public class HomeController {
 	public ModelAndView board_delete1_ok(Design_album01TO to) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("board_delete1_ok");
-		
+
 		Design_album01DAO dao = new Design_album01DAO();
 
 		int flag = dao.board_delete1_ok(to);
-		
+
 		modelAndView.addObject("flag", flag);
 
 		return modelAndView;
