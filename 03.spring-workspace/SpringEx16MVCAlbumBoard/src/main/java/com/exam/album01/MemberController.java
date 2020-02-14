@@ -1,6 +1,8 @@
 package com.exam.album01;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +26,7 @@ public class MemberController {
 
 		modelAndView.addObject("flag", flag);
 		modelAndView.addObject("id", id);
-		
+
 		return modelAndView;
 	}
 
@@ -35,6 +37,36 @@ public class MemberController {
 		modelAndView.setViewName("member_logout1_ok");
 
 		modelAndView.addObject("to", to);
+		return modelAndView;
+	}
+
+	// 정보 수정
+	@RequestMapping("/member_modify.do")
+	public ModelAndView member_modify1(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("member_modify1");
+
+		String id = (String) request.getSession().getValue("id");
+
+		Design_albumMemberDAO dao = new Design_albumMemberDAO();
+
+		Design_albumMemberTO to = dao.memberModify(id);
+
+		modelAndView.addObject("to", to);
+		return modelAndView;
+	}
+
+	// 정보 수정 완료
+	@RequestMapping("/member_modify_ok.do")
+	public ModelAndView member_modify1(Design_albumMemberTO to) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("member_modify1_ok");
+
+		Design_albumMemberDAO dao = new Design_albumMemberDAO();
+
+		int flag = dao.memberModify_ok(to);
+
+		modelAndView.addObject("flag", flag);
 		return modelAndView;
 	}
 
@@ -68,7 +100,6 @@ public class MemberController {
 
 		return modelAndView;
 	}
-
 
 	// 회원가입
 	@RequestMapping("/join.do")

@@ -230,4 +230,90 @@ public class Design_albumMemberDAO {
 		return flag;
 	}
 
+	public Design_albumMemberTO memberModify(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		Design_albumMemberTO to = new Design_albumMemberTO();
+
+		try {
+			conn = dataSource.getConnection();
+			// id를 통하여 정보 뽑아오기
+			String sql = "select id, mail, name from login where id=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				to.setId(rs.getString("id"));
+				to.setMail(rs.getString("mail"));
+				to.setName(rs.getString("name"));
+			}
+		} catch (SQLException e) {
+			System.out.println("error : " + e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		return to;
+	}
+
+	public int memberModify_ok(Design_albumMemberTO to) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		int flag = 1;
+		try {
+			conn = dataSource.getConnection();
+			// 수정
+			String sql = "update login set name=?, mail=?, password=? where id=?";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, to.getName());
+			pstmt.setString(2, to.getMail1() + "@" + to.getMail2());
+			pstmt.setString(3, to.getLoginPassword());
+			pstmt.setString(4, to.getId());
+
+			int result = pstmt.executeUpdate();
+			
+			if (result == 1) {
+				flag = 0;
+			}
+		} catch (SQLException e) {
+			System.out.println("error : " + e.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		return flag;
+	}
 }
