@@ -40,10 +40,55 @@ public class MemberController {
 		return modelAndView;
 	}
 
+	// 찾기
 	@RequestMapping("/search.do")
 	public ModelAndView member_search1() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("member_search1");
+
+		return modelAndView;
+	}
+
+	// 아이디찾기
+	@RequestMapping("/search_id_ok.do")
+	public ModelAndView member_search1_id_ok(Design_albumMemberTO to) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("member_search1_id_ok");
+
+		Design_albumMemberDAO dao = new Design_albumMemberDAO();
+		to = dao.searchId(to);
+
+		modelAndView.addObject("to", to);
+		return modelAndView;
+	}
+
+	// 아이디 찾기 결과
+	@RequestMapping("/search_id.do")
+	public ModelAndView member_search1_id() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("member_search1_id");
+
+		return modelAndView;
+	}
+
+	// 비밀번호찾기
+	@RequestMapping("/search_password_ok.do")
+	public ModelAndView member_search1_password_ok(Design_albumMemberTO to) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("member_search1_password_ok");
+
+		Design_albumMemberDAO dao = new Design_albumMemberDAO();
+		int flag = dao.searchPassword(to);
+
+		modelAndView.addObject("flag", flag);
+		return modelAndView;
+	}
+
+	// 비밀번호 찾기 결과
+	@RequestMapping("/search_password.do")
+	public ModelAndView member_search1_password() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("member_search1_password");
 
 		return modelAndView;
 	}

@@ -10,6 +10,15 @@ public class Design_albumMemberTO {
 	private String mail2;
 	private String cpage;
 	private String seq;
+	private int flag;
+
+	public int getFlag() {
+		return flag;
+	}
+
+	public void setFlag(int flag) {
+		this.flag = flag;
+	}
 
 	public String getSeq() {
 		return seq;

@@ -12,7 +12,29 @@
 <script type="text/javascript">
 	window.onload = function() {
 		document.getElementById('submit1').onclick = function() {
-			alert('submit1');
+			if (document.searchid.name.value.trim() == '') {
+				alert('이름을 적어주세요!');
+				return flase;
+			}
+			if (document.searchid.mail1.value.trim() == ''
+					|| document.searchid.mail2.value.trim() == '') {
+				alert('메일을 적어주세요!');
+				return flase;
+			}
+			document.searchid.submit();
+		};
+		
+		document.getElementById('submit2').onclick = function() {
+			if (document.searchpassword.id.value.trim() == '') {
+				alert('아이디를 적어주세요!');
+				return flase;
+			}
+			if (document.searchpassword.mail1.value.trim() == ''
+					|| document.searchpassword.mail2.value.trim() == '') {
+				alert('메일을 적어주세요!');
+				return flase;
+			}
+			document.searchpassword.submit();
 		};
 	};
 </script>
@@ -23,7 +45,7 @@
 	<div class="contents1">
 		<!-- 아이디찾기 -->
 		아이디 찾기
-		<form action="search_id_ok.do" method="" name="">
+		<form action="./search_id_ok.do" method="post" name="searchid">
 			<div class="contents_sub">
 				<div class="board_write">
 					<table>
@@ -56,7 +78,7 @@
 		<div class="contents1">
 			비밀번호 찾기
 			<!-- 비밀번호 찾기 -->
-			<form action="search_id_ok.do" method="" name="">
+			<form action="search_password_ok.do" method="post" name="searchpassword">
 				<div class="contents_sub">
 					<div class="board_write">
 						<table>
@@ -76,7 +98,7 @@
 
 					<div class="btn_area">
 						<div class="align_right">
-							<input type="button" id="submit1" value="찿기"
+							<input type="button" id="submit2" value="찿기"
 								class="btn_list btn_txt02" style="cursor: pointer;" /> <input
 								type="button" value="닫기" class="btn_write btn_txt01"
 								style="cursor: pointer;" onclick="self.close()" />
