@@ -15,12 +15,12 @@
 <body>
 	<!-- 상단 디자인 -->
 	<div class="contents1">
-		<!-- 비밀번호찾기 결과 -->
+		<!-- 찾기 결과 -->
 		<div class="contents_sub">
 			<div class="board_write">
 				<table>
 					<tr>
-						<td class="top" colspan="3">임시 비밀번호가 발급되었습니다.<br>메일을
+						<td class="top" colspan="3">아이디와 비밀번호를 발송하였습니다.<br>메일을
 							확인해주세요.
 						</td>
 					</tr>
@@ -32,7 +32,7 @@
 						style="cursor: pointer;" onclick="self.close()" />
 				</div>
 			</div>
-			<!-- // 비밀번호찾기 결과 -->
+			<!-- // 찾기 결과 -->
 		</div>
 	</div>
 </body>

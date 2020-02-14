@@ -12,10 +12,10 @@
 	// 로그인 설정시 사용할 flag
 	int loginflag = 1;
 
-	if (session.getAttribute("idno") == null) {
+	if (session.getAttribute("id") == null) {
 		// 로그인 세션이 없으면 로그인화면을 보여준다.
 		mail[0] = mail[1] = "";
-	} else if (session.getAttribute("idno") != null) {
+	} else if (session.getAttribute("id") != null) {
 		// 로그인세션이 있다면 아래로
 		loginflag = 0;
 		id = to.getId();
@@ -73,9 +73,7 @@
 		<%
 			if (loginflag == 1) {
 		%>
-		<jsp:include page='loginform.jsp'>
-			<jsp:param value="<%=cpage%>" name="cpage" />
-		</jsp:include>
+		<jsp:include page='loginform.jsp' />
 		<%
 			} else {
 				// 로그인이 되어있다면 환영폼보여줌
@@ -97,11 +95,9 @@
 							<th class="top">글쓴이</th>
 							<td class="top" colspan="3"><input type="text" name="writer"
 								value="<%=id%>" class="board_view_input_mail" maxlength="5"
-								<%
-									if (loginflag == 0) {
-										out.println("readonly ");
-									}
-								%> />
+								<%if (loginflag == 0) {
+				out.println("readonly ");
+			}%> />
 							</td>
 						</tr>
 						<tr>
@@ -127,19 +123,15 @@
 						<tr>
 							<th>이메일</th>
 							<td colspan="3"><input type="text" name="mail1"
-								value="<%=mail[0] %>" class="board_view_input_mail"
-								<%
-									if (loginflag == 0) {
-										out.println("readonly ");
-									}
-								%> />
-								@ <input type="text" name="mail2" value="<%=mail[1] %>"
+								value="<%=mail[0]%>" class="board_view_input_mail"
+								<%if (loginflag == 0) {
+				out.println("readonly ");
+			}%> />
+								@ <input type="text" name="mail2" value="<%=mail[1]%>"
 								class="board_view_input_mail"
-								<%
-									if (loginflag == 0) {
-										out.println("readonly ");
-									}
-								%> /></td>
+								<%if (loginflag == 0) {
+				out.println("readonly ");
+			}%> /></td>
 						</tr>
 					</table>
 

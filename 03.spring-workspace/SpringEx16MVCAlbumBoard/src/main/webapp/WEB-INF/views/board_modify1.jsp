@@ -9,9 +9,9 @@
 	int loginflag = 1;
 
 	String id = "";
-	if (session.getAttribute("idno") == null) {
+	if (session.getAttribute("id") == null) {
 		// 로그인 세션이 없으면 로그인화면을 보여준다.
-	} else if (session.getAttribute("idno") != null) {
+	} else if (session.getAttribute("id") != null) {
 		// 로그인세션이 있다면 아래로
 		loginflag = 0;
 		id = (String) session.getAttribute("id");
@@ -69,9 +69,7 @@
 		<%
 			if (loginflag == 1) {
 		%>
-		<jsp:include page='loginform.jsp'>
-			<jsp:param value="<%=cpage%>" name="cpage" />
-		</jsp:include>
+		<jsp:include page='loginform.jsp' />
 		<%
 			} else {
 				// 로그인이 되어있다면 환영폼보여줌

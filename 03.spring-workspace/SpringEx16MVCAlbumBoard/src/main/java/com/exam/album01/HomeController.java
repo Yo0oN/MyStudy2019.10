@@ -27,6 +27,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
  */
 @Controller
 public class HomeController {
+	private String uploadPath="C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\03.spring-workspace\\SpringEx16MVCAlbumBoard\\src\\main\\webapp\\upload";
 
 	@RequestMapping("/list.do")
 	public ModelAndView board_list1(HttpServletRequest request) {
@@ -115,19 +116,20 @@ public class HomeController {
 		Design_albumMemberTO to = new Design_albumMemberTO();
 		
 		HttpSession session =  request.getSession();
-		if (session.getAttribute("idno") == null) {
+		if (session.getAttribute("id") == null) {
 			// 로그인 세션이 없으면 아무일없이 쓰기창을보여준다.
-		} else if (session.getAttribute("idno") != null) {
+		} else if (session.getAttribute("id") != null) {
 			// 로그인세션이 있다면 쓰기창에서 메일, 이름등을 채워준다.
 			Design_album01DAO dao = new Design_album01DAO();
-			
-			to.setIdno((String)session.getAttribute("idno"));
+			to = dao.board_write1(to);
+			to.setId((String)session.getAttribute("id"));
 			
 			to = dao.board_write1(to);
+			
 		}
 		to.setCpage(request.getParameter("cpage"));
 		modelAndView.addObject("to", to);
-
+		
 		return modelAndView;
 	}
 
@@ -140,7 +142,7 @@ public class HomeController {
 		Design_album01TO to = new Design_album01TO();
 
 		try {
-			String path = "C:/Users/kitcoop/Desktop/Git/MyStudy2019.10/03.spring-workspace/SpringEx16MVCAlbumBoard/src/main/webapp/upload";
+			String path = uploadPath;
 			int filesize = 1024 * 1024 * 2;
 
 			MultipartRequest multi = new MultipartRequest(request, path, filesize, "utf-8",
@@ -197,7 +199,7 @@ public class HomeController {
 		Design_album01TO to = new Design_album01TO();
 
 		try {
-			String path = "C:/Users/kitcoop/Desktop/Git/MyStudy2019.10/03.spring-workspace/SpringEx16MVCAlbumBoard/src/main/webapp/upload";
+			String path = uploadPath;
 			int filesize = 1024 * 1024 * 2;
 
 			MultipartRequest multi = new MultipartRequest(request, path, filesize, "utf-8",

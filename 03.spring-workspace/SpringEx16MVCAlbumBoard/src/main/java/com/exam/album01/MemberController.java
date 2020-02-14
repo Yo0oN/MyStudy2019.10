@@ -20,13 +20,11 @@ public class MemberController {
 
 		String id = to.getId();
 		Design_albumMemberDAO dao = new Design_albumMemberDAO();
-		int[] flag_idno = dao.logIn(to);
+		int flag = dao.logIn(to);
 
-		modelAndView.addObject("flag", flag_idno[0]);
-		modelAndView.addObject("idno", flag_idno[1]);
-		modelAndView.addObject("cpage", to.getCpage());
-		modelAndView.addObject("seq", to.getSeq());
+		modelAndView.addObject("flag", flag);
 		modelAndView.addObject("id", id);
+		
 		return modelAndView;
 	}
 
@@ -49,49 +47,28 @@ public class MemberController {
 		return modelAndView;
 	}
 
-	// 아이디찾기
-	@RequestMapping("/search_id_ok.do")
-	public ModelAndView member_search1_id_ok(Design_albumMemberTO to) {
+	// 아이디 + 비밀번호 찾기
+	@RequestMapping("/search_ok.do")
+	public ModelAndView member_search1_ok(Design_albumMemberTO to) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("member_search1_id_ok");
+		modelAndView.setViewName("member_search1_ok");
 
 		Design_albumMemberDAO dao = new Design_albumMemberDAO();
-		to = dao.searchId(to);
-
-		modelAndView.addObject("to", to);
-		return modelAndView;
-	}
-
-	// 아이디 찾기 결과
-	@RequestMapping("/search_id.do")
-	public ModelAndView member_search1_id() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("member_search1_id");
-
-		return modelAndView;
-	}
-
-	// 비밀번호찾기
-	@RequestMapping("/search_password_ok.do")
-	public ModelAndView member_search1_password_ok(Design_albumMemberTO to) {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("member_search1_password_ok");
-
-		Design_albumMemberDAO dao = new Design_albumMemberDAO();
-		int flag = dao.searchPassword(to);
+		int flag = dao.searchInfo(to);
 
 		modelAndView.addObject("flag", flag);
 		return modelAndView;
 	}
 
-	// 비밀번호 찾기 결과
-	@RequestMapping("/search_password.do")
-	public ModelAndView member_search1_password() {
+	// 찾기 결과
+	@RequestMapping("/search_result.do")
+	public ModelAndView member_search1_id() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("member_search1_password");
+		modelAndView.setViewName("member_search1_result");
 
 		return modelAndView;
 	}
+
 
 	// 회원가입
 	@RequestMapping("/join.do")

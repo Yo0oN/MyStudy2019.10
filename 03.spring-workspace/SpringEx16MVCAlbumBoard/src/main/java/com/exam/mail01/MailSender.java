@@ -18,12 +18,14 @@ public class MailSender {
 	// 받는이
 	private String toMail;
 	private String toName;
-	private String changePassword;
+	private String searchPassword;
 	private String content;
+	private String searchId;
 
-	public void setChangePassword(String changePassword) {
-		this.changePassword = changePassword;
-		this.content = "임시 비밀번호는 " + changePassword + " 입니다.";
+	public void setContent(String id, String password) {
+		this.searchPassword = password;
+		this.searchId = id;
+		this.content = "id :" + searchId + "<br>password : " + searchPassword + " 입니다.";
 	}
 
 	public void sendMail(String toMail, String toName) {
@@ -48,16 +50,14 @@ public class MailSender {
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toMail, toName, "utf-8"));
 
 			// 제목
-			msg.setSubject("임시 비밀번호 발급");
+			msg.setSubject("아이디+비밀번호");
 			// 내용
 			msg.setContent(content, "text/html;charset=utf-8");
-			// 시간(보낼시간 설정도 가능하다.)
+			// 시간
 			msg.setSentDate(new java.util.Date());
 
 			// 메일보내기
 			Transport.send(msg);
-
-			System.out.println("전송완료");
 
 		} catch (UnsupportedEncodingException e) {
 			System.out.println("error : " + e.getMessage());

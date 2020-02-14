@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class Design_album01DAO {
 	private DataSource dataSource = null;
+	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\03.spring-workspace\\SpringEx16MVCAlbumBoard\\src\\main\\webapp\\upload";
 
 	public Design_album01DAO() {
 		// DB 연결
@@ -299,15 +300,14 @@ public class Design_album01DAO {
 
 		try {
 			conn = dataSource.getConnection();
-			String sql = "select idno, id, mail from login where idno=?";
+			String sql = "select id, mail from login where id=?";
 			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, to.getIdno());
-			
+
+			pstmt.setString(1, to.getId());
+
 			rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
-				to.setIdno(rs.getString("idno"));
 				to.setId(rs.getString("id"));
 				to.setMail(rs.getString("mail"));
 			}
@@ -464,9 +464,7 @@ public class Design_album01DAO {
 				if (result == 1) {
 					flag = 1;
 					// 파일 삭제
-					File file = new File(
-							"C:/Users/kitcoop/Desktop/Git/MyStudy2019.10/03.spring-workspace/SpringEx16MVCAlbumBoard/src/main/webapp/upload/"
-									+ to.getFilename_ch());
+					File file = new File(uploadPath + to.getFilename_ch());
 					file.delete();
 				} else if (result == 0) {
 					flag = 0;
@@ -599,9 +597,7 @@ public class Design_album01DAO {
 			if (result == 1) {
 				flag = 1;
 				if (!to.getFilename_ori().equals("") && !oldfilename.equals("")) {
-					File file = new File(
-							"C:/Users/kitcoop/Desktop/Git/MyStudy2019.10/03.spring-workspace/SpringEx16MVCAlbumBoard/src/main/webapp/upload/"
-									+ oldfilename);
+					File file = new File(uploadPath + oldfilename);
 					file.delete();
 				}
 			} else {

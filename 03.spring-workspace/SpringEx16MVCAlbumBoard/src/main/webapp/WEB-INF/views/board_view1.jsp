@@ -12,9 +12,9 @@
 	int loginflag = 1;
 
 	String id = "";
-	if (session.getAttribute("idno") == null) {
+	if (session.getAttribute("id") == null) {
 		// 로그인 세션이 없으면 로그인화면을 보여준다.
-	} else if (session.getAttribute("idno") != null) {
+	} else if (session.getAttribute("id") != null) {
 		// 로그인세션이 있다면 아래로
 		loginflag = 0;
 		id = (String) session.getAttribute("id");
@@ -92,23 +92,20 @@
 <link rel="stylesheet" type="text/css" href="./css/board_view.css">
 <script type="text/javascript">
 	window.onload = function() {
-<%if (loginflag == 1) {%>
-	document.cfrm.cbutton.onclick = function() {
-			alert('로그인을 해주세요.');
-		}
-		<jsp:include page="loginJS.jsp"></jsp:include>
-<%} else {%>
-	document.cfrm.cbutton.onclick = function() {
-			if (document.cfrm.cwriter.value.trim() == '') {
-				alert('글쓴이를 입력해 주세요.')
+		<%if (loginflag == 1) {%>
+			<jsp:include page="loginJS.jsp"></jsp:include>
+		<%} else {%>
+			document.cfrm.cbutton.onclick = function() {
+				if (document.cfrm.cwriter.value.trim() == '') {
+					alert('글쓴이를 입력해 주세요.')
 				return false;
-			}
-			if (document.cfrm.cpassword.value.trim() == '') {
-				alert('비밀번호를 입력해 주세요.')
-			}
+				}
+				if (document.cfrm.cpassword.value.trim() == '') {
+					alert('비밀번호를 입력해 주세요.')
+				}
 			document.cfrm.submit();
-		}
-<%}%>
+			}
+		<%}%>
 	}
 
 	var comdel = function(cseq) {
@@ -135,9 +132,7 @@
 		<%
 			if (loginflag == 1) {
 		%>
-		<jsp:include page='loginform.jsp'>
-			<jsp:param value="<%=cpage%>" name="cpage" />
-		</jsp:include>
+		<jsp:include page='loginform.jsp' />
 		<%
 			} else {
 				// 로그인이 되어있다면 환영폼보여줌
@@ -183,9 +178,7 @@
 				<table>
 					<%=sbHTML%>
 				</table>
-				<%
-					}
-				%>
+
 				<form action="./reply_ok.do" method="post" name="cfrm">
 					<input type="hidden" value="<%=seq%>" name="seq"> <input
 						type="hidden" value="<%=cpage%>" name="cpage">
@@ -207,6 +200,9 @@
 						</tr>
 					</table>
 				</form>
+				<%
+					}
+				%>
 			</div>
 			<div class="btn_area">
 				<div class="align_left">

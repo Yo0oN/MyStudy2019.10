@@ -6,12 +6,12 @@
 
 	out.println("<script type='text/javascript'>");
 	if (flag == 0) {
-		out.println("location.href='./search_password.do'");
+		out.println("location.href='./search_result.do'");
 	} else if (flag == 1) {
-		out.println("alert('아이디나 메일이 틀렸습니다.')");
+		out.println("alert('해당 정보가 없습니다.')");
 		out.println("history.back()");
-	} else if (flag == 2) {
-		out.println("alert('비밀번호 찾기에 실패했습니다.')");
+	} else {
+		out.println("alert('찾기에 실패했습니다.')");
 		out.println("history.back()");
 	}
 
