@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +24,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 	@Autowired
 	private TestMapper testMapper;
+	
+	@Autowired
+	private SqlSession sqlSession;
 
 	@RequestMapping("/zipsearch.do")
 	public String zipsearch(HttpServletRequest request) {
 
 		if (request.getParameter("dong") != null) {
 			System.out.println(request.getParameter("dong"));
-			ZipcodeTO zipcodeTO = testMapper.selectZipcode(request.getParameter("dong"));
+			ArrayList<ZipcodeTO> zipcodeTO = testMapper.selectZipcode(request.getParameter("dong"));
 			System.out.println(1);
 			if (zipcodeTO != null) {
 				System.out.println(2);
-				System.out.println(zipcodeTO.getZipcode());
+				System.out.println(zipcodeTO);
 			}
 			
 		}

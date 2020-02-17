@@ -4,5 +4,5 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface TestMapper {
-	public abstract ZipcodeTO selectZipcode(String dong);
+	public abstract ArrayList<ZipcodeTO> selectZipcode(String dong);
 }
