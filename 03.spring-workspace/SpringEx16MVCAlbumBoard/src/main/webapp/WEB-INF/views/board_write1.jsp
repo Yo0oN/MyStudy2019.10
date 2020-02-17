@@ -85,6 +85,7 @@
 			}
 		%>
 		<!-- 로그인 끝 -->
+		
 		<form action="./write_ok.do" method="post" name="frm"
 			enctype="multipart/form-data">
 			<div class="contents_sub">
