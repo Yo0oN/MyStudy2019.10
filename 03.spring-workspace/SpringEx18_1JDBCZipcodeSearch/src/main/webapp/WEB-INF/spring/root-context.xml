@@ -19,8 +19,10 @@
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 
+		<!-- 
+		사실 위에서 직접 DB연결에 필요한 내용을 기술하고있기 때문에 이부분은 꼭 필요없긴 하다..
 		<property name="configLocation"
-			value="classpath:myBatisConfig.xml" />
+			value="classpath:myBatisConfig.xml" /> -->
 		<property name="mapperLocations"
 			value="classpath:mappers/mapper.xml" />
 	</bean>

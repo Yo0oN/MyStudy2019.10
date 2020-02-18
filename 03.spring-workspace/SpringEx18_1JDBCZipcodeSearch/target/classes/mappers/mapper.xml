@@ -3,8 +3,8 @@
 <!-- TestMapper 인터페이스의 이름 -->
 <mapper namespace="com.exam.jdbc01zipsearch.TestMapper">
 	<select id="selectZipcode" parameterType="String" resultType="com.exam.jdbc01zipsearch.ZipcodeTO">
-		select zipcode, sido, gugun, dong, ri, seq
+		select zipcode, sido, gugun, dong, ri, bunji, seq
 		from zipcode
-		where dong='개포'
+		where dong like #{dong}
 	</select>
 </mapper>

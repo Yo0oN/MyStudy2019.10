@@ -25,21 +25,13 @@ public class HomeController {
 	@Autowired
 	private TestMapper testMapper;
 	
-	@Autowired
-	private SqlSession sqlSession;
-
 	@RequestMapping("/zipsearch.do")
 	public String zipsearch(HttpServletRequest request) {
 
-		if (request.getParameter("dong") != null) {
-			System.out.println(request.getParameter("dong"));
-			ArrayList<ZipcodeTO> zipcodeTO = testMapper.selectZipcode(request.getParameter("dong"));
-			System.out.println(1);
-			if (zipcodeTO != null) {
-				System.out.println(2);
-				System.out.println(zipcodeTO);
-			}
-			
+		if (request.getParameter("dong") != null && !request.getParameter("dong").trim().equals("") ) {
+			String dong = "%" + request.getParameter("dong") + "%";
+			ArrayList<ZipcodeTO> zipcodeTO = testMapper.selectZipcode(dong);
+			request.setAttribute("zipcodeTO", zipcodeTO);
 		}
 		return "zipsearch";
 	}

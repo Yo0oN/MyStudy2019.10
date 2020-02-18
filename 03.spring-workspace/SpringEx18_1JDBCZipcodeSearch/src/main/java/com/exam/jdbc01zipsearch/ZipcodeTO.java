@@ -7,6 +7,15 @@ public class ZipcodeTO {
 	private String dong;
 	private String ri;
 	private String seq;
+	private String bunji;
+
+	public String getBunji() {
+		return bunji;
+	}
+
+	public void setBunji(String bunji) {
+		this.bunji = bunji;
+	}
 
 	public String getZipcode() {
 		return zipcode;
