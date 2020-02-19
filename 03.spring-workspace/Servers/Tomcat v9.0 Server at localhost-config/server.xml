@@ -149,7 +149,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="SpringEx16MVCSimpleBoard" path="/board01" reloadable="true" source="org.eclipse.jst.jee.server:SpringEx16MVCSimpleBoard"/><Context docBase="SpringEx16MVCAlbumBoard" path="/album01" reloadable="true" source="org.eclipse.jst.jee.server:SpringEx16MVCAlbumBoard"/><Context docBase="AlbumSpringMVCEx01" path="/album" reloadable="true" source="org.eclipse.jst.jee.server:AlbumSpringMVCEx01"/><Context docBase="AlbumMariaDBSpringMVCEx02" path="/album02" reloadable="true" source="org.eclipse.jst.jee.server:AlbumMariaDBSpringMVCEx02"/><Context docBase="SpringEx17FileUpload" path="/upload01" reloadable="true" source="org.eclipse.jst.jee.server:SpringEx17FileUpload"/><Context docBase="SpringEx18JDBC" path="/jdbc01" reloadable="true" source="org.eclipse.jst.jee.server:SpringEx18JDBC"/><Context docBase="SpringEx18_1JDBCZipcodeSearch" path="/jdbc01zipsearch" reloadable="true" source="org.eclipse.jst.jee.server:SpringEx18_1JDBCZipcodeSearch"/></Host>
+      <Context docBase="AlbumSpringMVCEx01" path="/album" reloadable="true" source="org.eclipse.jst.jee.server:AlbumSpringMVCEx01"/><Context docBase="AlbumMariaDBSpringMVCEx02" path="/album02" reloadable="true" source="org.eclipse.jst.jee.server:AlbumMariaDBSpringMVCEx02"/><Context docBase="com.exam.egov01" path="/egov01" reloadable="true" source="org.eclipse.jst.jee.server:com.exam.egov01"/></Host>
     </Engine>
   </Service>
 </Server>
