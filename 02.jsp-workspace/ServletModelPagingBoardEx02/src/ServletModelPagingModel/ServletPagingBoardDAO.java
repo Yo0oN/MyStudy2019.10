@@ -20,7 +20,7 @@ public class ServletPagingBoardDAO {
 		try {
 			Context initCtx = new InitialContext();
 			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-			this.dataSource = (DataSource) envCtx.lookup("jdbc/mariadb");
+			this.dataSource = (DataSource) envCtx.lookup("jdbc/mariadb2");
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			System.out.println("[에러] : " + e.getMessage());
