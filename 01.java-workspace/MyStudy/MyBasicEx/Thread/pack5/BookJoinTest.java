@@ -15,6 +15,7 @@ public class BookJoinTest {
 		}
 		
 		public void run() {
+			System.out.println("run()실행");
 			for(int i = 1; i < 10 ; i++) {
 				//1단부터 9단까지 각각 방에 넣어줌. 방에 String으로 들어감
 				result[i-1] = dan + "*" + i + "=" + (dan*i);
@@ -38,18 +39,19 @@ public class BookJoinTest {
 			GuguThread gugu = new GuguThread(i);
 			gugus.add(gugu);
 			gugu.start();
+			System.out.println(i);
 		}
-//		for (GuguThread gugu : gugus) {
-//			try {
-//				gugu.join();
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+		for (GuguThread gugu : gugus) {
+			try {
+				gugu.join();
+				System.out.println(Arrays.toString(gugu.result));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+//		System.out.println("\n 구구단 출력");
+//		for(GuguThread gugu : gugus ) {
+//			System.out.println(Arrays.toString(gugu.result));
 //		}
-		System.out.println("\n 구구단 출력");
-		for(GuguThread gugu : gugus ) {
-			System.out.println(Arrays.toString(gugu.result));
-		}
 	}
 }

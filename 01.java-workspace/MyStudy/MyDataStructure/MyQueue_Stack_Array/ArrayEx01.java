@@ -36,7 +36,7 @@ public class ArrayEx01 {
 		// 버블정렬
 		int tray;
 		for (int j = 0; j < array1.length - 1; j++) {
-			for (int i = 0; i < array1.length - 1; i++) {
+			for (int i = 0; i < array1.length - 1 - j; i++) {
 				if (array1[i] > array1[i + 1]) {
 					tray = array1[i];
 					array1[i] = array1[i + 1];

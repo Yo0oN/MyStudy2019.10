@@ -1,6 +1,8 @@
 package HashSetEx;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 public class HashSetEx01 {
 
@@ -32,5 +34,22 @@ public class HashSetEx01 {
 		for (String str : hs) {
 			System.out.println(str);
 		}
+		
+		Set<String> coffee = new HashSet<String>();
+		coffee.add("아메리카노");
+		coffee.add("카페모카");
+		
+		System.out.println(coffee);
+		
+		//coffee = Collections.unmodifiableSet(coffee);
+		
+		//coffee.add("카페라떼");
+		//System.out.println(coffee);
+		
+		coffee = Collections.singleton("카페라떼");
+		System.out.println(coffee);
+		
+		coffee.add("아메리카노");
+		System.out.println(coffee);
 	}
 }
