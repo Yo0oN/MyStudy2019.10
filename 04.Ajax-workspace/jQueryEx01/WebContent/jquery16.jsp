@@ -13,8 +13,13 @@
 <!-- 개발버전 -->
 <script type="text/javascript" src="./js/jquery-3.4.1.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-
+	$.noConflict();		// $ 사용 금지
+	jQuery(document).ready(function() {
+		alert('Hello jQuery');
+	});
+	var J = jQuery;
+	J(document).ready(function() {
+		alert('Hello jQuery2');
 	});
 </script>
 </head>
