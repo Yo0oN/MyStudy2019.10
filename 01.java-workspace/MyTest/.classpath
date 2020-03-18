@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Java/OneDrive/Java/APIs/mariadb-java-client-2.5.2.jar"/>
+	<classpathentry kind="src" path="MyProgrammers"/>
+	<classpathentry kind="src" path="MyBaekJoon"/>
+	<classpathentry kind="lib" path="C:/java/OneDrive/Java/APIs/mariadb-java-client-2.5.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>

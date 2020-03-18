@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="MyTest"/>
-	<classpathentry kind="src" path="MyBasicEx"/>
-	<classpathentry kind="src" path="MyBasicAPIEx"/>
-	<classpathentry kind="src" path="MySwing"/>
+	<classpathentry kind="src" path="01MyBasicEx"/>
+	<classpathentry kind="src" path="02MyBasicAPIEx"/>
+	<classpathentry kind="src" path="03MySwing"/>
 	<classpathentry kind="src" path="MyNetWorkEx"/>
 	<classpathentry kind="src" path="MyDataStructure"/>
-	<classpathentry kind="lib" path="C:/Java/OneDrive/Java/APIs/activation.jar"/>
-	<classpathentry kind="lib" path="C:/Java/OneDrive/Java/APIs/mail.jar"/>
-	<classpathentry kind="lib" path="C:/Java/OneDrive/Java/APIs/mariadb-java-client-2.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/java/OneDrive/Java/APIs/mail/activation.jar"/>
+	<classpathentry kind="lib" path="C:/java/OneDrive/Java/APIs/mail/mail.jar"/>
+	<classpathentry kind="lib" path="C:/java/OneDrive/Java/APIs/mariadb-java-client-2.5.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
