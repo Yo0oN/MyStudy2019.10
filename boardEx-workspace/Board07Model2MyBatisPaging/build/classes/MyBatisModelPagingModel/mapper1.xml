@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+	<!-- 리스트 -->
+	<select id="list" resultType="MyBatisModelPagingModel.MyBatisPagingBoardTO">
+		select seq, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, datediff(now(), wdate) wgap
+		from board1
+		order by seq desc
+	</select>
+	<!-- 조회수 : 보기페이지에서 사용 -->
+	<update id="view_hit" parameterType="MyBatisModelPagingModel.MyBatisPagingBoardTO">
+		update board1
+		set hit=hit+1
+		where seq=#{seq}
+	</update>
+	<!-- 보기페이지 -->
+	<select id="view" parameterType="String" resultType="MyBatisModelPagingModel.MyBatisPagingBoardTO">
+		select seq, subject, writer, mail, wip, wdate, hit, content
+		from board1
+		where seq=#{seq}
+	</select>
+	<!-- 쓰기완료 -->
+	<insert id="writeOk" parameterType="MyBatisModelPagingModel.MyBatisPagingBoardTO" >
+		insert into board1
+		values (0, #{subject}, #{writer}, #{mail},
+		#{password}, #{content}, 0, #{wip}, now())
+	</insert>
+	<!-- 수정 -->
+	<select id="modify" parameterType="String" resultType="MyBatisModelPagingModel.MyBatisPagingBoardTO">
+		select seq, subject, writer, mail, content
+		from board1
+		where seq=#{seq}
+	</select>
+	<!-- 수정완료 -->
+	<update id="modifyOk" parameterType="MyBatisModelPagingModel.MyBatisPagingBoardTO" >
+		update board1 set subject=#{subject}, mail=#{mail},
+		content=#{content} where seq=#{seq} and password=#{password}
+	</update>
+	<!-- 삭제 -->
+	<select id="delete" parameterType="String" resultType="MyBatisModelPagingModel.MyBatisPagingBoardTO">
+		select seq, subject, writer
+		from board1
+		where seq=#{seq}
+	</select>
+	<!-- 삭제완료 -->
+	<delete id="deleteOk" parameterType="MyBatisModelPagingModel.MyBatisPagingBoardTO">
+		delete from board1
+		where seq=#{seq} and password=#{password}
+	</delete>
+
+</mapper>

@@ -149,7 +149,11 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="C:\java\OneDrive\Java\eclipse\boardEx-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/></Host>
+      <Context docBase="C:\Users\kitcoop\Desktop\Git\MyStudy2019.10\boardEx-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\Users\kitcoop\Desktop\Git\MyStudy2019.10\boardEx-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Board09Model2SpringAnnotation" path="/board01" reloadable="true" source="org.eclipse.jst.jee.server:Board09Model2SpringAnnotation">
+	<Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" name="jdbc/mariadb" password="123456" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/project" username="root"/>
+</Context><Context docBase="C:\Users\kitcoop\Desktop\Git\MyStudy2019.10\boardEx-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Board06Model2MyBatis" path="/ServletModelBoardEx01" reloadable="true" source="org.eclipse.jst.jee.server:Board06Model2MyBatis">
+	<Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" name="jdbc/mariadb2" password="123456" type="javax.sql.DataSource" url="jdbc:mysql://Localhost:3306/project" username="project"/>
+</Context></Host>
     </Engine>
   </Service>
 </Server>

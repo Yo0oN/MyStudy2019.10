@@ -10,7 +10,10 @@
 <script type="text/javascript" src="../js/jquery-ui.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#accordion').accordion();
+		$('#accordion').accordion({
+			active : false,
+			collapsible : true
+		});
 		$('#btn').button().on('click', function(){
 			var data = '';
 			data += '<h3>Section6</h3>';
@@ -23,6 +26,7 @@
 			$('#accordion').append(data);
 			$('#accordion').accordion('refresh');
 		})
+		console.log($('#accordion').accordion('option'));
 	})
 </script>
 </head>
