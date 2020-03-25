@@ -9,11 +9,18 @@ import java.util.Scanner;
 
 public class Q2231 {
 	public static int cons(int num) {
-		String stnum = num + "";
-
-		for (int i = 1; i < num; i++) {
+		for (int i = 1; i <= num; i++) {
 			int ilength = (i + "").length();
 			
+			int isum = 0;
+			for (int j = 0; j < ilength; j++) {
+				String inum = i + "";
+				isum += Integer.parseInt(inum.charAt(j) + "");
+			}
+			isum += i;
+			if (isum == num) {
+				return i;
+			}
 		}
 		return 0;
 	}
@@ -21,6 +28,7 @@ public class Q2231 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int num = sc.nextInt();
+		System.out.println(cons(num));
 	}
 
 }
