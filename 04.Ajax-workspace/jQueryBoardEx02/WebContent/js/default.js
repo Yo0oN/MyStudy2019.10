@@ -109,6 +109,7 @@
 					alert('삭제에 성공하였습니다.');
 					$('#deleteDialog').dialog('close');
 					readServer();
+					// location.href="https://www.naver.com";
 				} else if (result.flag == 1){
 					alert('비밀번호를 확인해주세요.');
 				} else {
