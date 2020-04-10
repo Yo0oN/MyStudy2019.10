@@ -1,4 +1,4 @@
-package DAOs;
+/*package DAOs;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,12 +43,12 @@ public class BoardDAO {
 			
 			String sql = "insert into boardtable values (10,0, now())";
 			pstmt = conn.prepareStatement(sql);
-			/*pstmt.setString(1, to.getSubject());
+			pstmt.setString(1, to.getSubject());
 			pstmt.setString(2, to.getWriter());
 			pstmt.setString(3, to.getMail());
 			pstmt.setString(4, to.getPassword());
 			pstmt.setString(5, to.getContent());
-			pstmt.setString(6, to.getWip());*/
+			pstmt.setString(6, to.getWip());
 			
 			int result = pstmt.executeUpdate();
 			if(result == 1) {
@@ -128,13 +128,13 @@ public class BoardDAO {
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				/*to.setSubject(rs.getString("subject"));
+				to.setSubject(rs.getString("subject"));
 				to.setWriter(rs.getString("writer"));
 				to.setMail(rs.getString("mail") == null ? "" : "(" + rs.getString("mail") + ")");
 				to.setWip(rs.getString("wip"));
 				to.setWdate(rs.getString("wdate"));
 				to.setHit(rs.getString("hit"));
-				to.setContent(rs.getString("content") == null ? "" : rs.getString("content").replaceAll("\n", "<br />"));*/
+				to.setContent(rs.getString("content") == null ? "" : rs.getString("content").replaceAll("\n", "<br />"));
 			}
 		} catch(SQLException e) {
 			System.out.println("[에러] : " + e.getMessage());
@@ -161,10 +161,10 @@ public class BoardDAO {
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				/*to.setSubject(rs.getString("subject"));
+				to.setSubject(rs.getString("subject"));
 				to.setWriter(rs.getString("writer"));
 				to.setMail(rs.getString("mail") == null ? "" : rs.getString("mail"));
-				to.setContent(rs.getString("content") == null ? "" : rs.getString("content"));*/
+				to.setContent(rs.getString("content") == null ? "" : rs.getString("content"));
 			}
 		} catch(SQLException e) {
 			System.out.println("[에러] : " + e.getMessage());
@@ -188,10 +188,10 @@ public class BoardDAO {
 			
 			String sql = "update board1 set subject=?, content=? where seq=? and password=?";
 			pstmt = conn.prepareStatement(sql);
-			/*pstmt.setString(1, to.getSubject());
+			pstmt.setString(1, to.getSubject());
 			pstmt.setString(2, to.getContent());
 			pstmt.setString(3, to.getSeq());
-			pstmt.setString(4, to.getPassword());*/
+			pstmt.setString(4, to.getPassword());
 			
 			int result = pstmt.executeUpdate();
 			if(result == 0) {
@@ -248,8 +248,8 @@ public class BoardDAO {
 			
 			String sql = "delete from board1 where seq=? and password=?";
 			pstmt = conn.prepareStatement(sql);
-			/*pstmt.setString(1, to.getSeq());
-			pstmt.setString(2, to.getPassword());*/
+			pstmt.setString(1, to.getSeq());
+			pstmt.setString(2, to.getPassword());
 			
 			int result = pstmt.executeUpdate();
 			if(result == 0) {
@@ -265,4 +265,4 @@ public class BoardDAO {
 		}
 		return flag;
 	}
-}
+}*/

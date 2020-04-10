@@ -16,7 +16,7 @@
 						<ul id="navigation">
 							<li style="padding: 20px">커뮤니티
 								<ul class="submenu">
-									<li><a href="com_board_list.mysql">게시판</a></li>
+									<li><a href="com_board_list.mysql?pseq=100">게시판</a></li>
 									<li><a href="album_board_list.mysql">자랑하기</a></li>
 								</ul>
 							</li>

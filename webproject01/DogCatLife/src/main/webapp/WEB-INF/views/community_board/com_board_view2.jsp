@@ -1,65 +1,5 @@
-<%@page import="TOs.BoardTO"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	ArrayList<BoardTO> toLists = (ArrayList) request.getAttribute("toLists");
-	String cpage = (String) request.getAttribute("cpage");
-
-	// 본문 설정
-	String pseq = toLists.get(0).getPseq();
-	String seq = toLists.get(0).getSeq();
-	String subject = toLists.get(0).getSubject();
-	String mseq = toLists.get(0).getMseq();
-	String writer = toLists.get(0).getWriter();
-	String content = toLists.get(0).getContent().replaceAll("\n", "<br>");
-	String hit = toLists.get(0).getHit();
-	String filename_new = "";
-	/* if (!toLists.get(0).getFilename_new().equals("")) {
-		filename_new = "<img src='#" + toLists.get(0).getFilename_new()
-				+ "' width='900' onerror='' /><br/>";
-	} */
-	String wdate_ori = toLists.get(0).getWdate_ori();
-	String wdate_mod = toLists.get(0).getWdate_mod();
-
-	// 댓글 설정
-	String cseq = "";
-	String cmseq = "";
-	String cwriter = "";
-	String comment = "";
-	String cwdate_ori = "";
-	String cmt = toLists.size() - 1 + "";
-
-	StringBuffer sbHTML = new StringBuffer();
-
-	for (int i = 1; i < toLists.size(); i++) {
-		cseq = toLists.get(i).getCseq();
-		cmseq = toLists.get(i).getCmseq();
-		cwriter = toLists.get(i).getCwriter();
-		comment = toLists.get(i).getComment().replaceAll("\n", "<br>");
-		cwdate_ori = toLists.get(i).getCwdate_ori();
-
-		sbHTML.append("<tr>");
-		sbHTML.append("<td>");
-		sbHTML.append("<h4 class='mb-0'>" + cwriter + "</h4>");
-		sbHTML.append("</td>");
-		sbHTML.append("<td>");
-		sbHTML.append("<p class='date mb-0' style='margin:0'>" + cwdate_ori + "</p>");
-		sbHTML.append("</td>");
-		sbHTML.append("<td><a href='#' class='date ml-10'>수정</a></td>");
-		sbHTML.append("<td><a href='#' class='date ml-10'>삭제</a></td>");
-		sbHTML.append("</tr>");
-
-		sbHTML.append("<tr>");
-		sbHTML.append("<td cosapn=3>");
-		sbHTML.append("<p>" + comment + "</p>");
-		sbHTML.append("</tr>");
-		sbHTML.append("<tr><td colspan=3></td>");
-		sbHTML.append("</tr>");
-	}
-%>
-
-
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -107,31 +47,22 @@
 				<div class="col-lg-12">
 					<div>
 						<div>
-							<h2 class="mb-30"><%=subject%></h2>
+							<h2 class="mb-30">제목제목제목</h2>
 
 							<ul class="blog-info-link">
-								<li><i class="fa fa-user"></i> <%=writer%></li>
-								<li><i class="fa fa-comments"></i> <%= cmt %> Comments</li>
-								<li> <%= hit %> hit </li>
-								<li><%=wdate_ori%></li>
-								<li><a href="./com_board_modify.mysql?pseq=<%=pseq %>&cpage=<%=cpage %>&seq=<%=seq%>"> 수정 </a></li>
-								<li><a> 삭제 </a></li>
+								<li><i class="fa fa-user"></i> 글쓴이글쓴이</li>
+								<li><i class="fa fa-comments"></i> 3 Comments</li>
 							</ul>
 
 							<hr style="margin: 10px">
 
-							<%
-								if (!filename_new.equals("")) {
-							%>
 							<div class="mb-30 mt-30">
-								<img class="img-fluid" src="<%=filename_new%>" alt="">
+								<img class="img-fluid"
+									src="./resources/assets/img/blog/single_blog_1.png" alt="">
 							</div>
-							<%
-								}
-							%>
 
 							<p>
-								<%=content%>
+								내용내용내용내용내용<br>내용내용내용
 							</p>
 
 						</div>
@@ -140,14 +71,9 @@
 
 					<!-- 댓글부분 -->
 					<div class="comments-area">
-						<h4><%=cmt%>
-							Comments
-						</h4>
+						<h4>01 Comments</h4>
 						<div class="comment-list">
-							<table>
-								<%=sbHTML%>
-							</table>
-							<!-- <div class="single-comment justify-content-between d-flex"
+							<div class="single-comment justify-content-between d-flex"
 								style="border-bottom: 1px solid #ECEFF8">
 								<div class="user justify-content-between d-flex">
 									<div class="desc">
@@ -160,7 +86,36 @@
 										<p>댓글댓글</p>
 									</div>
 								</div>
-							</div> -->
+							</div>
+							<div class="single-comment justify-content-between d-flex"
+								style="border-bottom: 1px solid #ECEFF8">
+								<div class="user justify-content-between d-flex">
+									<div class="desc">
+										<div class="d-flex justify-content-between">
+											<div class="d-flex align-items-center">
+												<h5>댓글작성자</h5>
+												<p class="date">December 4, 2017 at 3:12 pm</p>
+											</div>
+										</div>
+										<p>댓글댓글</p>
+									</div>
+								</div>
+							</div>
+							<div class="single-comment justify-content-between d-flex"
+								style="border-bottom: 1px solid #ECEFF8">
+								<div class="user justify-content-between d-flex">
+									<div class="desc">
+										<div class="d-flex justify-content-between">
+											<div class="d-flex align-items-center">
+												<h5>댓글작성자</h5>
+												<p class="date">December 4, 2017 at 3:12 pm</p>
+											</div>
+										</div>
+										<p>댓글댓글</p>
+									</div>
+								</div>
+							</div>
+
 						</div>
 
 						<!-- 댓글쓰기 -->
@@ -173,7 +128,7 @@
 									<div class="col-12">
 										<div class="form-group">
 											<textarea class="form-control w-100" name="comment"
-												id="comment" cols="30" rows="9" placeholder="댓글쓰기"></textarea>
+												id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
 										</div>
 									</div>
 									<div class="col-12" align="right">

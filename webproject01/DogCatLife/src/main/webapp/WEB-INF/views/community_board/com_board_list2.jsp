@@ -1,56 +1,5 @@
-<%@page import="TOs.BoardTO"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="TOs.BoardListsTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%
-	BoardListsTO boardListsTO = (BoardListsTO) request.getAttribute("boardListsTO");
-
-	// 현재페이지
-	int cpage = boardListsTO.getCpage();
-	// 한 페이지당 출력 데이터 개수
-	int recordPerPage = boardListsTO.getRecordPerPage();
-	// 전체 페이지 개수 = 마지막 페이지
-	int totalPage = boardListsTO.getTotalPage();
-	// 전체 데이터(글) 개수
-	int totalRecord = boardListsTO.getTotalRecord();
-	// 페이지번호가 몇개씩 보이게 할지 설정
-	int blockPerPage = boardListsTO.getBlockPerPage();
-	// 보이는 페이지 번호의 시작부분이다.
-	int startBlock = boardListsTO.getStartBlock();
-	// 보이는 페이지 번호의 끝부분이다.
-	int endBlock = boardListsTO.getEndBlock();
-	// 목록을 받아옴
-	ArrayList<BoardTO> toLists = boardListsTO.getBoardLists();
-
-	StringBuffer sbHTML = new StringBuffer();
-	for (int i = 0; i < toLists.size(); i++) {
-		BoardTO boardTO = toLists.get(i);
-
-		String pseq = boardTO.getPseq();
-		String seq = boardTO.getSeq();
-		String subject = boardTO.getSubject();
-		String writer = boardTO.getWriter();
-		String wdate = boardTO.getWdate_ori();
-		String hit = boardTO.getHit();
-		String filename = boardTO.getFilename_new();
-		String countComment = boardTO.getCmt();
-
-		sbHTML.append("<tr>");
-
-		sbHTML.append("<td>" + seq + "</td>");
-		sbHTML.append("<td><a href='com_board_view.mysql?pseq=" + pseq + "&cpage=" + cpage + "&seq=" + seq
-				+ "' style='color: black'>" + subject + "</a></td>");
-		sbHTML.append("<td>" + writer + "</td>");
-		sbHTML.append("<td>" + wdate + "</td>");
-		sbHTML.append("<td>" + hit + "</td>");
-		sbHTML.append("</tr>");
-	}
-%>
-
-
-
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -93,14 +42,9 @@
 	<!--================Blog Area =================-->
 	<section class="blog_area section-paddingr">
 		<div class="container">
-			<div class="row">
-				<h2 class="col-9">커뮤니티 게시판</h2>
-				<div class="col-3" align="right">
-					<a href="./com_board_write.mysql?pseq=<%=pseq %>&>">
-						<button type="button" style="background-color: #2B4B80"
-							class="btn pt-20 pb-20 pl-30 pr-30" disabled>글 쓰기</button>
-					</a>
-				</div>
+			<div style="align: center">
+				<!--  section-tittle -->
+				<h2>커뮤니티 게시판</h2>
 			</div>
 			<!-- 게시판 목록 시작 -->
 			<div>
@@ -116,16 +60,30 @@
 							</tr>
 						</thead>
 						<tbody>
-							<%=sbHTML%>
-							<!-- <tr>
+							<tr>
 								<td>3</td>
 								<td><a href="#" style="color: black">제목제목</a></td>
 								<td>작성자</td>
 								<td>2020-01-01</td>
 								<td>6</td>
-							</tr> -->
+							</tr>
+							<tr>
+								<td>2</td>
+								<td><a href="#" style="color: black">제목제목</a></td>
+								<td>작성자</td>
+								<td>2020-01-01</td>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td><a href="#" style="color: black">제목제목</a></td>
+								<td>작성자</td>
+								<td>2020-01-01</td>
+								<td>6</td>
+							</tr>
 						</tbody>
 					</table>
+
 					<div>
 						<!-- 페이지 이동 -->
 						<nav class="blog-pagination justify-content-center d-flex"
@@ -146,7 +104,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 	</section>
 
 	<jsp:include page='../footer.jsp' />
