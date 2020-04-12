@@ -89,6 +89,28 @@
 <link rel="stylesheet" href="./resources/assets/css/nice-select.css">
 <link rel="stylesheet" href="./resources/assets/css/style.css">
 <link rel="stylesheet" href="./resources/assets/css/responsive.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#delete').on('click', function() {
+			if (confirm('삭제하시겠습니까?')) {
+				location.href('./com_board_delete_ok.mysql?pseq=<%=pseq%>');
+			} else {
+
+			}
+		});
+		$('#reply').on('click', function() {
+			if ($('#comment').val().trim() == "") {
+				alert('댓글을 입력해주세요.');
+				return false;
+			}
+			$('#commentForm').submit();
+		})
+	})
+</script>
+
 </head>
 
 <body>
@@ -111,11 +133,13 @@
 
 							<ul class="blog-info-link">
 								<li><i class="fa fa-user"></i> <%=writer%></li>
-								<li><i class="fa fa-comments"></i> <%= cmt %> Comments</li>
-								<li> <%= hit %> hit </li>
+								<li><i class="fa fa-comments"></i> <%=cmt%> Comments</li>
+								<li><%=hit%> hit</li>
 								<li><%=wdate_ori%></li>
-								<li><a href="./com_board_modify.mysql?pseq=<%=pseq %>&cpage=<%=cpage %>&seq=<%=seq%>"> 수정 </a></li>
-								<li><a> 삭제 </a></li>
+								<li><a
+									href="./com_board_modify.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq%>">
+										수정 </a></li>
+								<li><a id="delete"> 삭제 </a></li>
 							</ul>
 
 							<hr style="margin: 10px">
@@ -167,8 +191,11 @@
 						<div class="comment-form">
 							<!-- <h4>댓글쓰기</h4> -->
 
-							<form class="form-contact comment_form" action="#"
-								id="commentForm">
+							<form class="form-contact comment_form"
+								action="./com_board_comment_ok.mysql" id="commentForm">
+								<input type="hidden" name="pseq" value="<%=pseq%>" />
+								<input type="hidden" name="cpage" value="<%=cpage%>" />
+								<input type="hidden" name="seq" value="<%=seq%>" />
 								<div class="row">
 									<div class="col-12">
 										<div class="form-group">
@@ -177,8 +204,10 @@
 										</div>
 									</div>
 									<div class="col-12" align="right">
-										<button type="button" style="background-color: #2B4B80"
-											class="btn" disabled>댓글 쓰기</button>
+										<input type="button" class="btn" id="reply"
+											style="background-color: #2B4B80" value="댓글등록">
+										<!-- <button type="button" style="background-color: #2B4B80"
+											class="btn" id="reply" disabled>댓글 쓰기</button> -->
 									</div>
 								</div>
 
@@ -189,6 +218,7 @@
 			</div>
 		</div>
 	</section>
+
 	<!--================ Blog Area end =================-->
 
 	<jsp:include page='../footer.jsp' />

@@ -23,7 +23,7 @@ import TOs.BoardTO;
  */
 @Controller
 public class Com_Board_Controller {
-	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
+	private String uploadPath = "D:\\MyFirstGit\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
 
 	@RequestMapping("/com_board_list.mysql")
 	public ModelAndView com_board_list(HttpServletRequest request) {
@@ -80,11 +80,10 @@ public class Com_Board_Controller {
 		int flag = communityBoardDAO.board_reply_ok(boardTO);
 
 		// 댓글 작성 성공시 flag == 0, 실패시 1
-		modelAndView.addObject("flag", flag);
 		modelAndView.addObject("seq", seq);
 		modelAndView.addObject("cpage", cpage);
 		modelAndView.addObject("pseq", boardTO.getPseq());
-
+		modelAndView.addObject("flag", flag);
 		return modelAndView;
 	}
 
@@ -107,7 +106,7 @@ public class Com_Board_Controller {
 		System.out.println("com_board_modify_ok 컨트롤러 호출");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("community_board/com_board_modify_ok");
-		
+
 		BoardTO boardTO = new BoardTO();
 
 		try {
@@ -140,10 +139,10 @@ public class Com_Board_Controller {
 			modelAndView.addObject("cpage", cpage);
 			modelAndView.addObject("seq", seq);
 			modelAndView.addObject("pseq", pseq);
-			
+
 		} catch (IOException e) {
 		}
-		
+
 		return modelAndView;
 	}
 
@@ -156,13 +155,16 @@ public class Com_Board_Controller {
 
 		BoardTO boardTO = new BoardTO();
 
-		/*HttpSession session = request.getSession();
-		boardTO.setMseq((String) session.getAttribute("mseq"));*/
+		/*
+		 * HttpSession session = request.getSession(); boardTO.setMseq((String)
+		 * session.getAttribute("mseq"));
+		 */
 		boardTO.setMseq("1");
 
 		CommunityBoardDAO communityBoardDOA = new CommunityBoardDAO();
 		boardTO = communityBoardDOA.boardWrite(boardTO);
-		boardTO.setCpage(request.getParameter("cpage"));
+		
+		boardTO.setPseq(request.getParameter("pseq"));
 
 		modelAndView.addObject("boardTO", boardTO);
 		return modelAndView;
@@ -179,10 +181,13 @@ public class Com_Board_Controller {
 		try {
 			String path = uploadPath;
 			int filesize = 1024 * 1024 * 2;
+			String utf8 = "utf-8";
 
-			MultipartRequest multi = new MultipartRequest(request, path, filesize, "utf-8",
+			MultipartRequest multi = new MultipartRequest(request, path, filesize, utf8,
 					new DefaultFileRenamePolicy());
 
+			System.out.println(multi.getParameter("writer"));
+			
 			if (multi.getFile("upload") != null) {
 				boardTO.setFilename_ori(multi.getOriginalFileName("upload"));
 				boardTO.setFilename_new(multi.getFilesystemName("upload"));
@@ -192,16 +197,15 @@ public class Com_Board_Controller {
 			}
 
 			boardTO.setSubject(multi.getParameter("subject"));
-
 			boardTO.setWriter(multi.getParameter("writer"));
 			boardTO.setContent(multi.getParameter("content"));
-
+			boardTO.setPseq(multi.getParameter("pseq"));
 			CommunityBoardDAO communityBoardDAO = new CommunityBoardDAO();
 
 			int flag = communityBoardDAO.boardWriteOk(boardTO);
 
 			modelAndView.addObject("flag", flag);
-			modelAndView.addObject("pseq", request.getAttribute("pseq"));
+			modelAndView.addObject("pseq", multi.getParameter("pseq"));
 		} catch (IOException e) {
 		}
 

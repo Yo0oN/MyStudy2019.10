@@ -1,5 +1,10 @@
+<%@page import="TOs.BoardTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	BoardTO boardTO = (BoardTO) request.getAttribute("boardTO");
+	String pseq = boardTO.getPesq();
+%>
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -34,6 +39,26 @@
 <link rel="stylesheet" href="./resources/assets/css/board_list.css">
 <link rel="stylesheet" href="./resources/assets/css/board_view">
 <link rel="stylesheet" href="./resources/assets/css/board_write">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#back').on('click', function() {
+			history.back();
+		});
+		$('#submit').on('click', function() {
+			if ($('#subject').val().trim() == "") {
+				alert('제목을 입력하세요!');
+				return false;
+			}
+			if ($('#content').val().trim() == "") {
+				alert('내용을 입력하세요!');
+				return false;
+			}
+			document.frm.submit();
+		});
+	});
+</script>
 </head>
 
 <body>
@@ -44,68 +69,94 @@
 	<hr>
 
 	<!--================Blog Area =================-->
-	<section class="blog_area single-post-area">
-		<!-- class=section-padding 패딩필요없을거같아서뺐음 -->
+	<section class="blog_area single-post-area ">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div>
-						<div class="contents_sub">
-							<br />
-							<h3 class="mb-30">게시글 작성</h3>
-
-							<ul class="blog-info-link">
-								<li>작성자&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-user"></i>
-									글쓴이글쓴이
-								</li>
-							</ul>
-							<!-- <br/><br/> -->
-							<form Method="post" Enctype="multipart/form-date" name="frm">
-								<div style="padding: 1px 10px 1px 10px;">
-									<table>
-										<tr>
-											<td><br /></td>
-										</tr>
-										<tr>
-											<td>제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-											<td colspan="3"><input type="text" name="wsubject"
-												value="" style="width: 990px;" /></td>
-										</tr>
-										<tr>
-											<td><br /></td>
-										</tr>
-										<tr>
-											<td>내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-											<td colspan="3"><textarea name="wcontent" rows=40
-													cols=162 wrap="hard" style="resize: none;"></textarea></td>
-										</tr>
-										<tr>
-											<td><br /></td>
-										</tr>
-										<tr>
-											<td>첨부&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-											<td colspan="3"><input type="file" name="upload"
-												value="" class="board_write_input" /></td>
-										</tr>
-									</table>
-								</div>
-								<div class="btn_area">
-									<div class="align_right" style="margin: 0px 100px 10px 0px;">
-										<input type="button" value="취소"
-											style="display: inline-block; background: #fcfcfc; border: 1px solid #bcbcbc; padding: 6px 17px 7px 17px; cursor: pointer; font-weight: 600;" />
-										&nbsp;&nbsp; <input type="button" value="작성" id="submit1"
-											class="btn_write btn_txt01" style="cursor: pointer;" />
-									</div>
-								</div>
-							</form>
-						</div>
+			<div style="align: center">
+				<h2>게시글 작성</h2>
+			</div>
+			<form action="./com_board_write_ok.mysql" method="post" name="frm"
+				enctype="multipart/form-data">
+				<input type="hidden" name="pseq" id="pseq" value="<%=pseq%>" /> <input
+					type="hidden" id="writer" name="writer" value="작성자">
+				<div>&nbsp;</div>
+				<div class="row">
+					<div class="col-1 pr-0">작성자</div>
+					<div class="col-11">
+						<i class="fa fa-user"></i> 작성자
 					</div>
 				</div>
+				<div>&nbsp;</div>
+				<div class="row">
+					<div class="col-1">제목</div>
+					<div class="col-11">
+						<input type="text" id="subject" name="subject" value=""
+							class="col-12 col-sm-12" />
+					</div>
+				</div>
+				<div>&nbsp;</div>
+				<div class="row">
+					<div class="col-1">내용</div>
+					<div class="col-11">
+						<textarea class="col-12" id="content" name="content" wrap="hard"
+							style="resize: none;"></textarea>
+					</div>
+				</div>
+				<div>&nbsp;</div>
+				<div class="row">
+					<div class="col-1">첨부</div>
+					<div class="col-11">
+						<input type="file" name="upload" value=""
+							class="board_write_input" />
+					</div>
+				</div>
+			</form>
+			<%-- <form action="./com_modify_ok.mysql" method="post" name="frm"
+				enctype="multipart/form-data">
+				<input type="hidden" name="pseq" value="<%=pseq%>" /> <input
+					type="hidden" name="cpage" value="<%=cpage%>" /> <input
+					type="hidden" name="seq" value="<%=seq%>" />
+
+				<table>
+					<tr>
+						<div colspan="2"><br /></td>
+					</tr>
+					<tr>
+						<td class="col-2 col-sm-2">제목</td>
+						<td class="col-10 col-sm-10">
+						<input type="text" name="subject"
+							value="<%=subject%>" class="col-12 col-sm-12"/></td>
+					</tr>
+					<tr>
+						<td colspan="2"><br /></td>
+					</tr>
+					<tr>
+						<td class="col-2">내용</td>
+						<td class="col-10"><textarea name="mcontent" wrap="hard"
+								style="resize: none;"><%=content%></textarea></td>
+						<td><textarea class="col-12" name="mcontent" rows=40 cols=162
+								wrap="hard" style="resize: none;"><%=content%></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="2"><br /></td>
+					</tr>
+					<tr>
+						<td class="col-2">첨부</td>
+						<td class="col-10"><input type="file" name="upload" value=""
+							class="board_write_input" /></td>
+					</tr>
+				</table>
+			</form> --%>
+		</div>
+		<div class="btn_area">
+			<div class="align_right" style="margin: 0px 100px 10px 0px;">
+				<input type="button" id="back" value="취소"
+					style="display: inline-block; background: #fcfcfc; border: 1px solid #bcbcbc; padding: 6px 17px 7px 17px; cursor: pointer; font-weight: 600;" />
+				&nbsp;&nbsp; <input type="submit" value="작성" id="submit"
+					class="btn_write btn_txt01" style="cursor: pointer;" />
 			</div>
 		</div>
 	</section>
 	<!--================ Blog Area end =================-->
-
 	<jsp:include page='../footer.jsp' />
 
 	<!-- JS here -->

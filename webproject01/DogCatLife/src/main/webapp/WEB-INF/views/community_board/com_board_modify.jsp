@@ -106,7 +106,7 @@
 				<div class="row">
 					<div class="col-1">첨부</div>
 					<div class="col-11">
-						<input class="" type="file" name="upload" value=""
+						<input type="file" name="upload" value=""
 							class="board_write_input" />
 					</div>
 				</div>

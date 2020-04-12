@@ -17,7 +17,7 @@ import TOs.BoardTO;
 
 public class CommunityBoardDAO {
 	private DataSource dataSource = null;
-	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
+	private String uploadPath = "D:\\MyFirstGit\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
 
 	public CommunityBoardDAO() {
 		try {
@@ -85,8 +85,10 @@ public class CommunityBoardDAO {
 
 			pstmt.setString(1, boardTO.getPesq());
 			pstmt.setString(2, boardTO.getSubject());
-			pstmt.setString(3, boardTO.getMseq());
-			pstmt.setString(4, boardTO.getWriter());
+			pstmt.setString(3, "1");
+//			pstmt.setString(3, boardTO.getMseq());
+			pstmt.setString(4, "작성자");
+//			pstmt.setString(4, boardTO.getWriter());
 			pstmt.setString(5, boardTO.getContent());
 			pstmt.setString(6, boardTO.getFilename_ori());
 			pstmt.setString(7, boardTO.getFilename_new());
@@ -304,13 +306,14 @@ public class CommunityBoardDAO {
 			conn = dataSource.getConnection();
 
 			// 댓글 작성
-			String sql = "insert into comment_board values(?, 0, ?, ?, ?, now(), )";
+			String sql = "insert into comment_board values(?, 0, ?, ?, ?, now(), now())";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, boardTO.getSeq());
-			pstmt.setString(2, boardTO.getCmseq());
-			pstmt.setString(3, boardTO.getCwriter());
+			pstmt.setString(2, "1");
+//			pstmt.setString(2, boardTO.getCmseq());
+			pstmt.setString(3, "작성자");
+//			pstmt.setString(3, boardTO.getCwriter());
 			pstmt.setString(4, boardTO.getComment());
-			pstmt.setString(4, boardTO.getCwdate_ori());
 
 			int result = pstmt.executeUpdate();
 

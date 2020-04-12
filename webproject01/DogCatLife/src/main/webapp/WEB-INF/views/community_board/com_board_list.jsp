@@ -7,6 +7,8 @@
 <%
 	BoardListsTO boardListsTO = (BoardListsTO) request.getAttribute("boardListsTO");
 
+	// 현재 게시판
+	String pseq = boardListsTO.getPseq() + "";
 	// 현재페이지
 	int cpage = boardListsTO.getCpage();
 	// 한 페이지당 출력 데이터 개수
@@ -23,12 +25,14 @@
 	int endBlock = boardListsTO.getEndBlock();
 	// 목록을 받아옴
 	ArrayList<BoardTO> toLists = boardListsTO.getBoardLists();
+	
+	System.out.println(toLists.size());
 
 	StringBuffer sbHTML = new StringBuffer();
 	for (int i = 0; i < toLists.size(); i++) {
 		BoardTO boardTO = toLists.get(i);
 
-		String pseq = boardTO.getPseq();
+		pseq = boardTO.getPseq();
 		String seq = boardTO.getSeq();
 		String subject = boardTO.getSubject();
 		String writer = boardTO.getWriter();
@@ -96,7 +100,7 @@
 			<div class="row">
 				<h2 class="col-9">커뮤니티 게시판</h2>
 				<div class="col-3" align="right">
-					<a href="./com_board_write.mysql?pseq=<%=pseq %>&>">
+					<a href="./com_board_write.mysql?pseq=<%=pseq %>">
 						<button type="button" style="background-color: #2B4B80"
 							class="btn pt-20 pb-20 pl-30 pr-30" disabled>글 쓰기</button>
 					</a>
