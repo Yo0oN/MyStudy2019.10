@@ -23,7 +23,7 @@ import TOs.BoardTO;
  */
 @Controller
 public class Com_Board_Controller {
-	private String uploadPath = "D:\\MyFirstGit\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
+	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
 
 	@RequestMapping("/com_board_list.mysql")
 	public ModelAndView com_board_list(HttpServletRequest request) {
@@ -93,7 +93,6 @@ public class Com_Board_Controller {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("community_board/com_board_modify");
 
-		System.out.println(boardTO.getCpage() + " " + boardTO.getSeq() + " " + boardTO.getPseq());
 		boardTO = new CommunityBoardDAO().boardModify(boardTO);
 
 		modelAndView.addObject("boardTO", boardTO);
@@ -226,6 +225,33 @@ public class Com_Board_Controller {
 
 		modelAndView.addObject("flag", flag);
 		modelAndView.addObject("pseq", pseq);
+
+		return modelAndView;
+	}
+	
+	@RequestMapping("/com_board_comment_modify.mysql")
+	public ModelAndView com_board_comment_modify(BoardTO boardTO) {
+		System.out.println("com_board_comment_modify 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("community_board/com_board_comment_modify");
+
+		CommunityBoardDAO communityBoardDAO = new CommunityBoardDAO();
+
+		return modelAndView;
+	}
+	
+	@RequestMapping("/com_board_comment_delete_ok.mysql")
+	public ModelAndView com_board_comment_delete_ok(BoardTO boardTO) {
+		System.out.println("com_board_comment_delete_ok 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("community_board/com_board_comment_delete_ok");
+
+		CommunityBoardDAO communityBoardDAO = new CommunityBoardDAO();
+
+		int flag = communityBoardDAO.boardCommentDeleteOk(boardTO);
+
+		modelAndView.addObject("flag", flag);
+		modelAndView.addObject("boardTO", boardTO);
 
 		return modelAndView;
 	}

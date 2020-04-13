@@ -25,8 +25,6 @@
 	int endBlock = boardListsTO.getEndBlock();
 	// 목록을 받아옴
 	ArrayList<BoardTO> toLists = boardListsTO.getBoardLists();
-	
-	System.out.println(toLists.size());
 
 	StringBuffer sbHTML = new StringBuffer();
 	for (int i = 0; i < toLists.size(); i++) {
@@ -100,7 +98,7 @@
 			<div class="row">
 				<h2 class="col-9">커뮤니티 게시판</h2>
 				<div class="col-3" align="right">
-					<a href="./com_board_write.mysql?pseq=<%=pseq %>">
+					<a href="./com_board_write.mysql?pseq=<%=pseq%>">
 						<button type="button" style="background-color: #2B4B80"
 							class="btn pt-20 pb-20 pl-30 pr-30" disabled>글 쓰기</button>
 					</a>
@@ -130,24 +128,92 @@
 							</tr> -->
 						</tbody>
 					</table>
+
 					<div>
 						<!-- 페이지 이동 -->
 						<nav class="blog-pagination justify-content-center d-flex"
 							style="margin-top: 30px; text-align: center">
 							<!-- blog-pagination  -->
+
+
 							<ul class="pagination">
-								<li class="page-item"><a href="#" class="page-link"
-									aria-label="Previous"> <i class="ti-angle-left"></i>
-								</a></li>
-								<li class="page-item"><a href="#" class="page-link">1</a></li>
-								<li class="page-item active"><a href="#" class="page-link">2</a>
-								</li>
-								<li class="page-item"><a href="#" class="page-link"
-									aria-label="Next"> <i class="ti-angle-right"></i>
-								</a></li>
+								<%
+									if (endBlock >= totalPage) {
+										endBlock = totalPage;
+									}
+
+									// << 기호, 페이지 번호는 한번에 5개까지만 보여준다.
+									// << 기호를 누르면 이전페이지 번호 5개를 보이게 하는 기능을 주자.
+									if (startBlock == 1) {
+										out.println("<li class='page-item'><a class='page-link'"
+												+ " aria-label='Previous'> <i class='ti-angle-left'></i></a></li>");
+									} else {
+										out.println("<li class='page-item'><a href='./com_board_list.mysql?pseq=" + pseq + "&cpage="
+												+ (startBlock - blockPerPage)
+												+ "' class='page-link' aria-label='Previous'> <i class='ti-angle-left'></i></a></li>");
+									}
+
+									// < 기호, 즉 한페이지 앞으로 가게 해주는 기호는 현재 페이지가 1페이질경우에는 아무 작동을 하지 않지만,
+									// 1페이지가 아닐경우에는 한페이지 앞으로 가게 하는 기능을 준다.
+									if (cpage == 1) {
+										out.println("<li class='page-item'><a class='page-link'"
+												+ " aria-label='Previous'> <i class='ti-angle-left'></i></a></li>");
+									} else {
+										out.println(
+												"<li class='page-item'><a href='./com_board_list.mysql?pseq=" + pseq + "&cpage=" + (cpage - 1)
+														+ "' class='page-link' aria-label='Previous'> <i class='ti-angle-left'></i></a></li>");
+									}
+
+									// 아무 이동도 하지 않고 이 게시판에 바로 들어왔을 때에는 주소창이 board_list1.jsp인 상태이다.
+									// 하지만 아래의 페이지 번호를 누르게 된다면, 새로운 게시판 목록 창이 열리며 i가 함께 넘어간다.
+									// 그렇게 넘어간 i페이지는 현재페이지를 나타내는 cpage에 할당되어 해당 페이지에서 보여야할 글 목록을 보여준다. 
+									for (int i = startBlock; i <= endBlock; i++) {
+										if (cpage == i) {
+											out.println("<li class='page-item'><a  class='page-link'>" + i + "</a></li>");
+										} else {
+											out.println("<li class='page-item active'><a href='./com_board_list.mysql?pseq=" + pseq + "&cpage="
+													+ i + "' class='page-link'>" + i + "</a></li>");
+										}
+									}
+
+									// > 기호, 즉 한페이지 뒤로 가게 해주는 기호는 현재 페이지가 마지막 페이질경우에는 아무 작동을 하지 않지만,
+									// 마지막 페이지가 아닐경우에는 뒷페이지로 가게 하는 기능을 준다.
+									if (cpage == totalPage) {
+										out.println(
+												"<li class='page-item'><a class='page-link' aria-label='Next'> <i class='ti-angle-right'></i> </a></li>");
+									} else {
+										out.println("<li class='page-item'><a href='com_board_list.mysql?pseq=" + pseq + "&cpage=" + (cpage + 1)
+												+ "' class='page-link' aria-label='Next'> <i class='ti-angle-right'></i></a></li>");
+									}
+
+									// >> 기호, 페이지 번호는 한번에 5개씩만 보여진다. >>를 누르면 다음 5개의 숫자가 보이고, 그 페이지로 이동할 수 있게 해주자.
+									// 현재 페이지가 마지막 페이질경우에는 아무 작동을 하지 않지만,
+									// 마지막 페이지가 아닐경우에는 마지막 페이지로 가게 하는 기능을 준다.
+									if (totalPage <= endBlock) {
+										out.println("<li class='page-item'><a class='page-link' aria-label='Next'> <i class='ti-angle-right'></i> </a></li>");
+									} else {
+										out.println("<li class='page-item'><a href='com_board_list.mysql?pseq=" + pseq + "&cpage=" + (startBlock + blockPerPage)
+												+ "' class='page-link' aria-label='Next'> <i class='ti-angle-right'></i></a></li>");
+									}
+								%>
+
+
+
 							</ul>
 						</nav>
 					</div>
+
+
+
+
+
+
+
+
+
+
+
+
 				</div>
 			</div>
 		</div>

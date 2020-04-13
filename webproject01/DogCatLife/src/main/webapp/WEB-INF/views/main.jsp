@@ -179,7 +179,7 @@
 
 		</div>
 		<div align="center" class="mt-30 mb-30">
-			<a href="com_board_list.mysql"><button type="button" class="btn">더보기</button></a>
+			<a href="com_board_list.mysql?pseq=100"><button type="button" class="btn">더보기</button></a>
 		</div>
 	</div>
 

@@ -11,6 +11,9 @@
 	String content = boardTO.getContent();
 	String subject = boardTO.getSubject();
 	String filename_ori = boardTO.getFilename_ori();
+	if (filename_ori.equals("")) {
+		filename_ori = "없음";
+	}
 %>
 <!doctype html>
 <html class="no-js" lang="zxx">
@@ -76,7 +79,7 @@
 	<hr>
 
 	<!--================Blog Area =================-->
-	<section class="blog_area single-post-area ">
+	<section class="blog_area single-post-area mb-30">
 		<div class="container">
 			<div style="align: center">
 				<h2>게시글 수정</h2>
@@ -110,51 +113,21 @@
 							class="board_write_input" />
 					</div>
 				</div>
+				<div>&nbsp;</div>
+				<div class="row">
+					<div class="col-1">원본</div>
+					<div class="col-11"><%=filename_ori%></div>
+				</div>
+				<div align="right">
+					<a id="back"><button
+							style="background-color: white; color: black"
+							class="btn pt-20 pb-20 pl-30 pr-30" disabled>취소</button></a> <a
+						id="submit"><button style="background-color: #2B4B80"
+							class="btn pt-20 pb-20 pl-30 pr-30" disabled>수정</button></a>
+				</div>
 			</form>
-			<%-- <form action="./com_modify_ok.mysql" method="post" name="frm"
-				enctype="multipart/form-data">
-				<input type="hidden" name="pseq" value="<%=pseq%>" /> <input
-					type="hidden" name="cpage" value="<%=cpage%>" /> <input
-					type="hidden" name="seq" value="<%=seq%>" />
 
-				<table>
-					<tr>
-						<div colspan="2"><br /></td>
-					</tr>
-					<tr>
-						<td class="col-2 col-sm-2">제목</td>
-						<td class="col-10 col-sm-10">
-						<input type="text" name="subject"
-							value="<%=subject%>" class="col-12 col-sm-12"/></td>
-					</tr>
-					<tr>
-						<td colspan="2"><br /></td>
-					</tr>
-					<tr>
-						<td class="col-2">내용</td>
-						<td class="col-10"><textarea name="mcontent" wrap="hard"
-								style="resize: none;"><%=content%></textarea></td>
-						<td><textarea class="col-12" name="mcontent" rows=40 cols=162
-								wrap="hard" style="resize: none;"><%=content%></textarea></td>
-					</tr>
-					<tr>
-						<td colspan="2"><br /></td>
-					</tr>
-					<tr>
-						<td class="col-2">첨부</td>
-						<td class="col-10"><input type="file" name="upload" value=""
-							class="board_write_input" /></td>
-					</tr>
-				</table>
-			</form> --%>
-		</div>
-		<div class="btn_area">
-			<div class="align_right" style="margin: 0px 100px 10px 0px;">
-				<input type="button" id="back" value="취소"
-					style="display: inline-block; background: #fcfcfc; border: 1px solid #bcbcbc; padding: 6px 17px 7px 17px; cursor: pointer; font-weight: 600;" />
-				&nbsp;&nbsp; <input type="submit" value="수정" id="submit"
-					class="btn_write btn_txt01" style="cursor: pointer;" />
-			</div>
+
 		</div>
 	</section>
 	<!--================ Blog Area end =================-->

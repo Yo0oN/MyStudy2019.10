@@ -15,10 +15,9 @@
 	String content = toLists.get(0).getContent().replaceAll("\n", "<br>");
 	String hit = toLists.get(0).getHit();
 	String filename_new = "";
-	/* if (!toLists.get(0).getFilename_new().equals("")) {
-		filename_new = "<img src='#" + toLists.get(0).getFilename_new()
-				+ "' width='900' onerror='' /><br/>";
-	} */
+	if (!toLists.get(0).getFilename_new().equals("")) {
+		filename_new = "./resources/upload/" + toLists.get(0).getFilename_new();
+	}
 	String wdate_ori = toLists.get(0).getWdate_ori();
 	String wdate_mod = toLists.get(0).getWdate_mod();
 
@@ -40,17 +39,20 @@
 		cwdate_ori = toLists.get(i).getCwdate_ori();
 
 		sbHTML.append("<tr>");
-		sbHTML.append("<td>");
-		sbHTML.append("<h4 class='mb-0'>" + cwriter + "</h4>");
+		sbHTML.append("<td style='width:100px'>");
+		sbHTML.append("<h4 class='mb-0'><i class='fa fa-comments'></i> " + cwriter + "</h4>");
 		sbHTML.append("</td>");
 		sbHTML.append("<td>");
-		sbHTML.append("<p class='date mb-0' style='margin:0'>" + cwdate_ori + "</p>");
+		sbHTML.append("<p class='date mb-0 pr-20' style='margin:0'>" + cwdate_ori + "</p>");
 		sbHTML.append("</td>");
-		sbHTML.append("<td><a href='#' class='date ml-10'>수정</a></td>");
-		sbHTML.append("<td><a href='#' class='date ml-10'>삭제</a></td>");
+		sbHTML.append("<td><a class='comment_modify' cseq='" + cseq
+				+ "' class='date ml-10' style='color:#635c5c;font-size:14px'>수정</a></td>");
+		sbHTML.append("<td style='color:#635c5c;font-size:14px'>&nbsp;&nbsp;|&nbsp;&nbsp;<a href='./com_board_comment_delete_ok.mysql?pseq=" + pseq + "&cpage=" + cpage
+				+ "&seq=" + seq + "&cseq=" + cseq + "' class='comment_delete' id='comment_delete_" + cseq
+				+ "' class='date ml-10' style='color:#635c5c;font-size:14px'>삭제</a></td>");
 		sbHTML.append("</tr>");
 
-		sbHTML.append("<tr>");
+		sbHTML.append("<tr style='' cseq='" + cseq + "'>");
 		sbHTML.append("<td cosapn=3>");
 		sbHTML.append("<p>" + comment + "</p>");
 		sbHTML.append("</tr>");
@@ -96,7 +98,7 @@
 	$(document).ready(function() {
 		$('#delete').on('click', function() {
 			if (confirm('삭제하시겠습니까?')) {
-				location.href('./com_board_delete_ok.mysql?pseq=<%=pseq%>');
+				location.href("./com_board_delete_ok.mysql?pseq=<%=pseq%>&seq=<%=seq%>");
 			} else {
 
 			}
@@ -107,8 +109,37 @@
 				return false;
 			}
 			$('#commentForm').submit();
-		})
-	})
+		});
+
+		$('.comment_delete').on('click', function() {
+			if (confirm('댓글을 삭제하시겠습니까?')) {
+			} else {
+				return false;
+			}
+		});
+		
+		$('.comment_modify').on('click', function() {
+			var addAttr = 'tr[cseq=' + $(this).attr('cseq') + ']';
+			$(addAttr).attr('style', 'display:none');
+			
+			/* alert('modify' + addAttr);
+			$.ajax({
+				url : './com_board_comment_modify.mysql',
+				data : {
+					cseq : $(this).attr('cseq')
+				},
+				type : 'get',
+				dataType : 'text',
+				success : function(data) {
+					$(addAttr).attr('style', 'display:none');
+					
+				},
+				error : function(error) {
+					alert('수정에 실패하였습니다.');
+				}
+			}); */
+		});
+	});
 </script>
 
 </head>
@@ -122,15 +153,27 @@
 
 	<!--================Blog Area =================-->
 	<section class="blog_area single-post-area">
-		<!-- class=section-padding 패딩필요없을거같아서뺐음 -->
 		<div class="container">
 
 			<div class="row">
 				<div class="col-lg-12">
 					<div>
 						<div>
-							<h2 class="mb-30"><%=subject%></h2>
-
+							<div class="row">
+								<div class="col-8">
+									<h2 class="mb-30"><%=subject%></h2>
+								</div>
+								<div align="right">
+									<a href="./com_board_write.mysql?pseq=<%=pseq%>">
+										<button type="button" style="background-color: #2B4B80"
+											class="btn pt-20 pb-20 pl-30 pr-30" disabled>글 쓰기</button>
+									</a> <a
+										href="./com_board_list.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>">
+										<button type="button" style="background-color: #2B4B80"
+											class="btn pt-20 pb-20 pl-30 pr-30" disabled>목록</button>
+									</a>
+								</div>
+							</div>
 							<ul class="blog-info-link">
 								<li><i class="fa fa-user"></i> <%=writer%></li>
 								<li><i class="fa fa-comments"></i> <%=cmt%> Comments</li>
@@ -148,7 +191,8 @@
 								if (!filename_new.equals("")) {
 							%>
 							<div class="mb-30 mt-30">
-								<img class="img-fluid" src="<%=filename_new%>" alt="">
+								<img class="img-fluid" src="<%=filename_new%>" alt=""
+									width='50%' onerror='' />
 							</div>
 							<%
 								}
@@ -193,9 +237,9 @@
 
 							<form class="form-contact comment_form"
 								action="./com_board_comment_ok.mysql" id="commentForm">
-								<input type="hidden" name="pseq" value="<%=pseq%>" />
-								<input type="hidden" name="cpage" value="<%=cpage%>" />
-								<input type="hidden" name="seq" value="<%=seq%>" />
+								<input type="hidden" name="pseq" value="<%=pseq%>" /> <input
+									type="hidden" name="cpage" value="<%=cpage%>" /> <input
+									type="hidden" name="seq" value="<%=seq%>" />
 								<div class="row">
 									<div class="col-12">
 										<div class="form-group">
@@ -204,13 +248,10 @@
 										</div>
 									</div>
 									<div class="col-12" align="right">
-										<input type="button" class="btn" id="reply"
-											style="background-color: #2B4B80" value="댓글등록">
-										<!-- <button type="button" style="background-color: #2B4B80"
-											class="btn" id="reply" disabled>댓글 쓰기</button> -->
+										<a id="reply"><button style="background-color: #2B4B80"
+												class="btn pt-20 pb-20 pl-30 pr-30" disabled>댓글등록</button></a>
 									</div>
 								</div>
-
 							</form>
 						</div>
 					</div>

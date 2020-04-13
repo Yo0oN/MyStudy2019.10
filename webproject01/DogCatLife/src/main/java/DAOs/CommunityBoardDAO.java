@@ -17,7 +17,7 @@ import TOs.BoardTO;
 
 public class CommunityBoardDAO {
 	private DataSource dataSource = null;
-	private String uploadPath = "D:\\MyFirstGit\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
+	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
 
 	public CommunityBoardDAO() {
 		try {
@@ -157,7 +157,6 @@ public class CommunityBoardDAO {
 			sql = "select pseq, seq, subject, mseq, writer, hit, cmt, date_format(wdate_ori, '%Y-%m-%d %H:%i') wdate_ori, date_format(wdate_mod, '%Y-%m-%d %H:%i') wdate_mod, hour(timediff(now(), wdate_ori)) wgap from board where pseq=? order by seq desc limit ?, ?";
 			pstmt = conn.prepareStatement(sql);
 
-			System.out.println(pseq + " " + skip + " " + recordPerPage);
 			pstmt.setInt(1, pseq);
 			pstmt.setInt(2, skip);
 			pstmt.setInt(3, recordPerPage);
@@ -432,7 +431,7 @@ public class CommunityBoardDAO {
 			if (result == 1) {
 				flag = 0;
 				if (!boardTO.getFilename_ori().equals("") && !oldfilename.equals("")) {
-					File file = new File(uploadPath + oldfilename);
+					File file = new File(uploadPath + "\\" + oldfilename);
 					file.delete();
 				}
 			}
@@ -479,7 +478,6 @@ public class CommunityBoardDAO {
 			pstmt.setString(1, boardTO.getSeq());
 
 			rs = pstmt.executeQuery();
-
 			if (rs.next()) {
 				boardTO.setFilename_new(rs.getString("filename_new"));
 
@@ -495,21 +493,65 @@ public class CommunityBoardDAO {
 				pstmt.setString(1, boardTO.getSeq());
 
 				int result = pstmt.executeUpdate();
-
-				// 삭제성공했으면 flag는 1, 아니면 0
+				
+				// 삭제성공했으면 flag는 0, 아니면 1
 				if (result == 1) {
-					flag = 1;
+					flag = 0;
 					if (boardTO.getFilename_new() != null || boardTO.getFilename_new().equals("")) {
 						// 만약 파일이 있다면 파일 삭제
-						File file = new File(uploadPath + boardTO.getFilename_new());
+						File file = new File(uploadPath + "\\" + boardTO.getFilename_new());
 						file.delete();
 					}
 				} else if (result == 0) {
-					flag = 0;
+					flag = 1;
 				}
 
 			} else if (!rs.next()) {
 				// 사진이름을 얻어오지못했다면 삭제불가능. 여기서 끝냄.
+				flag = 2;
+			}
+		} catch (SQLException e) {
+			System.out.println("error : " + e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+		}
+		return flag;
+	}
+	
+	public int boardCommentDeleteOk(BoardTO boardTO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int flag = 1;
+
+		try {
+			conn = dataSource.getConnection();
+
+			String sql = "delete from comment_board where cseq=?";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, boardTO.getCseq());
+
+			int result = pstmt.executeUpdate();
+			
+			if (result == 1) {
 				flag = 0;
 			}
 		} catch (SQLException e) {
