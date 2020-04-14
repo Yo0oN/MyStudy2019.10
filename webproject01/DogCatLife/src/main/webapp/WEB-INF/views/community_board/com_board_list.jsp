@@ -190,30 +190,17 @@
 									// 현재 페이지가 마지막 페이질경우에는 아무 작동을 하지 않지만,
 									// 마지막 페이지가 아닐경우에는 마지막 페이지로 가게 하는 기능을 준다.
 									if (totalPage <= endBlock) {
-										out.println("<li class='page-item'><a class='page-link' aria-label='Next'> <i class='ti-angle-right'></i> </a></li>");
+										out.println(
+												"<li class='page-item'><a class='page-link' aria-label='Next'> <i class='ti-angle-right'></i> </a></li>");
 									} else {
-										out.println("<li class='page-item'><a href='com_board_list.mysql?pseq=" + pseq + "&cpage=" + (startBlock + blockPerPage)
+										out.println("<li class='page-item'><a href='com_board_list.mysql?pseq=" + pseq + "&cpage="
+												+ (startBlock + blockPerPage)
 												+ "' class='page-link' aria-label='Next'> <i class='ti-angle-right'></i></a></li>");
 									}
 								%>
-
-
-
 							</ul>
 						</nav>
 					</div>
-
-
-
-
-
-
-
-
-
-
-
-
 				</div>
 			</div>
 		</div>

@@ -1,65 +1,70 @@
-<footer style="background-color: #414141">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 
 	<!-- Footer Start-->
-	<div class="footer-main">
-		<div class="footer-area footer-padding">
-			<div class="container">
-				<!-- <div class="row d-flex justify-content-between"> -->
-				<div>
-					<!-- <div class="col-lg-3 col-md-4 col-sm-8"> -->
-					<div>
-						<div class="single-footer-caption mb-30">
-							<div class="footer-tittle">
-								<h4 style="margin-bottom:20px">CONTEACT US</h4>
-								<!-- <div class="footer-pera"> -->
-								<p class="info1">10, Teheran-ro 1-gil, Gangnam-gu, Seoul,
-									Republic of Korea</p>
-								<p>helloWorld@dogcatlife.com</p>
-								<p>02) 123 - 4567</p>
-								<!-- </div> -->
-							</div>
-						</div>
-					</div>
-					<div>
-						<div class="single-footer-caption">
-							<div class="footer-tittle">
-								<h4 style="margin-bottom:20px">ABOUT US</h4>
-								<ul>
-									<li><a href="#">DogCatLife Cooperation</a></li>
-									<li><a href="#">dogcatlife.com</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- footer-bottom aera -->
-		<div class="footer-bottom-area footer-bg">
-			<div class="container">
-				<div class="footer-border">
-					<div class="row d-flex align-items-center">
-						<div class="col-xl-12 ">
-							<div class="footer-copy-right text-center">
-								<p>
-									<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-									Copyright &copy;
-									<script>
-										document
-												.write(new Date().getFullYear());
-									</script>
-									All rights reserved | This template is made with <i
-										class="ti-heart" aria-hidden="true"></i> by <a
-										href="https://colorlib.com" target="_blank">Colorlib</a>
-									<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Footer End-->
+	<footer id="footer" class="footer pb-0 pt-50"
+		style="background-color: white;">
+	<!-- <footer style="background-color: #414141"> -->
+	<!-- <footer id="footer" class="footer pb-0" data-bg-img="/resources/sitedesign/images/footer-bg.png" style="background-color: white;"> -->
+		<div class="container pb-20">
+			<div class="row multi-row-clearfix">
+				<div class="col-sm-6 col-md-3">
+					<div class="widget">
+						<img alt="" src="./resources/images/logomini.png">
 
-</footer>
+
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<div class="widget">
+						<h5 class="widget-title line-bottom">Pages</h5>
+						<ul class="list-border list theme-colored angle-double-right">
+							<li><a href="./main.mysql">Home</a></li>
+							<li><a href="./album_board_list.mysql">자랑하기</a></li>
+							<li><a href="./com_board_list.mysql?pseq=100">게시판</a></li>
+							<li><a href="./lost_board_list.mysql">실종동물찾기</a></li>
+							<li><a href="./hospital_map.mysql">위치찾기</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<div class="widget">
+						<h5 class="widget-title line-bottom">Quick Links</h5>
+						<ul class="list-border list theme-colored angle-double-right">
+							<li><a href="/user/fo/memberaddtype.sd">회원가입</a></li>
+							<li><a href="/help/fo/index.sd">고객센터</a></li>
+							<li><a href="/help/fo/noticelist.sd">공지사항</a></li>
+							<li><a href="/help/fo/faqlist.sd">FAQ</a></li>
+
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<div class="widget">
+						<h5 class="widget-title line-bottom">Quick Contact</h5>
+						<ul class="list list-border">
+							<li><a href="tel:010-0000-0000">010-0000-0000</a></li>
+							<li><a href="mailTo:admin@doccatlife.com">admin@doccatlife.com</a></li>
+							<li><a href="" class="lineheight-20">(0000) 서울 그 어딘가</a></li>
+							<li><a href="mailTo:admin@doccatlife.com"
+								class="lineheight-20">광고·제휴 문의</a></li>
+						</ul>
+						<!-- <p class="mb-5 mt-15">Subscribe to our newsletter</p>
+ 						<form id="mailchimp-subscription-form" class="newsletter-form mt-10"> -->
+						<!-- <div class="input-group"> 
+							<input type="email" value="" name="EMAIL" placeholder="Your Email" class="form-control" data-height="37px" id="mce-EMAIL">  
+							<span class="input-group-btn"> 
+								<button type="submit" class="btn btn-colored btn-theme-colored m-0"> <i class="fa fa-paper-plane-o text-white"></i></button> 
+ 							</span> 
+						</div> 
+ 					</form>  -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid bg-theme-colored p-20">
+			<div class="row text-center"></div>
+		</div>
+	</footer>
+	<!-- Footer End-->

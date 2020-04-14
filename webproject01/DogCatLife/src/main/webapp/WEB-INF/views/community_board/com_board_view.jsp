@@ -244,7 +244,7 @@
 									<div class="col-12">
 										<div class="form-group">
 											<textarea class="form-control w-100" name="comment"
-												id="comment" cols="30" rows="9" placeholder="댓글쓰기"></textarea>
+												id="comment" cols="25" rows="4" placeholder="댓글쓰기"></textarea>
 										</div>
 									</div>
 									<div class="col-12" align="right">

@@ -16,7 +16,7 @@
 						<ul id="navigation">
 							<li style="padding: 20px">커뮤니티
 								<ul class="submenu">
-									<li><a href="com_board_list.mysql?pseq=11">게시판</a></li>
+									<li><a href="com_board_list.mysql?pseq=100">게시판</a></li>
 									<li><a href="album_board_list.mysql">자랑하기</a></li>
 								</ul>
 							</li>
@@ -45,8 +45,8 @@
 
 							<li style="padding: 20px">위치찾기
 								<ul class="submenu">
-									<li><a href="#">병원</a></li>
-									<li><a href="#">미용호텔</a></li>
+									<li><a href="hospital_map.mysql">병원</a></li>
+									<li><a href="hotel_map.mysql">미용호텔</a></li>
 								</ul>
 							</li>
 
