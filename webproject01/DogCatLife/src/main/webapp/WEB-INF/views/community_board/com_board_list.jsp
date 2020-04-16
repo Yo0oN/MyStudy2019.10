@@ -83,6 +83,10 @@
 <link rel="stylesheet" href="./resources/assets/css/nice-select.css">
 <link rel="stylesheet" href="./resources/assets/css/style.css">
 <link rel="stylesheet" href="./resources/assets/css/responsive.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+</script>
 </head>
 
 <body>
@@ -99,8 +103,8 @@
 				<h2 class="col-9">커뮤니티 게시판</h2>
 				<div class="col-3" align="right">
 					<a href="./com_board_write.mysql?pseq=<%=pseq%>">
-						<button type="button" style="background-color: #2B4B80"
-							class="btn pt-20 pb-20 pl-30 pr-30" disabled>글 쓰기</button>
+					<span style="background-color: #2B4B80"
+						class="btn pt-20 pb-20 pl-30 pr-30" >글 쓰기</span>
 					</a>
 				</div>
 			</div>

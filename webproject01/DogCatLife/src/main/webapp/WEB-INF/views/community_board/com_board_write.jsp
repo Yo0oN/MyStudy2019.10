@@ -112,13 +112,13 @@
 				<div>&nbsp;</div>
 				<div align="right" >
 					<div class="col-8">&nbsp;</div>
-					<a id="back"><button
+					<span id="back"
 						style="background-color: white; color:black"
-						class="btn pt-20 pb-20 pl-30 pr-30" disabled>취소</button></a>
+						class="btn pt-20 pb-20 pl-30 pr-30">취소</span>
 					
-					<a id="submit"><button
+					<span id="submit"
 						style="background-color: #2B4B80"
-						class="btn pt-20 pb-20 pl-30 pr-30" disabled>글 작성</button></a>
+						class="btn pt-20 pb-20 pl-30 pr-30">글 작성</span>
 				</div>
 			</form>
 		</div>

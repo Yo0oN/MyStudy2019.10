@@ -47,16 +47,18 @@
 		sbHTML.append("</td>");
 		sbHTML.append("<td><a class='comment_modify' cseq='" + cseq
 				+ "' class='date ml-10' style='color:#635c5c;font-size:14px'>수정</a></td>");
-		sbHTML.append("<td style='color:#635c5c;font-size:14px'>&nbsp;&nbsp;|&nbsp;&nbsp;<a href='./com_board_comment_delete_ok.mysql?pseq=" + pseq + "&cpage=" + cpage
-				+ "&seq=" + seq + "&cseq=" + cseq + "' class='comment_delete' id='comment_delete_" + cseq
-				+ "' class='date ml-10' style='color:#635c5c;font-size:14px'>삭제</a></td>");
+		sbHTML.append(
+				"<td style='color:#635c5c;font-size:14px'>&nbsp;&nbsp;|&nbsp;&nbsp;<a href='./com_board_comment_delete_ok.mysql?pseq="
+						+ pseq + "&cpage=" + cpage + "&seq=" + seq + "&cseq=" + cseq
+						+ "' class='comment_delete' id='comment_delete_" + cseq
+						+ "' class='date ml-10' style='color:#635c5c;font-size:14px'>삭제</a></td>");
 		sbHTML.append("</tr>");
 
 		sbHTML.append("<tr style='' cseq='" + cseq + "'>");
-		sbHTML.append("<td cosapn=3>");
-		sbHTML.append("<p>" + comment + "</p>");
-		sbHTML.append("</tr>");
-		sbHTML.append("<tr><td colspan=3></td>");
+		sbHTML.append("<td colspan=4>");
+		sbHTML.append("" + comment + "");
+		sbHTML.append("</td>");
+		sbHTML.append("<tr><td colspan=4>&nbsp;</td>");
 		sbHTML.append("</tr>");
 	}
 %>
@@ -93,16 +95,15 @@
 <link rel="stylesheet" href="./resources/assets/css/responsive.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#delete').on('click', function() {
 			if (confirm('삭제하시겠습니까?')) {
 				location.href("./com_board_delete_ok.mysql?pseq=<%=pseq%>&seq=<%=seq%>");
 			} else {
-
 			}
 		});
+
 		$('#reply').on('click', function() {
 			if ($('#comment').val().trim() == "") {
 				alert('댓글을 입력해주세요.');
@@ -117,28 +118,31 @@
 				return false;
 			}
 		});
-		
-		$('.comment_modify').on('click', function() {
-			var addAttr = 'tr[cseq=' + $(this).attr('cseq') + ']';
-			$(addAttr).attr('style', 'display:none');
-			
-			/* alert('modify' + addAttr);
-			$.ajax({
-				url : './com_board_comment_modify.mysql',
-				data : {
-					cseq : $(this).attr('cseq')
-				},
-				type : 'get',
-				dataType : 'text',
-				success : function(data) {
+
+		$('.comment_modify').on(
+				'click',
+				function() {
+					var addAttr = 'tr[cseq='
+							+ $(this).attr('cseq') + ']';
 					$(addAttr).attr('style', 'display:none');
-					
-				},
-				error : function(error) {
-					alert('수정에 실패하였습니다.');
-				}
-			}); */
-		});
+
+					/* alert('modify' + addAttr);
+					$.ajax({
+						url : './com_board_comment_modify.mysql',
+						data : {
+							cseq : $(this).attr('cseq')
+						},
+						type : 'get',
+						dataType : 'text',
+						success : function(data) {
+							$(addAttr).attr('style', 'display:none');
+							
+						},
+						error : function(error) {
+							alert('수정에 실패하였습니다.');
+						}
+					}); */
+				});
 	});
 </script>
 
@@ -164,13 +168,13 @@
 									<h2 class="mb-30"><%=subject%></h2>
 								</div>
 								<div align="right">
-									<a href="./com_board_write.mysql?pseq=<%=pseq%>">
-										<button type="button" style="background-color: #2B4B80"
-											class="btn pt-20 pb-20 pl-30 pr-30" disabled>글 쓰기</button>
+									<a href="./com_board_write.mysql?pseq=<%=pseq%>"> <span
+										style="background-color: #2B4B80"
+										class="btn pt-20 pb-20 pl-30 pr-30">글 쓰기</span>
 									</a> <a
 										href="./com_board_list.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>">
-										<button type="button" style="background-color: #2B4B80"
-											class="btn pt-20 pb-20 pl-30 pr-30" disabled>목록</button>
+										<span style="background-color: #2B4B80"
+										class="btn pt-20 pb-20 pl-30 pr-30">목록</span>
 									</a>
 								</div>
 							</div>
@@ -211,30 +215,14 @@
 						<h4><%=cmt%>
 							Comments
 						</h4>
-						<div class="comment-list">
+						<div class="comment-list" style="padding-bottom: 0px;">
 							<table>
 								<%=sbHTML%>
 							</table>
-							<!-- <div class="single-comment justify-content-between d-flex"
-								style="border-bottom: 1px solid #ECEFF8">
-								<div class="user justify-content-between d-flex">
-									<div class="desc">
-										<div class="d-flex justify-content-between">
-											<div class="d-flex align-items-center">
-												<h5>댓글작성자</h5>
-												<p class="date">December 4, 2017 at 3:12 pm</p>
-											</div>
-										</div>
-										<p>댓글댓글</p>
-									</div>
-								</div>
-							</div> -->
 						</div>
 
 						<!-- 댓글쓰기 -->
 						<div class="comment-form">
-							<!-- <h4>댓글쓰기</h4> -->
-
 							<form class="form-contact comment_form"
 								action="./com_board_comment_ok.mysql" id="commentForm">
 								<input type="hidden" name="pseq" value="<%=pseq%>" /> <input
@@ -248,8 +236,8 @@
 										</div>
 									</div>
 									<div class="col-12" align="right">
-										<a id="reply"><button style="background-color: #2B4B80"
-												class="btn pt-20 pb-20 pl-30 pr-30" disabled>댓글등록</button></a>
+										<span id="reply" style="background-color: #2B4B80"
+											class="btn pt-20 pb-20 pl-30 pr-30" >댓글등록</span>
 									</div>
 								</div>
 							</form>

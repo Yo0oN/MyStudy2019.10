@@ -119,11 +119,10 @@
 					<div class="col-11"><%=filename_ori%></div>
 				</div>
 				<div align="right">
-					<a id="back"><button
-							style="background-color: white; color: black"
-							class="btn pt-20 pb-20 pl-30 pr-30" disabled>취소</button></a> <a
-						id="submit"><button style="background-color: #2B4B80"
-							class="btn pt-20 pb-20 pl-30 pr-30" disabled>수정</button></a>
+					<span id="back" style="background-color: white; color: black"
+							class="btn pt-20 pb-20 pl-30 pr-30" >취소</span>
+					<span id="submit" style="background-color: #2B4B80"
+							class="btn pt-20 pb-20 pl-30 pr-30" >수정</span>
 				</div>
 			</form>
 

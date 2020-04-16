@@ -23,7 +23,7 @@ import TOs.BoardTO;
  */
 @Controller
 public class Com_Board_Controller {
-	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
+	private String uploadPath = "D:\\MyFirstGit\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
 
 	@RequestMapping("/com_board_list.mysql")
 	public ModelAndView com_board_list(HttpServletRequest request) {

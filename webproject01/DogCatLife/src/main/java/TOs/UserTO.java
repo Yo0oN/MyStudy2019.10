@@ -9,7 +9,21 @@ public class UserTO {
 	private String phone;
 	private String email;
 	private String joindate;
+	private String confirmnumber;
+	private String confirm;
 	
+	public String getConfirmnumber() {
+		return confirmnumber;
+	}
+	public void setConfirmnumber(String confirmnumber) {
+		this.confirmnumber = confirmnumber;
+	}
+	public String getConfirm() {
+		return confirm;
+	}
+	public void setConfirm(String confirm) {
+		this.confirm = confirm;
+	}
 	public String getMseq() {
 		return mseq;
 	}
