@@ -65,9 +65,9 @@ public class MailSender {
 
 			mailFlag = 0;
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			System.out.println("[MailSender 에러1] : " + e.getMessage());
 		} catch (MessagingException e) {
-			e.printStackTrace();
+			System.out.println("[MailSender 에러2] : " + e.getMessage());
 		}
 		flag_confirmNumber[0] = mailFlag + "";
 		flag_confirmNumber[1] = confirmNumber;

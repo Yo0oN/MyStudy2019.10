@@ -1,4 +1,4 @@
-package DAOs;
+﻿package DAOs;
 
 import java.io.File;
 import java.sql.Connection;
@@ -17,7 +17,7 @@ import TOs.BoardTO;
 
 public class CommunityBoardDAO {
 	private DataSource dataSource = null;
-	private String uploadPath = "D:\\MyFirstGit\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
+	private String uploadPath = "../resources/upload";
 
 	public CommunityBoardDAO() {
 		try {
@@ -83,7 +83,7 @@ public class CommunityBoardDAO {
 
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, boardTO.getPesq());
+			pstmt.setString(1, boardTO.getPseq());
 			pstmt.setString(2, boardTO.getSubject());
 			pstmt.setString(3, "1");
 //			pstmt.setString(3, boardTO.getMseq());
@@ -166,7 +166,7 @@ public class CommunityBoardDAO {
 				BoardTO boardTO = new BoardTO();
 
 				boardTO.setSeq(rs.getString("seq"));
-				boardTO.setPesq(rs.getString("pseq"));
+				boardTO.setPseq(rs.getString("pseq"));
 				boardTO.setSubject(rs.getString("subject"));
 				boardTO.setMseq(rs.getString("mseq"));
 				boardTO.setWriter(rs.getString("writer"));

@@ -115,14 +115,6 @@ public class BoardTO {
 		this.wgap = wgap;
 	}
 
-	public String getPesq() {
-		return pseq;
-	}
-
-	public void setPesq(String pesq) {
-		this.pseq = pesq;
-	}
-
 	public String getSeq() {
 		return seq;
 	}

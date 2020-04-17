@@ -5,7 +5,7 @@ public class CommentTO {
 	private String seq;
 	private String cseq;
 	private String mseq;
-	private String writer;
+	private String cwriter;
 	private String content;
 	private String wdate_ori;
 	private String wdate_mod;
@@ -28,11 +28,11 @@ public class CommentTO {
 	public void setMseq(String mseq) {
 		this.mseq = mseq;
 	}
-	public String getWriter() {
-		return writer;
+	public String getCwriter() {
+		return cwriter;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setCwriter(String writer) {
+		this.cwriter = writer;
 	}
 	public String getContent() {
 		return content;

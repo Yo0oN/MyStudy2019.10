@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	BoardTO boardTO = (BoardTO) request.getAttribute("boardTO");
-	String pseq = boardTO.getPesq();
+	String pseq = boardTO.getPseq();
 %>
 <!doctype html>
 <html class="no-js" lang="zxx">
