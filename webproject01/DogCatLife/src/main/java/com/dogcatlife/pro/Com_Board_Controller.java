@@ -23,7 +23,7 @@ import TOs.BoardTO;
  */
 @Controller
 public class Com_Board_Controller {
-	private String uploadPath = "../resources/upload";
+	private String uploadPath = "D:\\MyFirstGit\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
 
 	@RequestMapping("/com_board_list.mysql")
 	public ModelAndView com_board_list(HttpServletRequest request) {
@@ -71,6 +71,7 @@ public class Com_Board_Controller {
 	public ModelAndView board_reply_ok(BoardTO boardTO) {
 		System.out.println("com_board_comment_ok 컨트롤러 호출");
 
+		System.out.println(boardTO.getComment());
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("community_board/com_board_comment_ok");
 
@@ -152,20 +153,18 @@ public class Com_Board_Controller {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("community_board/com_board_write");
 
-		BoardTO boardTO = new BoardTO();
-
 		/*
+		 * BoardTO boardTO = new BoardTO();
+		 * 
 		 * HttpSession session = request.getSession(); boardTO.setMseq((String)
-		 * session.getAttribute("mseq"));
+		 * session.getAttribute("sess_mseq"));
+		 * 
+		 * CommunityBoardDAO communityBoardDOA = new CommunityBoardDAO(); boardTO =
+		 * communityBoardDOA.boardWrite(boardTO);
 		 */
-		boardTO.setMseq("1");
 
-		CommunityBoardDAO communityBoardDOA = new CommunityBoardDAO();
-		boardTO = communityBoardDOA.boardWrite(boardTO);
-		
-		boardTO.setPseq(request.getParameter("pseq"));
-
-		modelAndView.addObject("boardTO", boardTO);
+		 modelAndView.addObject("pseq", request.getParameter("pseq"));
+		 
 		return modelAndView;
 	}
 
@@ -185,8 +184,6 @@ public class Com_Board_Controller {
 			MultipartRequest multi = new MultipartRequest(request, path, filesize, utf8,
 					new DefaultFileRenamePolicy());
 
-			System.out.println(multi.getParameter("writer"));
-			
 			if (multi.getFile("upload") != null) {
 				boardTO.setFilename_ori(multi.getOriginalFileName("upload"));
 				boardTO.setFilename_new(multi.getFilesystemName("upload"));
@@ -199,6 +196,7 @@ public class Com_Board_Controller {
 			boardTO.setWriter(multi.getParameter("writer"));
 			boardTO.setContent(multi.getParameter("content"));
 			boardTO.setPseq(multi.getParameter("pseq"));
+			boardTO.setMseq(multi.getParameter("mseq"));
 			CommunityBoardDAO communityBoardDAO = new CommunityBoardDAO();
 
 			int flag = communityBoardDAO.boardWriteOk(boardTO);

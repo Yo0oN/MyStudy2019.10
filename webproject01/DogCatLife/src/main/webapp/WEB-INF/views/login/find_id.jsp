@@ -1,133 +1,365 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!doctype html>
-<html class="no-js" lang="zxx">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
+
 <meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>SEO HTML-5 Template</title>
-<meta name="description" content="">
+<meta name="author" content="soledot">
+<meta name="description" content="애완동물을 위한, DogCatLife 입니다.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="ALL">
 
-<link rel="manifest" href="site.webmanifest">
-<link rel="shortcut icon" type="image/x-icon"
-	href="assets/img/favicon.ico">
+<meta property="og:title" content="DogCatLife">
+<meta property="og:description" content="애완동물을 위한, DogCatLife 입니다.">
+<meta property="og:image" content="resources/images/logo.png">
+<!-- <meta property="og:url" content="http://medisvc.com/home/fo/index.sd"> -->
+<meta property="og:type" content="website">
 
-<!-- CSS here -->
-<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="./assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="./assets/css/flaticon.css">
-<link rel="stylesheet" href="./assets/css/slicknav.css">
-<link rel="stylesheet" href="./assets/css/animate.min.css">
-<link rel="stylesheet" href="./assets/css/magnific-popup.css">
-<link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
-<link rel="stylesheet" href="./assets/css/themify-icons.css">
-<link rel="stylesheet" href="./assets/css/slick.css">
-<link rel="stylesheet" href="./assets/css/nice-select.css">
-<link rel="stylesheet" href="./assets/css/style.css">
+<title>DogCatLife</title>
+
+<!-- commoncss -->
+
+<!-- Favicon and Touch Icons -->
+<link href="resources/sitedesign/images/favicon.png" rel="shortcut icon"
+	type="image/png">
+<link href="resources/sitedesign/images/apple-touch-icon.png"
+	rel="apple-touch-icon">
+<link href="resources/sitedesign/images/apple-touch-icon-72x72.png"
+	rel="apple-touch-icon" sizes="72x72">
+<link href="resources/sitedesign/images/apple-touch-icon-114x114.png"
+	rel="apple-touch-icon" sizes="114x114">
+<link href="resources/sitedesign/images/apple-touch-icon-144x144.png"
+	rel="apple-touch-icon" sizes="144x144">
+
+<!-- Stylesheet -->
+<link href="resources/sitedesign/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/jquery-ui.min.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/animate.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/css-plugin-collections.css"
+	rel="stylesheet" />
+<!-- CSS | menuzord megamenu skins -->
+
+<link id="menuzord-menu-skins"
+	href="resources/sitedesign/css/menuzord-skins/menuzord-subcolored.css"
+	rel="stylesheet" />
+
+<!-- CSS | Main style file -->
+<link href="resources/sitedesign/css/style-main.css" rel="stylesheet"
+	type="text/css">
+<!-- CSS | Preloader Styles -->
+
+<!-- CSS | Custom Margin Padding Collection -->
+<link
+	href="resources/sitedesign/css/custom-bootstrap-margin-padding.css"
+	rel="stylesheet" type="text/css">
+<!-- CSS | Responsive media queries -->
+<link href="resources/sitedesign/css/responsive.css" rel="stylesheet"
+	type="text/css">
+
+<!-- CSS | Theme Color -->
+<link href="resources/sitedesign/css/colors/theme-skin-blue.css"
+	rel="stylesheet" type="text/css">
+
+<link href="resources/soledot/css/fo/soledot.css" rel="stylesheet"
+	type="text/css">
+
+<!-- commonheaderjs -->
+
+<!-- external javascripts -->
+<script src="resources/sitedesign/js/jquery-2.2.0.min.js"></script>
+<script src="resources/sitedesign/js/jquery-ui.min.js"></script>
+<script src="resources/sitedesign/js/bootstrap.min.js"></script>
+<!-- JS | jquery plugin collection for this theme -->
+<script src="resources/sitedesign/js/jquery-plugin-collection.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	// 이름 형식 확인
+	var nameBoolean = false;
+	// 이메일 형식 확인
+	var emailBoolean = false;
+	// 실제 있는 이름 + 메일인지 확인
+	var name_email_Boolean = false;
+	// 메일 전송 확인
+	var sendmailBoolean = false;
+	// 인증번호 확인
+	var confirmnumberBoolean = false;
+	
+	$(document).ready(function() {
+		// 이름 형식 확인
+		$('#name').focus().on('keyup', function() {
+			nameCheck();
+		});
+		// 이메일 형식 확인
+		$('#email').focus().on('keyup', function() {
+			emailCheck();
+		});
+		// 이름 + 메일 확인한 후 이메일 보내기
+		$('#confirmbtn').on('click', function() {
+			find_name_email();
+		});
+		// 인증 번호 확인
+		$('#confirmbtn2').on('click', function() {
+			confirmNumber();
+		});
+		
+		
+		$('#submit').on('click', function() {
+			if (nameBoolean == false || emailBoolean == false || name_email_Boolean == false || sendmailBoolean == false) {
+				alert('메일을 인증해주세요.');
+				return false;
+			}
+			$('#frm').submit();
+		});
+	});
+	// 이름 형식 확인
+	function nameCheck() {
+		var check = $('#name').val().trim();
+		var languageCheck = /^[가-힣]{2,20}$/g;
+
+		if (!languageCheck.test(check)) {
+			$('#namefocus').html('<p style="color:red">2~20 길이의 한글만 입력해주세요.</p>');
+			nameBoolean = false;
+			name_email_Boolean = false;
+			return;
+		} else {
+			$('#namefocus').html('');
+			nameBoolean = true;
+			return;
+		}
+	}
+	// 이메일 형식 확인
+	function emailCheck() {
+		var check = $('#email').val().trim();
+		var languageCheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		
+		if (languageCheck.test(check)) {
+			$('#emailfocus').html('<p style="color:blue"></p>');
+			emailBoolean = true;
+			return;
+		} else {
+			$('#emailfocus').html('<p style="color:red">이메일을 확인해주세요.</p>');
+			emailBoolean = false;
+			name_email_Boolean = false;
+			return;
+		}
+	}
+	// 실제 있는 이름 + 메일인지 확인하기
+	function find_name_email () {
+		var username = $('#name').val().trim();
+		var useremail = $('#email').val().trim();
+		if (emailBoolean == false) {
+			alert('이메일을 다시 적어주세요.');
+			return false;
+		}
+		if (nameBoolean == false) {
+			alert('이름을 다시 적어주세요.');
+			return false;
+		}
+		$.ajax({
+			url : 'find_id_name_email_confirm.mysql',
+			data : {
+				useremail : useremail,
+				username : username
+			},
+			type : 'post',
+			success : function(data) {
+				if (data == 0) {
+					name_email_Boolean = true;
+					sendmail();
+				} else {
+					alert('가입되어있지 않은 회원입니다. 다시 확인해주세요.');
+					name_email_Boolean = false;
+				}
+			},
+			error : function(error) {
+				alert('인증메일 발송에 실패하였습니다. 다시 시도해주세요.');
+			}
+		})
+	}
+	// 인증번호 보내기
+	function sendmail() {
+		var useremail = $('#email').val().trim();
+		$.ajax({
+			url : 'find_id_mail_confirm.mysql',
+			data : {
+				useremail : useremail
+			},
+			type : 'post',
+			success : function(data) {
+				if (data.length >= 6) {
+					alert('인증메일을 전송하였습니다. 확인해주세요.');
+					$('#confirmbtn2').attr('num', data);
+					sendmailBoolean = true;
+				} else {
+					if (data == "1") {
+						alert('인증메일 전송에 실패하였습니다.');
+						sendmailBoolean = false;
+					} else if (data == "2"){
+						sendmailBoolean = false;
+					} else {
+						alert('인증메일 전송에 실패하였습니다.');
+						sendmailBoolean = false;
+					}
+				}
+			},
+			error : function(error) {
+				alert('인증메일 발송에 실패하였습니다. 다시 시도해주세요.');
+			}
+		})
+	}
+	// 인증번호 확인하기
+	function confirmNumber() {
+		if (sendmailBoolean == false) {
+			alert('인증메일을 먼저 발송해주세요!');
+			return false;
+		}
+		var confirmnumber = $('#confirm').val().trim();
+		var realnumber = $('#confirmbtn2').attr('num').trim();
+		if (confirmnumber == realnumber) {
+			alert('인증 되었습니다.');
+			$('#confirmfocus').html('<p style="color:blue">인증 완료</p>')
+			confirmnumberBoolean = true;
+		} else {
+			alert('인증번호를 다시 확인해주세요.');
+			confirmnumberBoolean = false;
+		}
+	}
+</script>
 </head>
 
-<body>
+<body
+	class="has-side-panel side-panel-right fullwidth-page side-push-panel">
 
-	<!-- Preloader Start -->
-	<!-- 페이지 시작할때 애니메이션 -->
-	<!-- <div id="preloader-active">
-		<div
-			class="preloader d-flex align-items-center justify-content-center">
-			<div class="preloader-inner position-relative">
-				<div class="preloader-circle"></div>
-				<div class="preloader-img pere-text">
-					<img src="./images/logo.png" alt="">
+	<div class="body-overlay"></div>
+	<div id="wrapper" class="clearfix">
+		<!-- Header -->
+		<jsp:include page="../login_menu.jsp"></jsp:include>
+
+		<!-- Start main-content -->
+		<div class="main-content">
+			<!-- Section: inner-header -->
+			<section class="inner-header divider layer-overlay overlay-light"
+				style="background-image: url('resources/images/dogcat_board_main.jpg');"
+				data-bg-img="resources/images/dogcat_board_main.jpg">
+				<div class="container pt-90 pb-50">
+					<!-- Section Content -->
+					<div class="section-content">
+						<div class="row">
+							<div class="col-md-12 xs-text-center">
+								<h3 class="text-theme-colored font-36">로그인</h3>
+								<ol class="breadcrumb white mt-10">
+									<li><a href="main.mysql">Home</a></li>
+									<li class="active text-theme-colored">아이디 찾기</li>
+								</ol>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- Preloader Start -->
+			</section>
 
-	<jsp:include page='../beforeLogin.jsp' />
-	<jsp:include page='../menu_logo_form.jsp' />
-
-	<hr>
-
-	<section class="blog_area single-post-area mb-30">
-		<div class="container">
-
-			<div class="row">
-				<div class="col-lg-12">
-					<h3>아이디찾기</h3>
-				</div>
-			</div>
-			<div class="row">
-				<form action="#">
+			<section>
+				<div class="container">
 					<div class="row">
-						<div class="mt-10 col-12">
-							<input type="text" name="name" placeholder="이름"
-								onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'"
-								required class="single-input-primary">
+						<div class="icon-box mb-0 p-0">
+							<h4 class="text-gray pt-10 mt-0 mb-30">아이디 찾기</h4>
 						</div>
-						<div class="mt-10 col-12">
-							<input type="text" name="email" placeholder="이메일"
-								onfocus="this.placeholder = ''"
-								onblur="this.placeholder = '이메일'" required
-								class="single-input-primary">
+						<hr>
+						<div class="col-sm-3"></div>
+						<div class="col-sm-6"> <!-- col-md-push-3 -->
+							
+							<form id="frm" name="frm" class="register-form" method="post" action="find_id_show.mysql">
+								
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="name">이름</label>
+										<input id="name" name="name" class="form-control"
+											type="text" placeholder="예) 홍길동">
+										<div id="namefocus"></div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="email">이메일</label>
+										<input id="email"
+											name="email" class="form-control" type="email"
+											placeholder="예) email@dogcatlife.com">
+										<div class="col-12" id="emailfocus"></div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label class="sr-only">인증메일발송</label>
+										<button id="confirmbtn"
+											class="btn btn-theme-colored btn-flat btn-lg btn-block"
+											type="button">인증메일발송</button>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label class="sr-only">인증번호입력</label>
+										<input id="confirm" name="confirm" class="form-control"
+											type="text" placeholder="인증번호입력">
+										<div id="confirmfocus"></div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label class="sr-only">인증번호 확인</label>
+										<button id="confirmbtn2"
+											class="btn btn-theme-colored btn-flat btn-lg btn-block"
+											type="button">인증번호 확인</button>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<button id="submit" class="btn btn-dark btn-flat btn-lg btn-block mt-15"
+										type="submit">아이디 찾기</button>
+								</div>
+								
+							</form>
+							
 						</div>
-						<div class="mt-10 col-12">
-							<input type="text" name="phone" placeholder="전화번호"
-								onfocus="this.placeholder = ''"
-								onblur="this.placeholder = '전화번호'" required
-								class="single-input-primary">
-						</div>
+						<div class="col-sm-3"></div>
 					</div>
-					<div class="col-12 mt-30" align="right">
-						<button type="button" style="min-width: 100px"
-							class="btn bg-dark" disabled>찾기</button>
-					</div>
-				</form>
-			</div>
+				</div>
+			</section>
 
 		</div>
-	</section>
+		<!-- end main-content -->
+	</div>
+	<!-- end wrapper -->
+	<!-- footer content -->
+	<jsp:include page="../footer.jsp"></jsp:include>
 
 
+	<!-- JS | Custom script for all pages -->
+	<script src="resources/sitedesign/js/custom.js"></script>
 
-	<jsp:include page='../footer.jsp' />
+	<!-- notify -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"></script>
 
-	<!-- JS here -->
+	<!-- jquery-cookie-->
+	<script src="resources/common/js/jquery-cookie/jquery.cookie.js"></script>
 
-	<!-- All JS Custom Plugins Link Here here -->
-	<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
-	<!-- Jquery, Popper, Bootstrap -->
-	<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-	<script src="./assets/js/popper.min.js"></script>
-	<script src="./assets/js/bootstrap.min.js"></script>
-	<!-- Jquery Mobile Menu -->
-	<script src="./assets/js/jquery.slicknav.min.js"></script>
+	<!-- soledot -->
+	<script src="resources/soledot/js/fo/soledot.js"></script>
 
-	<!-- Jquery Slick , Owl-Carousel Plugins -->
-	<script src="./assets/js/owl.carousel.min.js"></script>
-	<script src="./assets/js/slick.min.js"></script>
-	<!-- Date Picker -->
-	<script src="./assets/js/gijgo.min.js"></script>
-	<!-- One Page, Animated-HeadLin -->
-	<script src="./assets/js/wow.min.js"></script>
-	<script src="./assets/js/animated.headline.js"></script>
-	<script src="./assets/js/jquery.magnific-popup.js"></script>
-
-	<!-- Scrollup, nice-select, sticky -->
-	<script src="./assets/js/jquery.scrollUp.min.js"></script>
-	<script src="./assets/js/jquery.nice-select.min.js"></script>
-	<script src="./assets/js/jquery.sticky.js"></script>
-
-	<!-- contact js -->
-	<script src="./assets/js/contact.js"></script>
-	<script src="./assets/js/jquery.form.js"></script>
-	<script src="./assets/js/jquery.validate.min.js"></script>
-	<script src="./assets/js/mail-script.js"></script>
-	<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-
-	<!-- Jquery Plugins, main Jquery -->
-	<script src="./assets/js/plugins.js"></script>
-	<script src="./assets/js/main.js"></script>
+	<script src="resources/common/js/jquery-validation/jquery.validate.js"></script>
+	<script
+		src="resources/common/js/jquery-validation/additional-methods.js"></script>
+	<script
+		src="resources/common/js/jquery-validation/localization/messages_ko.js"></script>
 
 </body>
 </html>

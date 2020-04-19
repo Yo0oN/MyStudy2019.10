@@ -28,7 +28,38 @@ public class LoginDAO {
 			System.out.println("[에러] : " + e.getMessage());
 		}
 	}
+
+	public UserTO loginOk(UserTO userTO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		userTO.setFlag("1");
+		try {
+			conn = dataSource.getConnection();
+			
+			String sql = "select mseq, nickname from user where id=? and password=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userTO.getId());
+			pstmt.setString(2, userTO.getPassword());
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				userTO.setMseq(rs.getString("mseq"));
+				userTO.setNickname(rs.getString("nickname"));
+				userTO.setFlag("0");
+			}
+		} catch(SQLException e) {
+			System.out.println("[에러] : " + e.getMessage());
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+			if(rs != null) try { rs.close(); } catch(SQLException e) {}
+		}
 	
+		return userTO;
+	}
+
 	public int joinUsedMail(String useremail) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -52,35 +83,13 @@ public class LoginDAO {
 		} finally {
 			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
 			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+			if(rs != null) try { rs.close(); } catch(SQLException e) {}
 		}
 	
-		System.out.println(flag);
 		return flag;
 	}
 	
-	/*
-	 * public String LoginMailConfirm(String useremail) { Connection conn = null;
-	 * PreparedStatement pstmt = null; ResultSet rs = null;
-	 * 
-	 * String flag = 3 + ""; try { conn = dataSource.getConnection();
-	 * 
-	 * String sql = "select email from user where email=?"; pstmt =
-	 * conn.prepareStatement(sql); pstmt.setString(1, useremail); rs =
-	 * pstmt.executeQuery();
-	 * 
-	 * // 중복되는 메일이 없다면 인증번호 전송 if (!rs.next()) { MailSender mailSender = new
-	 * MailSender(); String[] flag_confirmNumber = mailSender.sendMail(useremail);
-	 * 
-	 * // 메일이 성공적으로 보내졌다면 flag == 인증번호 아니라면 1,2,3중 하나가 간다. if (flag_confirmNumber[0]
-	 * == "0" || flag_confirmNumber[0].equals("0")) { flag
-	 * =flag_confirmNumber[1].trim(); } else { flag = "1"; } } else { flag = "2"; }
-	 * } catch(SQLException e) { System.out.println("[에러1] : " + e.getMessage()); }
-	 * finally { if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
-	 * if(conn != null) try { conn.close(); } catch(SQLException e) {} }
-	 * 
-	 * System.out.println(flag); return flag; }
-	 */
-	public int LoginIDConfirm(String userid) {
+	public int joinIDConfirm(String userid) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -105,27 +114,25 @@ public class LoginDAO {
 			if(conn != null) try { conn.close(); } catch(SQLException e) {}
 		}
 	
-		System.out.println(flag);
 		return flag;
 	}
 
-	public int userJoinOk(UserTO to) {
+	public int joinOk(UserTO userTO) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		int flag = 1;
-		
 		try {
 			conn = dataSource.getConnection();
 			
 			String sql = "insert into user values (0,?,?,?,?,?,?,now())";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, to.getId());
-			pstmt.setString(2, to.getNickname());
-			pstmt.setString(3, to.getPassword());
-			pstmt.setString(4, to.getName());
-			pstmt.setString(5, to.getPhone());
-			pstmt.setString(6, to.getEmail());
+			pstmt.setString(1, userTO.getId());
+			pstmt.setString(2, userTO.getNickname());
+			pstmt.setString(3, userTO.getPassword());
+			pstmt.setString(4, userTO.getName());
+			pstmt.setString(5, userTO.getPhone());
+			pstmt.setString(6, userTO.getEmail());
 			
 			
 			int result = pstmt.executeUpdate();
@@ -140,5 +147,62 @@ public class LoginDAO {
 		}
 	
 		return flag;
+	}
+
+	public int find_id_name_email_confirm(String username, String useremail) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int flag = 1;
+		try {
+			conn = dataSource.getConnection();
+			
+			String sql = "select mseq from user where name=? and email=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, useremail);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				flag = 0;
+			}
+		} catch(SQLException e) {
+			System.out.println("[에러] : " + e.getMessage());
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+			if(rs != null) try { rs.close(); } catch(SQLException e) {}
+		}
+	
+		return flag;
+	}
+	
+	public String find_id_show(UserTO userTO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = dataSource.getConnection();
+			
+			String sql = "select id from user where name=? and email=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userTO.getName());
+			pstmt.setString(2, userTO.getEmail());
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				userTO.setId(rs.getString("id"));
+			}
+		} catch(SQLException e) {
+			System.out.println("[에러] : " + e.getMessage());
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+			if(rs != null) try { rs.close(); } catch(SQLException e) {}
+		}
+	
+		return userTO.getId();
 	}
 }

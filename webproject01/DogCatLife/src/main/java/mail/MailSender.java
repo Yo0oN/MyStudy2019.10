@@ -16,14 +16,8 @@ public class MailSender {
 	private String fromMail = "mailtest9520@gmail.com";
 	// password는 나의 구글 이메일에 대한 비밀번호
 	private String password = "helloMailTest*";
-	// 인증번호6자리
-	private String confirmNumber = "";
-	// 문구
-	private String mailContent = "";
 
-	public String[] sendMail(String toMail) {
-		String[] flag_confirmNumber = new String[2];
-
+	public int sendMail(String toMail, String mailContent) {
 		int mailFlag = 1;
 		try {
 			// 메일을 보낼 환경변수 설정
@@ -48,9 +42,6 @@ public class MailSender {
 			// 제목
 			msg.setSubject("Dog Cat Life 가입 인증메일입니다.");
 
-			// 인증번호 설정
-			confirmNumber();
-			mailContent = "<html><head><body>인증번호는 '" + confirmNumber + "' 입니다.</body></head></html>";
 			
 			// 내용
 			msg.setContent(mailContent, "text/html;charset=utf-8");
@@ -69,16 +60,9 @@ public class MailSender {
 		} catch (MessagingException e) {
 			System.out.println("[MailSender 에러2] : " + e.getMessage());
 		}
-		flag_confirmNumber[0] = mailFlag + "";
-		flag_confirmNumber[1] = confirmNumber;
 		
-		return flag_confirmNumber;
+		return mailFlag;
 	}
 
-	public void confirmNumber() {
-		Random random = new Random();
-		for (int i = 0; i < 6; i++) {
-			confirmNumber += random.nextInt(10);
-		}
-	}
+	
 }

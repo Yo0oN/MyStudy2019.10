@@ -1,31 +1,80 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!doctype html>
-<html class="no-js" lang="zxx">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
+
 <meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>SEO HTML-5 Template</title>
-<meta name="description" content="">
+<meta name="author" content="soledot">
+<meta name="description" content="애완동물을 위한, DogCatLife 입니다.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="ALL">
 
-<link rel="manifest" href="site.webmanifest">
-<link rel="shortcut icon" type="image/x-icon"
-	href="resources/assets/img/favicon.ico">
+<meta property="og:title" content="DogCatLife">
+<meta property="og:description" content="애완동물을 위한, DogCatLife 입니다.">
+<meta property="og:image" content="resources/images/logo.png">
+<!-- <meta property="og:url" content="http://medisvc.com/home/fo/index.sd"> -->
+<meta property="og:type" content="website">
 
-<!-- CSS here -->
-<link rel="stylesheet" href="resources/assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="resources/assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="resources/assets/css/flaticon.css">
-<link rel="stylesheet" href="resources/assets/css/slicknav.css">
-<link rel="stylesheet" href="resources/assets/css/animate.min.css">
-<link rel="stylesheet" href="resources/assets/css/magnific-popup.css">
-<link rel="stylesheet"
-	href="resources/assets/css/fontawesome-all.min.css">
-<link rel="stylesheet" href="resources/assets/css/themify-icons.css">
-<link rel="stylesheet" href="resources/assets/css/slick.css">
-<link rel="stylesheet" href="resources/assets/css/nice-select.css">
-<link rel="stylesheet" href="resources/assets/css/style.css">
+<title>DogCatLife</title>
+
+<!-- commoncss -->
+
+<!-- Favicon and Touch Icons -->
+<link href="resources/sitedesign/images/favicon.png" rel="shortcut icon"
+	type="image/png">
+<link href="resources/sitedesign/images/apple-touch-icon.png"
+	rel="apple-touch-icon">
+<link href="resources/sitedesign/images/apple-touch-icon-72x72.png"
+	rel="apple-touch-icon" sizes="72x72">
+<link href="resources/sitedesign/images/apple-touch-icon-114x114.png"
+	rel="apple-touch-icon" sizes="114x114">
+<link href="resources/sitedesign/images/apple-touch-icon-144x144.png"
+	rel="apple-touch-icon" sizes="144x144">
+
+<!-- Stylesheet -->
+<link href="resources/sitedesign/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/jquery-ui.min.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/animate.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/css-plugin-collections.css"
+	rel="stylesheet" />
+<!-- CSS | menuzord megamenu skins -->
+
+<link id="menuzord-menu-skins"
+	href="resources/sitedesign/css/menuzord-skins/menuzord-subcolored.css"
+	rel="stylesheet" />
+
+<!-- CSS | Main style file -->
+<link href="resources/sitedesign/css/style-main.css" rel="stylesheet"
+	type="text/css">
+<!-- CSS | Preloader Styles -->
+
+<!-- CSS | Custom Margin Padding Collection -->
+<link
+	href="resources/sitedesign/css/custom-bootstrap-margin-padding.css"
+	rel="stylesheet" type="text/css">
+<!-- CSS | Responsive media queries -->
+<link href="resources/sitedesign/css/responsive.css" rel="stylesheet"
+	type="text/css">
+
+<!-- CSS | Theme Color -->
+<link href="resources/sitedesign/css/colors/theme-skin-blue.css"
+	rel="stylesheet" type="text/css">
+
+<link href="resources/soledot/css/fo/soledot.css" rel="stylesheet"
+	type="text/css">
+
+<!-- commonheaderjs -->
+
+<!-- external javascripts -->
+<script src="resources/sitedesign/js/jquery-2.2.0.min.js"></script>
+<script src="resources/sitedesign/js/jquery-ui.min.js"></script>
+<script src="resources/sitedesign/js/bootstrap.min.js"></script>
+<!-- JS | jquery plugin collection for this theme -->
+<script src="resources/sitedesign/js/jquery-plugin-collection.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -35,17 +84,25 @@
 	var usedid = false;
 	// 이름 형식 확인
 	var nameBoolean = false;
+	// 닉네임 형식 확인
+	var nicknameBoolean = false;
 	// 암호 형식 확인
 	var passwordBoolean = false;
+	// 암호2 일치 확인
+	var passwordBoolean2 = false;
 	// 전화번호 형식 확인
 	var phoneBoolean = false;
 	// 이메일 확인
 	var emailBoolean = false;
 	// 이메일 중복 확인
 	var usedemail = false;
+	// 메일 전송 확인
+	var sendmailBoolean = false;
+	// 인증번호 확인
+	var confirmnumberBoolean = false;
 	
 	$(document).ready(function() {
-		// ID확인
+		// ID 형식 확인
 		$('#id').focus().on('keyup', function() {
 			idCheck();
 		});
@@ -57,9 +114,17 @@
 		$('#password').focus().on('keyup', function() {
 			passwordCheck();
 		});
+		// 암호2 일치 확인
+		$('#password2').focus().on('keyup', function() {
+			passwordCheck2();
+		});
 		// 이름 형식 확인
 		$('#name').focus().on('keyup', function() {
 			nameCheck();
+		});
+		// 닉네임 형식 확인
+		$('#nickname').focus().on('keyup', function() {
+			nicknameCheck();
 		});
 		// 전화번호 형식 확인
 		$('#phone').focus().on('keyup', function() {
@@ -77,7 +142,10 @@
 		$('#confirmbtn').on('click', function() {
 			sendmail();
 		});
-		
+		// 인증 번호 확인
+		$('#confirmbtn2').on('click', function() {
+			confirmNumber();
+		});
 		
 		
 		$('#submit').on('click', function() {
@@ -85,7 +153,7 @@
 				alert('ID를 확인하세요.');
 				return false;
 			}
-			if (passwordBoolean == false) {
+			if (passwordBoolean == false || passwordBoolean2 == false) {
 				alert('암호를 확인하세요.');
 				return false;
 			}
@@ -93,8 +161,8 @@
 				alert('이름을 확인하세요.');
 				return false;
 			}
-			if ($('#nickname').val().trim() == "") {
-				alert('별명을 입력해주세요.');
+			if (nicknameBoolean == false) {
+				alert('닉네임을 확인하세요.');
 				return false;
 			}
 			if (phoneBoolean == false) {
@@ -105,7 +173,7 @@
 				alert('이메일을 확인하세요.');
 				return false;
 			}
-			if ($('#confirm').val().trim().length != 6) {
+			if (confirmnumberBoolean == false) {
 				alert('인증번호를 확인하세요.');
 				return false;
 			}
@@ -113,6 +181,7 @@
 			$('#frm').submit();
 		});
 	});
+
 	// 아이디 형식 확인
 	function idCheck() {
 		var check = $('#id').val().trim();
@@ -161,7 +230,7 @@
 		var languageCheck = /^[가-힣]{2,20}$/g;
 
 		if (!languageCheck.test(check)) {
-			$('#namefocus').html('<p style="color:red">2~50 길이의 한글만 입력해주세요.</p>');
+			$('#namefocus').html('<p style="color:red">2~20 길이의 한글만 입력해주세요.</p>');
 			nameBoolean = false;
 			return;
 		} else {
@@ -170,19 +239,47 @@
 			return;
 		}
 	}
+	// 닉네임 형식 확인
+	function nicknameCheck() {
+		var check = $('#nickname').val().trim();
+
+		if (check.length < 3 || check.length > 15) {
+			$('#nicknamefocus').html('<p style="color:red">3~15 길이로 입력해주세요.</p>');
+			nicknameBoolean = false;
+			return;
+		} else {
+			$('#nicknamefocus').html('');
+			nicknameBoolean = true;
+			return;
+		}
+	}
 	// 비밀번호 형식 확인
 	function passwordCheck() {
 		var check = $('#password').val().trim();
-		var languageCheck1 = /[a-z]{0,20}/g;
-		var languageCheck2 = /[0-9]{0,20}/g;
-		
-		if (languageCheck1.test(check) && languageCheck2.test(check) && check.length >= 8 &&check.length <= 20) {
+		var languageCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*-+])(?=.*[0-9]).{8,16}$/g;
+
+		if (languageCheck.test(check)) {
 			$('#passwordfocus').html('<p style="color:blue">사용 가능한 암호입니다.</p>');
 			passwordBoolean = true;
 			return;
 		} else {
-			$('#passwordfocus').html('<p style="color:red">8~20 길이 중 알파벳과 숫자가 필수로 들어가야합니다.</p>');
+			$('#passwordfocus').html('<p style="color:red">8~20 길이 중 알파벳, 숫자, 특수기호는 최소 1개 이상씩 필수로 들어가야합니다.</p>');
 			passwordBoolean = false;
+			return;
+		}
+	}
+	// 비밀번호2 일치 확인
+	function passwordCheck2() {
+		var check1 = $('#password').val().trim();
+		var check2 = $('#password2').val().trim();
+		
+		if (check1 != check2) {
+			$('#passwordfocus2').html('<p style="color:red">암호가 다릅니다.</p>');
+			passwordBoolean2 = false;
+			return;
+		} else {
+			$('#passwordfocus2').html('<p></p>');
+			passwordBoolean2 = true;
 			return;
 		}
 	}
@@ -245,7 +342,7 @@
 	function sendmail() {
 		var useremail = $('#email').val().trim();
 		if (emailBoolean == false || usedemail == false) {
-			alert(emailBoolean);
+			alert('이메일을 확인해주세요.');
 			return false;
 		}
 		$.ajax({
@@ -257,14 +354,18 @@
 			success : function(data) {
 				if (data.length >= 6) {
 					alert('인증메일을 전송하였습니다. 확인해주세요.');
-					$('#confirmnumber').attr('vlaue', data);
+					$('#confirmbtn2').attr('num', data);
+					sendmailBoolean = true;
 				} else {
 					if (data == "1") {
 						alert('인증메일 전송에 실패하였습니다.');
+						sendmailBoolean = false;
 					} else if (data == "2"){
 						alert('등록된 이메일입니다.');
+						sendmailBoolean = false;
 					} else {
 						alert('인증메일 전송에 실패하였습니다.');
+						sendmailBoolean = false;
 					}
 				}
 			},
@@ -273,132 +374,193 @@
 			}
 		})
 	}
+	// 인증번호 확인하기
+	function confirmNumber() {
+		if (sendmailBoolean == false) {
+			alert('인증메일을 먼저 발송해주세요!');
+			return false;
+		}
+		var confirmnumber = $('#confirm').val().trim();
+		var realnumber = $('#confirmbtn2').attr('num').trim();
+		alert(confirmnumber + ":" + realnumber);
+		if (confirmnumber == realnumber) {
+			alert('인증 되었습니다.');
+			$('#confirmfocus').html('<p style="color:blue">인증 완료</p>')
+			confirmnumberBoolean = true;
+		} else {
+			alert('인증번호를 다시 확인해주세요.');
+			confirmnumberBoolean = false;
+		}
+	}
 </script>
 </head>
 
-<body>
+<body
+	class="has-side-panel side-panel-right fullwidth-page side-push-panel">
 
-	<%-- <jsp:include page='../beforeLogin.jsp' /> --%>
-	<jsp:include page='../menu_logo_form.jsp' />
+	<div class="body-overlay"></div>
+	<div id="wrapper" class="clearfix">
+		<!-- Header -->
+		<jsp:include page="../login_menu.jsp"></jsp:include>
 
-	<hr>
-
-	<section class="blog_area single-post-area mb-30">
-		<div class="container" style="width: 460px">
-
-			<div class="row">
-				<div class="col-lg-12">
-					<h3>회원가입</h3>
+		<!-- Start main-content -->
+		<div class="main-content">
+			<!-- Section: inner-header -->
+			<section class="inner-header divider layer-overlay overlay-light"
+				style="background-image: url('resources/images/dogcat_board_main.jpg');"
+				data-bg-img="resources/images/dogcat_board_main.jpg">
+				<div class="container pt-90 pb-50">
+					<!-- Section Content -->
+					<div class="section-content">
+						<div class="row">
+							<div class="col-md-12 xs-text-center">
+								<h3 class="text-theme-colored font-36">회원가입</h3>
+								<ol class="breadcrumb white mt-10">
+									<li><a href="main.mysql">Home</a></li>
+									<li class="active text-theme-colored">회원 가입</li>
+								</ol>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-			<!-- <div class="row"> -->
-			<form action="join_ok.mysql" method="post" id="frm">
-				<input type="hidden" id="confirmnumber" value="">
-				<div class="row">
-					<div class="mt-20 col-12">
-						<input type="text" id="id" name="id" placeholder="ID"
-							onfocus="this.placeholder = ''" onblur="this.placeholder = 'ID'"
-							required class="single-input-primary" maxlength="20">
-					</div>
-					<div class="col-12" id="idfocus"></div>
+			</section>
 
-					<div class="mt-30 col-12">
-						<input type="password" id="password" name="password"
-							placeholder="암호" onfocus="this.placeholder = ''"
-							onblur="this.placeholder = '암호'" required
-							class="single-input-primary" maxlength="20">
-					</div>
-					<div class="col-12" id="passwordfocus"></div>
+			<section>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-md-push-3">
+							
+							<form id="frm" name="frm" class="register-form" method="post" action="join_ok.mysql">
+								<div class="icon-box mb-0 p-0">
+									<h4 class="text-gray pt-10 mt-0 mb-30">회원정보 입력</h4>
+								</div>
+								<hr>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="mb_id">이메일</label>
+										<input id="email" name="email" class="form-control" type="email"
+											placeholder="예) email@dogcatlife.com">
+										<div class="col-12" id="emailfocus"></div>
+									</div>
+									
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label class="sr-only">인증메일발송</label>
+										<button id="confirmbtn"
+											class="btn btn-theme-colored btn-flat btn-lg btn-block"
+											type="button">인증메일발송</button>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label class="sr-only">인증번호입력</label>
+										<input id="confirm" name="confirm" class="form-control"
+											type="text" placeholder="인증번호입력">
+										<div id="confirmfocus"></div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label class="sr-only">인증번호 확인</label>
+										<button id="confirmbtn2"
+											class="btn btn-theme-colored btn-flat btn-lg btn-block"
+											type="button">인증번호 확인</button>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="name">이름</label>
+										<input id="name" name="name" class="form-control"
+											type="text" placeholder="예) 홍길동">
+										<div id="namefocus"></div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="nickname">닉네임</label> <input id="nickname"
+											name="nickname" class="form-control" type="text"
+											placeholder="닉네임">
+										<div class="col-12" id="nicknamefocus"></div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="id">ID</label> <input id="id"
+											name="id" class="form-control" type="text"
+											placeholder="ID">
+										<div class="col-12" id="idfocus"></div>
+									</div>
+								</div>
 
-					<div class="mt-30 col-12">
-						<input type="text" id="nickname" name="nickname" placeholder="별명"
-							onfocus="this.placeholder = ''" onblur="this.placeholder = '별명'"
-							required class="single-input-primary" maxlength="20">
-					</div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="password">비밀번호</label> <input id="password"
+											name="password" class="form-control" type="password"
+											placeholder="비밀번호는 영문, 숫자, 특수문자가 반드시 포함되어야합니다.">
+										<div class="col-12" id="passwordfocus"></div>
+									</div>
+									<div class="form-group col-md-12">
+										<label for="password2" class="sr-only">비밀번호 확인</label> <input
+											id="password2" name="password2" class="form-control"
+											type="password" placeholder="비밀번호 확인">
+										<div class="col-12" id="passwordfocus2"></div>
+									</div>
+								</div>
 
-					<div class="mt-30 col-12">
-						<input type="text" id="name" name="name" placeholder="이름"
-							onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'"
-							required class="single-input-primary" maxlength="20">
-					</div>
-					<div class="col-12" id="namefocus"></div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="phone">휴대전화</label> <input id="phone"
+											name="phone" class="form-control" type="text"
+											placeholder="휴대전화 예) 010-1234-5678">
+										<div class="col-12" id="phonefocus"></div>
+									</div>
+								</div>
 
-					<div class="mt-30 col-12">
-						<input type="text" id="phone" name="phone" placeholder="전화번호"
-							onfocus="this.placeholder = ''"
-							onblur="this.placeholder = '전화번호'" required
-							class="single-input-primary" maxlength="13">
+								<div class="form-group">
+									<button id="submit" class="btn btn-dark btn-flat btn-lg btn-block mt-15"
+										type="submit">가입하기</button>
+								</div>
+								
+							</form>
+							
+						</div>
 					</div>
-					<div class="col-12" id="phonefocus"></div>
-
-					<div class="mt-30 col-12">
-						<input type="text" id="email" name="email" placeholder="이메일"
-							onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'"
-							required class="single-input-primary" value="" maxlength="30">
-					</div>
-					<div class="col-12" id="emailfocus"></div>
-
-					<div class="col-8 mt-30">
-						<input type="text" id="confirm" name="confirm"
-							placeholder="인증번호를 입력하세요." onfocus="this.placeholder = ''"
-							onblur="this.placeholder = '인증번호를 입력하세요.'" required
-							class="single-input-primary" maxlength="6">
-					</div>
-					<div class="col-4 mt-20">
-						<span id="confirmbtn" style="background-color: #2B4B80"
-							class="btn pt-20 pb-20 pl-30 pr-30">메일 인증</span>
-					</div>
-
 				</div>
-
-				<div class="col-12 mt-30" style="text-align: right">
-					<span id="submit" style="background-color: #2B4B80"
-						class="btn btn-block">회원 가입</span>
-					<!--  pt-20 pb-20 pl-30 pr-30 -->
-				</div>
-			</form>
-
+			</section>
 		</div>
-	</section>
+		<!-- end main-content -->
+	</div>
+	
+	<!-- footer content -->
+	<jsp:include page="../footer.jsp"></jsp:include>
 
-	<jsp:include page='../footer.jsp' />
 
-	<!-- JS here -->
+	<!-- JS | Custom script for all pages -->
+	<script src="resources/sitedesign/js/custom.js"></script>
 
-	<!-- All JS Custom Plugins Link Here here -->
-	<script src="resources/assets/js/vendor/modernizr-3.5.0.min.js"></script>
-	<!-- Jquery, Popper, Bootstrap -->
-	<script src="resources/assets/js/vendor/jquery-1.12.4.min.js"></script>
-	<script src="resources/assets/js/popper.min.js"></script>
-	<script src="resources/assets/js/bootstrap.min.js"></script>
-	<!-- Jquery Mobile Menu -->
-	<script src="resources/assets/js/jquery.slicknav.min.js"></script>
+	<!-- notify -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"></script>
 
-	<!-- Jquery Slick , Owl-Carousel Plugins -->
-	<script src="resources/assets/js/owl.carousel.min.js"></script>
-	<script src="resources/assets/js/slick.min.js"></script>
-	<!-- Date Picker -->
-	<script src="resources/assets/js/gijgo.min.js"></script>
-	<!-- One Page, Animated-HeadLin -->
-	<script src="resources/assets/js/wow.min.js"></script>
-	<script src="resources/assets/js/animated.headline.js"></script>
-	<script src="resources/assets/js/jquery.magnific-popup.js"></script>
+	<!-- jquery-cookie-->
+	<script src="resources/common/js/jquery-cookie/jquery.cookie.js"></script>
 
-	<!-- Scrollup, nice-select, sticky -->
-	<script src="resources/assets/js/jquery.scrollUp.min.js"></script>
-	<script src="resources/assets/js/jquery.nice-select.min.js"></script>
-	<script src="resources/assets/js/jquery.sticky.js"></script>
+	<!-- soledot -->
+	<script src="resources/soledot/js/fo/soledot.js"></script>
 
-	<!-- contact js -->
-	<script src="resources/assets/js/contact.js"></script>
-	<script src="resources/assets/js/jquery.form.js"></script>
-	<script src="resources/assets/js/jquery.validate.min.js"></script>
-	<script src="resources/assets/js/mail-script.js"></script>
-	<script src="resources/assets/js/jquery.ajaxchimp.min.js"></script>
-
-	<!-- Jquery Plugins, main Jquery -->
-	<script src="resources/assets/js/plugins.js"></script>
-	<script src="resources/assets/js/main.js"></script>
+	<script src="resources/common/js/jquery-validation/jquery.validate.js"></script>
+	<script
+		src="resources/common/js/jquery-validation/additional-methods.js"></script>
+	<script
+		src="resources/common/js/jquery-validation/localization/messages_ko.js"></script>
 
 </body>
 </html>

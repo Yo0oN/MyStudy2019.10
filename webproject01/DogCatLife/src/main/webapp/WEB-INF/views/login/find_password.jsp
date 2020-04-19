@@ -44,8 +44,7 @@
 	</div> -->
 	<!-- Preloader Start -->
 
-	<jsp:include page='../beforeLogin.jsp' />
-	<jsp:include page='../menu_logo_form.jsp' />
+	<jsp:include page='../login_menu.jsp' />
 
 	<hr>
 

@@ -17,7 +17,7 @@ import TOs.BoardTO;
 
 public class CommunityBoardDAO {
 	private DataSource dataSource = null;
-	private String uploadPath = "../resources/upload";
+	private String uploadPath = "D:\\MyFirstGit\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
 
 	public CommunityBoardDAO() {
 		try {
@@ -29,48 +29,24 @@ public class CommunityBoardDAO {
 		}
 	}
 
-	public BoardTO boardWrite(BoardTO boardTO) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = dataSource.getConnection();
-			String sql = "select nickname from user where mseq=?";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, boardTO.getMseq());
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				boardTO.setWriter(rs.getString("nickname"));
-			}
-		} catch (SQLException e) {
-			System.out.println("error : " + e.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-		return boardTO;
-	}
-
+	/*
+	 * public BoardTO boardWrite(BoardTO boardTO) { Connection conn = null;
+	 * PreparedStatement pstmt = null; ResultSet rs = null;
+	 * 
+	 * try { conn = dataSource.getConnection(); String sql =
+	 * "select nickname from user where mseq=?"; pstmt = conn.prepareStatement(sql);
+	 * 
+	 * pstmt.setString(1, boardTO.getMseq());
+	 * 
+	 * rs = pstmt.executeQuery();
+	 * 
+	 * if (rs.next()) { boardTO.setWriter(rs.getString("nickname")); } } catch
+	 * (SQLException e) { System.out.println("error : " + e.getMessage()); } finally
+	 * { if (rs != null) { try { rs.close(); } catch (SQLException e) { } } if
+	 * (pstmt != null) { try { pstmt.close(); } catch (SQLException e) { } } if
+	 * (conn != null) { try { conn.close(); } catch (SQLException e) { } } } return
+	 * boardTO; }
+	 */
 	public int boardWriteOk(BoardTO boardTO) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -85,10 +61,8 @@ public class CommunityBoardDAO {
 
 			pstmt.setString(1, boardTO.getPseq());
 			pstmt.setString(2, boardTO.getSubject());
-			pstmt.setString(3, "1");
-//			pstmt.setString(3, boardTO.getMseq());
-			pstmt.setString(4, "작성자");
-//			pstmt.setString(4, boardTO.getWriter());
+			pstmt.setString(3, boardTO.getMseq());
+			pstmt.setString(4, boardTO.getWriter());
 			pstmt.setString(5, boardTO.getContent());
 			pstmt.setString(6, boardTO.getFilename_ori());
 			pstmt.setString(7, boardTO.getFilename_new());
@@ -229,7 +203,7 @@ public class CommunityBoardDAO {
 			pstmt.executeUpdate();
 
 			// 게시물 가져오기
-			sql = "select pseq, seq, subject, mseq, writer, content, date_format(wdate_ori,'%Y-%m-%d %H:%i:%s') wdate_ori, date_format(wdate_mod,'%Y.%m.%d %H:%i') wdate_mod, hit, filename_new from board  where seq = ?";
+			sql = "select pseq, seq, subject, mseq, writer, content, date_format(wdate_ori,'%Y-%m-%d %H:%i:%s') wdate_ori, date_format(wdate_mod,'%Y-%m-%d %H:%i:%s') wdate_mod, hit, filename_new from board  where seq = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, seq);
 
@@ -308,10 +282,8 @@ public class CommunityBoardDAO {
 			String sql = "insert into comment_board values(?, 0, ?, ?, ?, now(), now())";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, boardTO.getSeq());
-			pstmt.setString(2, "1");
-//			pstmt.setString(2, boardTO.getCmseq());
-			pstmt.setString(3, "작성자");
-//			pstmt.setString(3, boardTO.getCwriter());
+			pstmt.setString(2, boardTO.getCmseq());
+			pstmt.setString(3, boardTO.getCwriter());
 			pstmt.setString(4, boardTO.getComment());
 
 			int result = pstmt.executeUpdate();
@@ -345,7 +317,7 @@ public class CommunityBoardDAO {
 		try {
 			conn = dataSource.getConnection();
 
-			String sql = "select seq, writer, subject, content, filename_ori from board where seq = ?";
+			String sql = "select seq, writer, mseq, subject, content, filename_ori from board where seq = ?";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, boardTO.getSeq());
@@ -355,6 +327,7 @@ public class CommunityBoardDAO {
 			if (rs.next()) {
 				boardTO.setSeq(rs.getString("seq"));
 				boardTO.setWriter(rs.getString("writer"));
+				boardTO.setMseq(rs.getString("mseq"));
 				boardTO.setSubject(rs.getString("subject"));
 				boardTO.setContent(rs.getString("content"));
 				boardTO.setFilename_ori(rs.getString("filename_ori"));

@@ -1,280 +1,397 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!doctype html>
-<html class="no-js" lang="zxx">
+<%
+	session.removeAttribute("endUrl");
+%>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
+
 <meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>SEO HTML-5 Template</title>
-<meta name="description" content="">
+<meta name="author" content="soledot">
+<meta name="description" content="애완동물을 위한, DogCatLife 입니다.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="ALL">
 
-<link rel="manifest" href="site.webmanifest">
-<link rel="shortcut icon" type="image/x-icon"
-	href="resources/assets/img/favicon.ico">
+<meta property="og:title" content="DogCatLife">
+<meta property="og:description" content="애완동물을 위한, DogCatLife 입니다.">
+<meta property="og:image" content="resources/images/logo.png">
+<!-- <meta property="og:url" content="http://medisvc.com/home/fo/index.sd"> -->
+<meta property="og:type" content="website">
 
-<!-- CSS here -->
-<link rel="stylesheet" type="text/css" href="resources/assets/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="resources/assets/css/owl.carousel.min.css">
-<link rel="stylesheet" type="text/css" href="resources/assets/css/flaticon.css">
-<link rel="stylesheet" type="text/css" href="resources/assets/css/slicknav.css">
-<link rel="stylesheet" type="text/css" href="resources/assets/css/animate.min.css">
-<link rel="stylesheet" type="text/css" href="resources/assets/css/magnific-popup.css">
-<link rel="stylesheet" type="text/css" href="resources/assets/css/fontawesome-all.min.css">
-<link rel="stylesheet" type="text/css" href="resources/assets/css/themify-icons.css">
-<link rel="stylesheet" type="text/css" href="resources/assets/css/slick.css">
-<link rel="stylesheet" type="text/css" href="resources/assets/css/nice-select.css">
-<link rel="stylesheet" type="text/css" href="resources/assets/css/style.css">
+<title>DogCatLife</title>
+
+<!-- commoncss -->
+
+
+<!-- Favicon and Touch Icons -->
+<link href="resources/sitedesign/images/favicon.png" rel="shortcut icon"
+	type="image/png">
+<link href="resources/sitedesign/images/apple-touch-icon.png"
+	rel="apple-touch-icon">
+<link href="resources/sitedesign/images/apple-touch-icon-72x72.png"
+	rel="apple-touch-icon" sizes="72x72">
+<link href="resources/sitedesign/images/apple-touch-icon-114x114.png"
+	rel="apple-touch-icon" sizes="114x114">
+<link href="resources/sitedesign/images/apple-touch-icon-144x144.png"
+	rel="apple-touch-icon" sizes="144x144">
+
+<!-- Stylesheet -->
+<link href="resources/sitedesign/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/jquery-ui.min.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/animate.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/css-plugin-collections.css"
+	rel="stylesheet" />
+<!-- CSS | menuzord megamenu skins -->
+
+<link id="menuzord-menu-skins"
+	href="resources/sitedesign/css/menuzord-skins/menuzord-subcolored.css"
+	rel="stylesheet" />
+
+<!-- CSS | Main style file -->
+<link href="resources/sitedesign/css/style-main.css" rel="stylesheet"
+	type="text/css">
+<!-- CSS | Preloader Styles -->
+
+<!-- CSS | Custom Margin Padding Collection -->
+<link
+	href="resources/sitedesign/css/custom-bootstrap-margin-padding.css"
+	rel="stylesheet" type="text/css">
+<!-- CSS | Responsive media queries -->
+<link href="resources/sitedesign/css/responsive.css" rel="stylesheet"
+	type="text/css">
+<!-- CSS | Style css. This is the file where you can place your own custom css code. Just uncomment it and use it. -->
+<!-- <link href="resources/sitedesign/css/style.css" rel="stylesheet" type="text/css"> -->
+
+<!-- CSS | Theme Color -->
+<link href="resources/sitedesign/css/colors/theme-skin-blue.css"
+	rel="stylesheet" type="text/css">
+
+<link href="resources/soledot/css/fo/soledot.css" rel="stylesheet"
+	type="text/css">
+
+<!-- Revolution Slider 5.x CSS settings -->
+<link href="resources/sitedesign/js/revolution-slider/css/settings.css"
+	rel="stylesheet" type="text/css" />
+<link href="resources/sitedesign/js/revolution-slider/css/layers.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="resources/sitedesign/js/revolution-slider/css/navigation.css"
+	rel="stylesheet" type="text/css" />
+
+<!-- commonheaderjs -->
+
+
+<!-- external javascripts -->
+<script src="resources/sitedesign/js/jquery-2.2.0.min.js"></script>
+<script src="resources/sitedesign/js/jquery-ui.min.js"></script>
+<script src="resources/sitedesign/js/bootstrap.min.js"></script>
+<!-- JS | jquery plugin collection for this theme -->
+<script src="resources/sitedesign/js/jquery-plugin-collection.js"></script>
+
+<!-- Revolution Slider 5.x SCRIPTS 메인에만 필요?-->
+<script
+	src="resources/sitedesign/js/revolution-slider/js/jquery.themepunch.tools.min.js"></script>
+<script
+	src="resources/sitedesign/js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
+
 </head>
 
-<body>
+<body
+	class="has-side-panel side-panel-right fullwidth-page side-push-panel">
 
-	<jsp:include page='beforeLogin.jsp' />
-	<jsp:include page='menu_logo_form.jsp' />
+	<div class="body-overlay"></div>
+	<div id="wrapper" class="clearfix">
 
+		<!-- header -->
 
-	<!-- Slider Area Start-->
-	<div id="demo" class="carousel slide" data-ride="carousel"
-		style="background-color: orange" align="center">
-		<ul class="carousel-indicators">
-			<li data-target="#demo" data-slide-to="0" class="active" />
-			<li data-target="#demo" data-slide-to="1" />
-			<li data-target="#demo" data-slide-to="2" />
-		</ul>
-		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<img src="resources/images/spring-icon.png" width="50%" />
-			</div>
-			<div class="carousel-item">
-				<img src="resources/images/spring-icon.png" width="50%" />
-			</div>
-			<div class="carousel-item">
-				<img src="resources/images/spring-icon.png" width="50%" />
-			</div>
-		</div>
-		<a href="#demo" class="carousel-control-prev" data-slide="prev"> <span
-			class="carousel-control-prev-icon"></span>
-		</a> <a href="#demo" class="carousel-control-next" data-slide="next">
-			<span class="carousel-control-next-icon"></span>
-		</a>
-	</div>
+		<jsp:include page="./login_menu.jsp"></jsp:include>
 
-	<!-- What We do start-->
-	<div class="container">
-		<div class="row">
-			<!-- style="margin-bottom: 4em;" -->
-			<div class="col-lg-12 text-center">
-				<br>
-				<h3 class="wow fadeInDown title" data-wow-delay=".5s"
-					style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">자랑하기</h3>
-				<br>
+		<!-- Start main-content -->
+		<div class="main-content">
+			<!-- Section: home -->
+			<section id="home" class="divider">
+				<div class="container-fluid p-0">
 
-			</div>
-		</div>
-		<div>
-			<div class="row">
-				<div class="col-4 pt-10 pb-10">
-					<div>
-						<a href="#"><img class="col-12 pb-10"
-							src="http://com2petstory.com/data/file/2019table1/thumb-3076522375_3wmuBK7p_930339df05a539c4baf8f02b66be24ae87854251_400x400.jpg"></a>
+					<!-- Slider Revolution Start -->
+					<div class="rev_slider_wrapper">
+						<div class="rev_slider" data-version="5.0">
+							<ul>
+								<!-- SLIDE 1 -->
+								<li data-index="rs-1" data-transition="random"
+									data-slotamount="7" data-easein="default"
+									data-easeout="default" data-masterspeed="1000"
+									data-thumb="resources/images/main-slider-image.jpg"
+									data-rotate="0" data-fstransition="fade"
+									data-fsmasterspeed="1500" data-fsslotamount="7"
+									data-saveperformance="off" data-title="Intro"
+									data-description="">
+									<!-- MAIN IMAGE --> <img
+									src="resources/images/main-slider-image.jpg" alt=""
+									data-bgposition="center top" data-bgfit="cover"
+									data-bgrepeat="no-repeat" class="rev-slidebg"
+									data-bgparallax="6" data-no-retina>
+								</li>
+
+								<!-- SLIDE 2 -->
+								<li data-index="rs-2" data-transition="random"
+									data-slotamount="7" data-easein="default"
+									data-easeout="default" data-masterspeed="1000"
+									data-thumb="resources/images/main-slider-image.jpg"
+									data-rotate="0" data-fstransition="fade"
+									data-fsmasterspeed="1500" data-fsslotamount="7"
+									data-saveperformance="off" data-title="Intro"
+									data-description="">
+									<!-- MAIN IMAGE --> <img
+									src="resources/images/main-slider-image.jpg" alt=""
+									data-bgposition="center top" data-bgfit="cover"
+									data-bgrepeat="no-repeat" class="rev-slidebg"
+									data-bgparallax="6" data-no-retina>
+								</li>
+
+								<!-- SLIDE 3 -->
+								<li data-index="rs-3" data-transition="random"
+									data-slotamount="7" data-easein="default"
+									data-easeout="default" data-masterspeed="1000"
+									data-thumb="resources/images/main-slider-image.jpg"
+									data-rotate="0" data-fstransition="fade"
+									data-fsmasterspeed="1500" data-fsslotamount="7"
+									data-saveperformance="off" data-title="Intro"
+									data-description="">
+									<!-- MAIN IMAGE --> <img
+									src="resources/images/main-slider-image.jpg" alt=""
+									data-bgposition="center top" data-bgfit="cover"
+									data-bgrepeat="no-repeat" class="rev-slidebg"
+									data-bgparallax="6" data-no-retina>
+								</li>
+							</ul>
+						</div>
 					</div>
-					<div class="col-12">
-						<strong><span id="ca_name2">보호견</span></strong><br> <strong><span>라브라도리트리버</span></strong><br>
-						<strong><span>베리</span></strong><br> <span>6개월령</span> / <span>여아</span><br>
-						<span id="wr_datetime">등록일: 2020-04-07</span>
-					</div>
+					<!-- end .rev_slider -->
+
 				</div>
-
-				<div class="col-4 pt-10 pb-10">
-					<div>
-						<a href="#"><img class="col-12 pb-10"
-							src="http://com2petstory.com/data/file/2019table1/thumb-3076522375_JbY0F4lz_c4c5cea55562e48542e3be95d5d051c3a67250d3_400x400.jpg"></a>
-					</div>
-					<div class="col-12">
-						<strong><span id="ca_name2">보호견</span></strong><br> <strong><span>믹스견</span></strong><br>
-						<strong><span>봄이</span></strong><br> <span>1살</span> / <span>여아</span><br>
-						<span id="wr_datetime">등록일: 2020-04-05</span>
-					</div>
-				</div>
-
-				<div class="col-4 pt-10 pb-10">
-					<div>
-						<a href="#"><img class="col-12 pb-10"
-							src="http://com2petstory.com/data/file/2019table1/thumb-3076522375_0GCIkw9R_d1d934c27b6b60ea158fa92cae12ea0c3d5052d3_400x400.jpg"></a>
-					</div>
-					<div class="col-12">
-						<strong><span id="ca_name2">보호견</span></strong><br> <strong><span>믹스견</span></strong><br>
-						<strong><span>대박이</span></strong><br> <span>3살</span> / <span>남아</span><br>
-						<span id="wr_datetime">등록일: 2020-04-05</span>
-					</div>
-				</div>
-
-				<div class="col-4 pt-10 pb-10">
-					<div>
-						<a href="#"><img class="col-12 pb-10"
-							src="http://com2petstory.com/data/file/2019table1/thumb-3076522375_0odKmIzJ_3eafcd565e653567a757bde218cf41273a7cc764_400x400.jpg"></a>
-					</div>
-					<div class="col-12">
-						<strong><span id="ca_name2">보호견</span></strong><br> <strong><span>치와와</span></strong><br>
-						<strong><span>건</span></strong><br> <span>7살추정</span> / <span>남아</span><br>
-						<span id="wr_datetime">등록일: 2020-04-03</span>
-					</div>
-				</div>
-
-			</div>
-		</div>
-
-		<div align="center" class="mt-30 mb-30">
-			<a href="#"><button type="button" class="btn">더보기</button></a>
+			</section>
 		</div>
 	</div>
+	<!-- end main-content -->
 
-	<hr>
+	<jsp:include page="./footer.jsp"></jsp:include>
 
-	<!-- <div class="col-lg-12 col-md-12 text-center"> -->
-	<div class="container">
-		<div class="single-do text-center">
-			<!-- style="padding-left: 100px; padding-right: 100px;" -->
-			<div class="do-icon pb-20 pt-10">
-				<h3 class="wow fadeInDown title" data-wow-delay=".5s"
-					style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">커뮤니티</h3>
-			</div>
+	<!-- commonfootjs -->
 
-			<div class="row">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th width="50%">제목</th>
-							<th>글쓴이</th>
-							<th>등록일</th>
-							<th>조회수</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>3</td>
-							<td><a href="#" style="color: black">제목제목</a></td>
-							<td>작성자</td>
-							<td>2020-01-01</td>
-							<td>6</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td><a href="#" style="color: black">제목제목</a></td>
-							<td>작성자</td>
-							<td>2020-01-01</td>
-							<td>6</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#" style="color: black">제목제목</a></td>
-							<td>작성자</td>
-							<td>2020-01-01</td>
-							<td>6</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
 
-		</div>
-		<div align="center" class="mt-30 mb-30">
-			<a href="com_board_list.mysql?pseq=11"><button type="button" class="btn">더보기</button></a>
-		</div>
-	</div>
+	<!-- SLIDER REVOLUTION 5.0 EXTENSIONS  
+     (Load Extensions only on Local File Systems ! 
+      The following part can be removed on Server for On Demand Loading) -->
+	<script type="text/javascript"
+		src="resources/sitedesign/js/revolution-slider/js/extensions/revolution.extension.actions.min.js"></script>
+	<script type="text/javascript"
+		src="resources/sitedesign/js/revolution-slider/js/extensions/revolution.extension.carousel.min.js"></script>
+	<script type="text/javascript"
+		src="resources/sitedesign/js/revolution-slider/js/extensions/revolution.extension.kenburn.min.js"></script>
+	<script type="text/javascript"
+		src="resources/sitedesign/js/revolution-slider/js/extensions/revolution.extension.layeranimation.min.js"></script>
+	<script type="text/javascript"
+		src="resources/sitedesign/js/revolution-slider/js/extensions/revolution.extension.migration.min.js"></script>
+	<script type="text/javascript"
+		src="resources/sitedesign/js/revolution-slider/js/extensions/revolution.extension.navigation.min.js"></script>
+	<script type="text/javascript"
+		src="resources/sitedesign/js/revolution-slider/js/extensions/revolution.extension.parallax.min.js"></script>
+	<script type="text/javascript"
+		src="resources/sitedesign/js/revolution-slider/js/extensions/revolution.extension.slideanims.min.js"></script>
+	<script type="text/javascript"
+		src="resources/sitedesign/js/revolution-slider/js/extensions/revolution.extension.video.min.js"></script>
 
-	<hr>
 
-	<div class="container">
-		<div class="single-do text-center">
-			<!-- style="padding-left: 100px; padding-right: 100px;" -->
-			<div class="do-icon pb-20 pt-10">
-				<h3 class="wow fadeInDown title" data-wow-delay=".5s"
-					style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">공지사항</h3>
-			</div>
+	<!-- Footer Scripts -->
+	<!-- JS | Custom script for all pages -->
+	<script src="resources/sitedesign/js/custom.js"></script>
 
-			<div class="row">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th width="50%">제목</th>
-							<th>글쓴이</th>
-							<th>등록일</th>
-							<th>조회수</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>3</td>
-							<td><a href="#" style="color: black">제목제목</a></td>
-							<td>작성자</td>
-							<td>2020-01-01</td>
-							<td>6</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td><a href="#" style="color: black">제목제목</a></td>
-							<td>작성자</td>
-							<td>2020-01-01</td>
-							<td>6</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#" style="color: black">제목제목</a></td>
-							<td>작성자</td>
-							<td>2020-01-01</td>
-							<td>6</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div align="center" class="mt-30 mb-30">
-			<button type="button" class="btn">더보기</button>
-		</div>
-	</div>
+	<!-- notify -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"></script>
 
-	<div class="pb-50"></div>
+	<!-- soledot -->
+	<script src="resources/soledot/js/fo/soledot.js"></script>
 
-	<jsp:include page='footer.jsp' />
+	<script>
+		/* var ss_mbid = '';
+		var ss_mbtype = '';
 
-	<!-- JS here -->
+		$(function() {
+			//---*페이지 체크
+			var result = '';
+			var resultUrl = '';
+			if ('N' == result) {
+				alert('');
+				if ('' != resultUrl) {
+					location.href = resultUrl;
+					return;
+				} else {
+					location.href = '/home/fo/index.sd';
+					return;
+				}
+			}
+		});
 
-	<!-- All JS Custom Plugins Link Here here -->
-	<script type="text/javascript" src=resources/assets/js/vendor/modernizr-3.5.0.min.js"></script>
-	<!-- Jquery, Popper, Bootstrap -->
-	<script type="text/javascript" src="resources/assets/js/vendor/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="resources/assets/js/popper.min.js"></script>
-	<script type="text/javascript" src="resources/assets/js/bootstrap.min.js"></script>
-	<!-- Jquery Mobile Menu -->
-	<script src="resources/assets/js/jquery.slicknav.min.js"></script>
+		function loginCk() {
+			if ('' == ss_mbid) {
+				failNotify('로그인 후 이용가능합니다.', '/user/fo/memberlogin.sd');
+				return false;
+			} else {
+				return true;
+			}
+		}
 
-	<!-- Jquery Slick , Owl-Carousel Plugins -->
-	<script type="text/javascript" src="resources/assets/js/owl.carousel.min.js"></script>
-	<script type="text/javascript" src="resources/assets/js/slick.min.js"></script>
-	<!-- Date Picker -->
-	<script type="text/javascript" src="resources/assets/js/gijgo.min.js"></script>
-	<!-- One Page, Animated-HeadLin -->
-	<script type="text/javascript" src="resources/assets/js/wow.min.js"></script>
-	<script type="text/javascript" src="resources/assets/js/animated.headline.js"></script>
-	<script type="text/javascript" src="resources/assets/js/jquery.magnific-popup.js"></script>
+		var messengerSocket = new WebSocket(
+				'ws://medisvc.com:80/memberaccessserver');
+		messengerSocket.onopen = function(event) {
+			onMessengerOpen(event)
+		};
 
-	<!-- Scrollup, nice-select, sticky -->
-	<script type="text/javascript" src="resources/assets/js/jquery.scrollUp.min.js"></script>
-	<script type="text/javascript" src="resources/assets/js/jquery.nice-select.min.js"></script>
-	<script type="text/javascript" src="resources/assets/js/jquery.sticky.js"></script>
+		function onMessengerOpen(event) {
+			var msg = '{"content":"", "curUrl":"http://medisvc.com/home/fo/index.sd" }';
+			messengerSocket.send(msg);
+		}
 
-	<!-- contact js -->
-	<script type="text/javascript" src="resources/assets/js/contact.js"></script>
-	<script  type="text/javascript" src="resources/assets/js/jquery.form.js"></script>
-	<script type="text/javascript" src="resources/assets/js/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="resources/assets/js/mail-script.js"></script>
-	<script type="text/javascript" src="resources/assets/js/jquery.ajaxchimp.min.js"></script>
+		function nvPop(title, targetUrl) {
+			window
+					.open('http://share.naver.com/web/shareView.nhn?url='
+							+ encodeURI(encodeURIComponent(targetUrl))
+							+ '&title=' + encodeURI(title), 'naverPop',
+							"width=400, height=500, resizable=no, scrollbars=no, status=no;");
+		}
 
-	<!-- Jquery Plugins, main Jquery -->
-	<script type="text/javascript" src="resources/assets/js/plugins.js"></script>
-	<script type="text/javascript" src="resources/assets/js/main.js"></script>
+		function fbPop(targetUrl) {
+			window
+					.open('https://www.facebook.com/sharer/sharer.php?u='
+							+ targetUrl, 'fbPop',
+							"width=400, height=400, resizable=no, scrollbars=no, status=no;");
+		}
+
+		function twtPop(text, targetUrl) {
+			window
+					.open('https://twitter.com/intent/tweet?text='
+							+ encodeURIComponent(text) + '&url=' + targetUrl,
+							'fbPop',
+							"width=695, height=493, resizable=no, scrollbars=no, status=no;");
+		}
+
+		function logoutAjax() {
+			$.ajax({
+				url : '/user/fo/memberlogoutajax.sd'
+			});
+		} */
+	</script>
+
+	<!-- end .rev_slider_wrapper -->
+	<script>
+		$(document)
+				.ready(
+						function(e) {
+							// 사진 슬라이드부분
+							var revapi = $(".rev_slider")
+									.revolution(
+											{
+												sliderType : "standard",
+												sliderLayout : "auto",
+												dottedOverlay : "none",
+												delay : 5000,
+												navigation : {
+													keyboardNavigation : "off",
+													keyboard_direction : "horizontal",
+													mouseScrollNavigation : "off",
+													onHoverStop : "off",
+													touch : {
+														touchenabled : "on",
+														swipe_threshold : 75,
+														swipe_min_touches : 1,
+														swipe_direction : "horizontal",
+														drag_block_vertical : false
+													},
+													arrows : {
+														style : "gyges",
+														enable : true,
+														hide_onmobile : false,
+														hide_onleave : true,
+														hide_delay : 200,
+														hide_delay_mobile : 1200,
+														tmp : '',
+														left : {
+															h_align : "left",
+															v_align : "center",
+															h_offset : 0,
+															v_offset : 0
+														},
+														right : {
+															h_align : "right",
+															v_align : "center",
+															h_offset : 0,
+															v_offset : 0
+														}
+													},
+													bullets : {
+														enable : true,
+														hide_onmobile : true,
+														hide_under : 800,
+														style : "hebe",
+														hide_onleave : false,
+														direction : "horizontal",
+														h_align : "center",
+														v_align : "bottom",
+														h_offset : 0,
+														v_offset : 30,
+														space : 5,
+														tmp : '<span class="tp-bullet-image"></span><span class="tp-bullet-imageoverlay"></span><span class="tp-bullet-title"></span>'
+													}
+												},
+												responsiveLevels : [ 1240,
+														1024, 778 ],
+												visibilityLevels : [ 1240,
+														1024, 778 ],
+												gridwidth : [ 1920, 1024, 778,
+														480 ],
+												// gridheight : [655, 349, 256, 164 ],
+												gridheight : [ 655, 450, 400,
+														300 ],
+												lazyType : "none",
+												parallax : {
+													origo : "slidercenter",
+													speed : 1000,
+													levels : [ 5, 10, 15, 20,
+															25, 30, 35, 40, 45,
+															46, 47, 48, 49, 50,
+															100, 55 ],
+													type : "scroll"
+												},
+												shadow : 0,
+												spinner : "off",
+												stopLoop : "on",
+												stopAfterLoops : 0,
+												stopAtSlide : -1,
+												shuffle : "off",
+												autoHeight : "off",
+												fullScreenAutoWidth : "off",
+												fullScreenAlignForce : "off",
+												fullScreenOffsetContainer : "",
+												fullScreenOffset : "0",
+												hideThumbsOnMobile : "off",
+												hideSliderAtLimit : 0,
+												hideCaptionAtLimit : 0,
+												hideAllCaptionAtLilmit : 0,
+												debugMode : false,
+												fallbacks : {
+													simplifyAll : "off",
+													nextSlideOnWindowFocus : "off",
+													disableFocusListener : false,
+												}
+											});
+						});
+	</script>
+	<!-- Slider Revolution Ends -->
 
 </body>
 </html>

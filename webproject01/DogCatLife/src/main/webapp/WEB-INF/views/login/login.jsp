@@ -1,130 +1,205 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!doctype html>
-<html class="no-js" lang="zxx">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
+
 <meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>SEO HTML-5 Template</title>
-<meta name="description" content="">
+<meta name="author" content="soledot">
+<meta name="description" content="애완동물을 위한, DogCatLife 입니다.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="ALL">
 
-<link rel="manifest" href="site.webmanifest">
-<link rel="shortcut icon" type="image/x-icon"
-	href="resources/assets/img/favicon.ico">
+<meta property="og:title" content="DogCatLife">
+<meta property="og:description" content="애완동물을 위한, DogCatLife 입니다.">
+<meta property="og:image" content="resources/images/logo.png">
+<!-- <meta property="og:url" content="http://medisvc.com/home/fo/index.sd"> -->
+<meta property="og:type" content="website">
 
-<!-- CSS here -->
-<link rel="stylesheet" href="resources/assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="resources/assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="resources/assets/css/flaticon.css">
-<link rel="stylesheet" href="resources/assets/css/slicknav.css">
-<link rel="stylesheet" href="resources/assets/css/animate.min.css">
-<link rel="stylesheet" href="resources/assets/css/magnific-popup.css">
-<link rel="stylesheet" href="resources/assets/css/fontawesome-all.min.css">
-<link rel="stylesheet" href="resources/assets/css/themify-icons.css">
-<link rel="stylesheet" href="resources/assets/css/slick.css">
-<link rel="stylesheet" href="resources/assets/css/nice-select.css">
-<link rel="stylesheet" href="resources/assets/css/style.css">
+<title>DogCatLife</title>
+
+<!-- commoncss -->
+
+<!-- Favicon and Touch Icons -->
+<link href="resources/sitedesign/images/favicon.png" rel="shortcut icon"
+	type="image/png">
+<link href="resources/sitedesign/images/apple-touch-icon.png"
+	rel="apple-touch-icon">
+<link href="resources/sitedesign/images/apple-touch-icon-72x72.png"
+	rel="apple-touch-icon" sizes="72x72">
+<link href="resources/sitedesign/images/apple-touch-icon-114x114.png"
+	rel="apple-touch-icon" sizes="114x114">
+<link href="resources/sitedesign/images/apple-touch-icon-144x144.png"
+	rel="apple-touch-icon" sizes="144x144">
+
+<!-- Stylesheet -->
+<link href="resources/sitedesign/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/jquery-ui.min.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/animate.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/css-plugin-collections.css"
+	rel="stylesheet" />
+<!-- CSS | menuzord megamenu skins -->
+
+<link id="menuzord-menu-skins"
+	href="resources/sitedesign/css/menuzord-skins/menuzord-subcolored.css"
+	rel="stylesheet" />
+
+<!-- CSS | Main style file -->
+<link href="resources/sitedesign/css/style-main.css" rel="stylesheet"
+	type="text/css">
+<!-- CSS | Preloader Styles -->
+
+<!-- CSS | Custom Margin Padding Collection -->
+<link
+	href="resources/sitedesign/css/custom-bootstrap-margin-padding.css"
+	rel="stylesheet" type="text/css">
+<!-- CSS | Responsive media queries -->
+<link href="resources/sitedesign/css/responsive.css" rel="stylesheet"
+	type="text/css">
+
+<!-- CSS | Theme Color -->
+<link href="resources/sitedesign/css/colors/theme-skin-blue.css"
+	rel="stylesheet" type="text/css">
+
+<link href="resources/soledot/css/fo/soledot.css" rel="stylesheet"
+	type="text/css">
+
+<!-- commonheaderjs -->
+
+<!-- external javascripts -->
+<script src="resources/sitedesign/js/jquery-2.2.0.min.js"></script>
+<script src="resources/sitedesign/js/jquery-ui.min.js"></script>
+<script src="resources/sitedesign/js/bootstrap.min.js"></script>
+<!-- JS | jquery plugin collection for this theme -->
+<script src="resources/sitedesign/js/jquery-plugin-collection.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#submit').on('click', function() {
+			if ($('#id').val().trim() == "") {
+				alert('ID를 입력해주세요.');
+				return false;
+			}
+			if ($('#password').val().trim() == "") {
+				alert('비밀번호를 입력해 주세요.');
+				return false;
+			}
+			$('#frm').submit();
+		});
+	});
+</script>
 </head>
 
-<body>
+<body
+	class="has-side-panel side-panel-right fullwidth-page side-push-panel">
 
-	<!-- Preloader Start -->
-	<!-- 페이지 시작할때 애니메이션 -->
-	<!-- <div id="preloader-active">
-		<div
-			class="preloader d-flex align-items-center justify-content-center">
-			<div class="preloader-inner position-relative">
-				<div class="preloader-circle"></div>
-				<div class="preloader-img pere-text">
-					<img src="./images/logo.png" alt="">
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- Preloader Start -->
+	<div class="body-overlay"></div>
+	<div id="wrapper" class="clearfix">
+		<!-- Header -->
+		<jsp:include page="../login_menu.jsp"></jsp:include>
 
-	<jsp:include page='../beforeLogin.jsp' />
-	<jsp:include page='../menu_logo_form.jsp' />
-
-
-	<!-- 로긴폼 -->
-	<div class="container" align="center">
-		<div class="col-lg-12"></div>
-		<div class="col-lg-6">
-			<!-- 점보트론 -->
-			<div class="jumbotron" style="padding-top: 40px;">
-				<!-- 로그인 정보를 숨기면서 전송post -->
-				<form method="post" action="loginAction.jsp">
-					<h3 style="text-align: center;">견생묘생</h3>
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="아이디"
-							name="userID" maxlength="20">
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control" placeholder="비밀번호"
-							name="userPassword" maxlength="20">
-					</div>
-					<input type="submit" class="btn btn-primary form-control"
-						value="로그인">
-
-					<!-- 회원가입, 아이디찾기,비밀호찾기 -->
-					<div class="position_a" align="center">
-						<div class="find_info" style="color: #8e8e8e">
-							<a style="color: #8e8e8e" target="_blank" id="idinquiry"
-								href="http://13.125.43.98:8080/dogcatlife/join.jsp">아이디 찾기</a> <span
-								class="bar" aria-hidden="true">|</span> <a
-								style="color: #8e8e8e" target="_blank" id="pwinquiry"
-								href="http://13.125.43.98:8080/dogcatlife/join.jsp">비밀번호 찾기</a>
-							<span class="bar" aria-hidden="true">|</span> <a
-								style="color: #8e8e8e" target="_blank" id="join"
-								href="http://13.125.43.98:8080/dogcatlife/join.jsp">회원가입</a>
+		<!-- Start main-content -->
+		<div class="main-content">
+			<!-- Section: inner-header -->
+			<section class="inner-header divider layer-overlay overlay-light"
+				style="background-image: url('resources/images/dogcat_board_main.jpg');"
+				data-bg-img="resources/images/dogcat_board_main.jpg">
+				<div class="container pt-90 pb-50">
+					<!-- Section Content -->
+					<div class="section-content">
+						<div class="row">
+							<div class="col-md-12 xs-text-center">
+								<h3 class="text-theme-colored font-36">로그인</h3>
+								<ol class="breadcrumb white mt-10">
+									<li><a href="main.mysql">Home</a></li>
+									<li class="active text-theme-colored">로그인</li>
+								</ol>
+							</div>
 						</div>
 					</div>
+				</div>
+			</section>
 
+			<section>
+				<div class="container">
+					<div class="row">
+						<div class="icon-box mb-0 p-0">
+							<h4 class="text-gray pt-10 mt-0 mb-30">로그인</h4>
+						</div>
+						<hr>
+						<div class="col-sm-3"></div>
+						<div class="col-sm-6"> <!-- col-md-push-3 -->
+							
+							<form id="frm" name="frm" class="register-form" method="post" action="login_ok.mysql">
+								
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="id">ID</label>
+										<input id="id" name="id" class="form-control" type="text"
+											placeholder="ID">
+									</div>
+								</div>
 
-				</form>
-			</div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="password">비밀번호</label> <input id="password"
+											name="password" class="form-control" type="password"
+											placeholder="비밀번호">
+										<div class="col-12" id="passwordfocus"></div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<button id="submit" class="btn btn-dark btn-flat btn-lg btn-block mt-15"
+										type="submit">로그인</button>
+								</div>
+							</form>
+							<div class="row">
+								<div class="col-sm-6">
+									<a href="find_id.mysql"><button id="findID" class="btn btn-dark btn-flat btn-lg btn-block mt-15"
+										type="submit">아이디 찾기</button></a>
+								</div>
+								<div class="col-sm-6">
+									<a href="find_password.mysql"><button id="findPassword" class="btn btn-dark btn-flat btn-lg btn-block mt-15"
+									type="submit">비밀번호 찾기</button></a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3"></div>
+					</div>
+				</div>
+			</section>
 		</div>
+		<!-- end main-content -->
+	</div>
+	
+	<!-- footer content -->
+	<jsp:include page="../footer.jsp"></jsp:include>
 
 
-		<jsp:include page='../footer.jsp' />
+	<!-- JS | Custom script for all pages -->
+	<script src="resources/sitedesign/js/custom.js"></script>
 
-		<!-- JS here -->
+	<!-- notify -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"></script>
 
-		<!-- All JS Custom Plugins Link Here here -->
-		<script src="resources/assets/js/vendor/modernizr-3.5.0.min.js"></script>
-		<!-- Jquery, Popper, Bootstrap -->
-		<script src="resources/assets/js/vendor/jquery-1.12.4.min.js"></script>
-		<script src="resources/assets/js/popper.min.js"></script>
-		<script src="resources/assets/js/bootstrap.min.js"></script>
-		<!-- Jquery Mobile Menu -->
-		<script src="resources/assets/js/jquery.slicknav.min.js"></script>
+	<!-- jquery-cookie-->
+	<script src="resources/common/js/jquery-cookie/jquery.cookie.js"></script>
 
-		<!-- Jquery Slick , Owl-Carousel Plugins -->
-		<script src="resources/assets/js/owl.carousel.min.js"></script>
-		<script src="resources/assets/js/slick.min.js"></script>
-		<!-- Date Picker -->
-		<script src="resources/assets/js/gijgo.min.js"></script>
-		<!-- One Page, Animated-HeadLin -->
-		<script src="resources/assets/js/wow.min.js"></script>
-		<script src="resources/assets/js/animated.headline.js"></script>
-		<script src="resources/assets/js/jquery.magnific-popup.js"></script>
+	<!-- soledot -->
+	<script src="resources/soledot/js/fo/soledot.js"></script>
 
-		<!-- Scrollup, nice-select, sticky -->
-		<script src="resources/assets/js/jquery.scrollUp.min.js"></script>
-		<script src="resources/assets/js/jquery.nice-select.min.js"></script>
-		<script src="resources/assets/js/jquery.sticky.js"></script>
+	<script src="resources/common/js/jquery-validation/jquery.validate.js"></script>
+	<script
+		src="resources/common/js/jquery-validation/additional-methods.js"></script>
+	<script
+		src="resources/common/js/jquery-validation/localization/messages_ko.js"></script>
 
-		<!-- contact js -->
-		<script src="resources/assets/js/contact.js"></script>
-		<script src="resources/assets/js/jquery.form.js"></script>
-		<script src="resources/assets/js/jquery.validate.min.js"></script>
-		<script src="resources/assets/js/mail-script.js"></script>
-		<script src="resources/assets/js/jquery.ajaxchimp.min.js"></script>
-
-		<!-- Jquery Plugins, main Jquery -->
-		<script src="resources/assets/js/plugins.js"></script>
-		<script src="resources/assets/js/main.js"></script>
 </body>
 </html>

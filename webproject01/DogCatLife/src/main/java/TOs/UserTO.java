@@ -11,7 +11,14 @@ public class UserTO {
 	private String joindate;
 	private String confirmnumber;
 	private String confirm;
+	private String flag;
 	
+	public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 	public String getConfirmnumber() {
 		return confirmnumber;
 	}
