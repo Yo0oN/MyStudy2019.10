@@ -112,6 +112,7 @@ public class LoginDAO {
 		} finally {
 			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
 			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+			if(rs != null) try { rs.close(); } catch(SQLException e) {}
 		}
 	
 		return flag;
@@ -204,5 +205,91 @@ public class LoginDAO {
 		}
 	
 		return userTO.getId();
+	}
+	
+	public int find_password_name_id_email_confirm(String username,String userid, String useremail) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int flag = 1;
+		try {
+			conn = dataSource.getConnection();
+			
+			String sql = "select mseq from user where name=? and id=? and email=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, userid);
+			pstmt.setString(3, useremail);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				flag = 0;
+			}
+		} catch(SQLException e) {
+			System.out.println("[에러] : " + e.getMessage());
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+			if(rs != null) try { rs.close(); } catch(SQLException e) {}
+		}
+	
+		return flag;
+	}
+
+	public UserTO find_password_change(UserTO userTO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = dataSource.getConnection();
+
+			String sql = "select mseq from user where name=? and id=? and email=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userTO.getName());
+			pstmt.setString(2, userTO.getId());
+			pstmt.setString(3, userTO.getEmail());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				userTO.setMseq(rs.getString("mseq"));
+			}
+		} catch(SQLException e) {
+			System.out.println("[에러1] : " + e.getMessage());
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+			if(rs != null) try { rs.close(); } catch(SQLException e) {}
+		}
+	
+		return userTO;
+	}
+
+	public int find_password_change_ok(UserTO userTO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		int flag = 1;
+		try {
+			conn = dataSource.getConnection();
+
+			String sql = "update user set password=? where mseq=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userTO.getPassword());
+			pstmt.setString(2, userTO.getMseq());
+			
+			int result = pstmt.executeUpdate();
+			
+			if (result == 1) {
+				flag = 0;
+			}
+		} catch(SQLException e) {
+			System.out.println("[에러1] : " + e.getMessage());
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+		}
+	
+		return flag;
 	}
 }

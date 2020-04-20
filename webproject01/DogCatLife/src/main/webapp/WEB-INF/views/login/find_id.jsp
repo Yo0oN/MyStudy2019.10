@@ -109,7 +109,7 @@
 		
 		
 		$('#submit').on('click', function() {
-			if (nameBoolean == false || emailBoolean == false || name_email_Boolean == false || sendmailBoolean == false) {
+			if (nameBoolean == false || emailBoolean == false || name_email_Boolean == false || sendmailBoolean == false || confirmnumberBoolean == false) {
 				alert('메일을 인증해주세요.');
 				return false;
 			}

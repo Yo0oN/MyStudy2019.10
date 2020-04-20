@@ -62,7 +62,7 @@
 				sbHTML.append("</ul>");
 			}
 			sbHTML.append("<ul class='list-inline'>");
-			sbHTML.append("<li><span style='font-size: 14px;'>" + comment + "</span></li>");
+			sbHTML.append("<li><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></li>");
 			sbHTML.append("</ul>");
 			sbHTML.append("<hr>");
 		}
@@ -189,30 +189,27 @@ $(document).ready(function() {
 		});
 
 		// 댓글 수정
-		$('.comment_modify').on(
-				'click',
-				function() {
-					var addAttr = 'tr[cseq='
-							+ $(this).attr('cseq') + ']';
+		$('.comment_modify').on( 'click', function() {
+			var addAttr = 'li span[cseq=' + $(this).attr('cseq') + ']';
+			$(addAttr).attr('style', 'display:none');
+	
+			/* alert('modify' + addAttr);
+			$.ajax({
+				url : './com_board_comment_modify.mysql',
+				data : {
+					cseq : $(this).attr('cseq')
+				},
+				type : 'get',
+				dataType : 'text',
+				success : function(data) {
 					$(addAttr).attr('style', 'display:none');
-
-					/* alert('modify' + addAttr);
-					$.ajax({
-						url : './com_board_comment_modify.mysql',
-						data : {
-							cseq : $(this).attr('cseq')
-						},
-						type : 'get',
-						dataType : 'text',
-						success : function(data) {
-							$(addAttr).attr('style', 'display:none');
-							
-						},
-						error : function(error) {
-							alert('수정에 실패하였습니다.');
-						}
-					}); */
-				});
+					
+				},
+				error : function(error) {
+					alert('수정에 실패하였습니다.');
+				}
+			}); */
+		});
 	});
 </script>
 </head>

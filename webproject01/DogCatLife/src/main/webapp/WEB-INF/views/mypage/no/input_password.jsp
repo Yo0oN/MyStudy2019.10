@@ -44,7 +44,8 @@
 	</div> -->
 	<!-- Preloader Start -->
 
-	<%-- <jsp:include page='../login_menu.jsp' /> --%>
+<%-- 	<jsp:include page='../beforeLogin.jsp' />
+	<jsp:include page='../menu_logo_form.jsp' /> --%>
 
 	<hr>
 
@@ -53,13 +54,24 @@
 
 			<div class="row">
 				<div class="col-lg-12">
-					<h3>아이디찾기</h3>
-				</div>
-			</div>
+					<h3>회원정보확인</h3>
 
-			<div  class="mt-20">고객님의 ID는 XXX 입니다.</div>
-			<div  class="mt-20">
-				<button type="button" class="btn bg-dark" style="min-width: 100px">확인</button>
+					<!-- 쿠팡 -->
+					<p class="usermodify-auth-msg">
+						<strong class="usermodify-auth-mail">id</strong>님의 정보를 안전하게 보호하기
+						위해 비밀번호를 다시 한번 확인 합니다.
+					</p>
+
+					<!-- 비밀번호 입력 : 프롬비기닝 -->
+					<div class="mypage_input_pw">
+						<span class="lab" style="color: black">비밀번호</span> &nbsp; 
+						<input type="password" id="user_password" name="user_password"
+							class="txt-input" onkeyup="javascript:check_key(event);"></label>&nbsp;
+						<button type="button" class="btn bg-dark" style="min-width: 100px">확인</button>
+
+					</div>
+
+				</div>
 			</div>
 
 		</div>

@@ -39,7 +39,7 @@
 							</li>
 							<li class="sm-display-block mt-sm-10 mb-sm-10">
 								<a class="bg-light p-5 text-theme-colored font-11 pl-10 pr-10"
-									href="#">마이페이지</a>
+									href="input_password.mysql">마이페이지</a>
 							</li>
 							<li class="sm-display-block mt-sm-10 mb-sm-10">
 								<a class="bg-light p-5 text-theme-colored font-11 pl-10 pr-10"
@@ -70,28 +70,28 @@
 							</div> -->
 
 					<ul class="menuzord-menu">
-						<li><a href="#home">커뮤니티</a>
+						<li><a>커뮤니티</a>
 							<ul class="dropdown">
 								<li><a href="com_board_list.mysql?pseq=11">커뮤니티</a></li>
 								<li><a href="album_board_list.mysql?pseq=12">자랑하기</a></li>
 							</ul></li>
-						<li><a href="#">찾아주세요</a>
+						<li><a>찾아주세요</a>
 							<ul class="dropdown">
-								<li><a href="lost_board_list.mysql?pseq=21">실종동물등록</a></li>
-								<li><a href="lost_case_board_list.mysql?pseq=22">재회 성공 사례</a></li>
+								<li><a href="album_board_list.mysql?pseq=21">실종동물등록</a></li>
+								<li><a href="album_board_list.mysql?pseq=22">재회 성공 사례</a></li>
 							</ul></li>
-						<li><a href="#">입양</a>
+						<li><a>입양</a>
 							<ul class="dropdown">
-								<li><a href="#">입양 절차</a></li>
+								<li><a href="adoption_board_view.mysql">입양 절차</a></li>
 								<li><a href="#">입양 가능 아이들</a></li>
-								<li><a href="adoption_case_board_list.mysql">입양 후기</a></li>
+								<li><a href="album_board_list.mysql?pseq=32">입양 후기</a></li>
 							</ul></li>
-						<li><a href="#">위치찾기</a>
+						<li><a>위치찾기</a>
 							<ul class="dropdown">
 								<li><a href="#">병원</a></li>
 								<li><a href="#">미용,호텔</a></li>
 							</ul></li>
-						<li><a href="#">고객센터</a>
+						<li><a>고객센터</a>
 							<ul class="dropdown">
 								<li><a href="#">Q & A</a></li>
 								<li><a href="#">공지사항</a></li>

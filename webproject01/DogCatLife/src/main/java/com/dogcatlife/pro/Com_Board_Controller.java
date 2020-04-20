@@ -23,7 +23,8 @@ import TOs.BoardTO;
  */
 @Controller
 public class Com_Board_Controller {
-	private String uploadPath = "D:\\MyFirstGit\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
+	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
+//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLife202004201/resources/upload";
 
 	@RequestMapping("/com_board_list.mysql")
 	public ModelAndView com_board_list(HttpServletRequest request) {
@@ -153,17 +154,7 @@ public class Com_Board_Controller {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("community_board/com_board_write");
 
-		/*
-		 * BoardTO boardTO = new BoardTO();
-		 * 
-		 * HttpSession session = request.getSession(); boardTO.setMseq((String)
-		 * session.getAttribute("sess_mseq"));
-		 * 
-		 * CommunityBoardDAO communityBoardDOA = new CommunityBoardDAO(); boardTO =
-		 * communityBoardDOA.boardWrite(boardTO);
-		 */
-
-		 modelAndView.addObject("pseq", request.getParameter("pseq"));
+		modelAndView.addObject("pseq", request.getParameter("pseq"));
 		 
 		return modelAndView;
 	}

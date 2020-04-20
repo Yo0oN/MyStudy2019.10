@@ -53,13 +53,40 @@
 
 			<div class="row">
 				<div class="col-lg-12">
-					<h3>아이디찾기</h3>
+					<h3>비밀번호 찾기</h3>
 				</div>
 			</div>
-
-			<div  class="mt-20">고객님의 ID는 XXX 입니다.</div>
-			<div  class="mt-20">
-				<button type="button" class="btn bg-dark" style="min-width: 100px">확인</button>
+			<div class="row">
+				<form action="#">
+					<div class="row">
+						<div class="mt-10 col-12">
+							<input type="text" name="name" placeholder="이름"
+								onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'"
+								required class="single-input-primary">
+						</div>
+						<div class="mt-10 col-12">
+							<input type="text" name="email" placeholder="이메일"
+								onfocus="this.placeholder = ''"
+								onblur="this.placeholder = '이메일'" required
+								class="single-input-primary">
+						</div>
+						<div class="mt-10 col-12">
+							<input type="text" name="phone" placeholder="전화번호"
+								onfocus="this.placeholder = ''"
+								onblur="this.placeholder = '전화번호'" required
+								class="single-input-primary">
+						</div>
+						<div class="mt-10 col-12">
+							<input type="text" name="id" placeholder="ID"
+								onfocus="this.placeholder = ''" onblur="this.placeholder = 'ID'"
+								required class="single-input-primary">
+						</div>
+					</div>
+					<div class="col-12 mt-30" align="right">
+						<button type="button" style="min-width: 100px"
+							class="btn bg-dark" disabled>찾기</button>
+					</div>
+				</form>
 			</div>
 
 		</div>

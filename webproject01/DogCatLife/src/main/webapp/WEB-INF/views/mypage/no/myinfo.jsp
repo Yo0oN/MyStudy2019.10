@@ -25,6 +25,8 @@
 <link rel="stylesheet" href="./assets/css/slick.css">
 <link rel="stylesheet" href="./assets/css/nice-select.css">
 <link rel="stylesheet" href="./assets/css/style.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 </head>
 
 <body>
@@ -44,25 +46,102 @@
 	</div> -->
 	<!-- Preloader Start -->
 
-	<jsp:include page='../login_menu.jsp' />
+<%-- 	<jsp:include page='../beforeLogin.jsp' />
+	<jsp:include page='../menu_logo_form.jsp' />
+ --%>
+
+
+	<div class="w3-container">
+
+		<h3>회원정보수정</h3>
+
+		<table border="1" aling="center" class="w3-table w3-striped w3-border">
+
+			<tr align="center">
+				<td width="150" heigth="150" align="center">아이디(ID)</td>
+				<td></td>
+
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td></td>
+
+			</tr>
+			<tr>
+				<td>휴대폰번호</td>
+				<td></td>
+
+			</tr>
+			<tr>
+				<td>이메일</td>
+				<td></td>
+
+			</tr>
+			<tr>
+				<td>비밀번호변경</td>
+				<td></td>
+
+			</tr>
+				<tr>
+				<td>배송지</td>
+				<td></td>
+
+			</tr>
+				<tr>
+				<td>수신설정</td>
+				<td></td>
+
+			</tr>
+			
+		</table>
+	</div>
+
+
+
+
+
+
+
+
+
 
 	<hr>
+
 
 	<section class="blog_area single-post-area mb-30">
 		<div class="container">
 
 			<div class="row">
 				<div class="col-lg-12">
-					<h3>비밀번호 찾기</h3>
+					<h3>회원정보수정</h3>
 				</div>
 			</div>
 			<div class="row">
 				<form action="#">
 					<div class="row">
-						<div class="mt-10 col-12">
+						<div class="mt-10 col-4">
+							<input type="text" name="id" value="ID">
+						</div>
+						<div class="mt-10 col-4">
+							<input type="text" name="id" placeholder="ID"
+								onfocus="this.placeholder = ''" onblur="this.placeholder = 'ID'"
+								required class="single-input-primary">
+						</div>
+						<div class="mt-10 col-4">
+							<input type="text" name="id" placeholder="ID"
+								onfocus="this.placeholder = ''" onblur="this.placeholder = 'ID'"
+								required class="single-input-primary">
+						</div>
+						<div class="mt-10 col-4">
 							<input type="text" name="name" placeholder="이름"
 								onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'"
 								required class="single-input-primary">
+						</div>
+						<div class="mt-10 col-4 default-select" id="default-select">
+							<select name="cars" class="custom-select">
+								<option value="f">여자</option>
+								<option value="m">남자</option>
+							</select>
 						</div>
 						<div class="mt-10 col-12">
 							<input type="text" name="email" placeholder="이메일"
@@ -77,14 +156,20 @@
 								class="single-input-primary">
 						</div>
 						<div class="mt-10 col-12">
-							<input type="text" name="id" placeholder="ID"
-								onfocus="this.placeholder = ''" onblur="this.placeholder = 'ID'"
+							<input type="password" name="password" placeholder="암호"
+								onfocus="this.placeholder = ''" onblur="this.placeholder = '암호'"
 								required class="single-input-primary">
 						</div>
+						<div class="mt-10 col-12">
+							<input type="text" name="nickname" placeholder="별명"
+								onfocus="this.placeholder = ''" onblur="this.placeholder = '별명'"
+								required class="single-input-primary">
+						</div>
+
 					</div>
 					<div class="col-12 mt-30" align="right">
-						<button type="button" style="min-width: 100px"
-							class="btn bg-dark" disabled>찾기</button>
+						<button type="button" style="min-width: 100px" class="btn bg-dark"
+							disabled>회원가입</button>
 					</div>
 				</form>
 			</div>
@@ -94,7 +179,7 @@
 
 
 
-	<jsp:include page='../footer.jsp' />
+	<%-- <jsp:include page='../footer.jsp' /> --%>
 
 	<!-- JS here -->
 

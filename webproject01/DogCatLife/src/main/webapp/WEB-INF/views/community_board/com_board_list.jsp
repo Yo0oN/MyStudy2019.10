@@ -7,7 +7,7 @@
 <%
 	String nowUrl = "com_board_list.mysql?" + request.getQueryString();
 	session.setAttribute("endUrl", nowUrl);
-
+	
 	String sess_mseq = (String) session.getAttribute("sess_mseq");
 	String sess_nickname = (String) session.getAttribute("sess_nickname");
 	BoardListsTO boardListsTO = (BoardListsTO) request.getAttribute("boardListsTO");

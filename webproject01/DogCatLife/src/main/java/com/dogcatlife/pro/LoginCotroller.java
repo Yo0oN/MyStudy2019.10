@@ -190,4 +190,79 @@ public class LoginCotroller {
 		modelAndView.addObject("id", id);
 		return modelAndView;
 	}
+
+	@RequestMapping("/find_password.mysql")
+	public ModelAndView find_password() {
+		System.out.println("find_password 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("login/find_password");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/find_password_name_id_email_confirm.mysql")
+	public ModelAndView find_password_name_id_email_confirm(HttpServletRequest request) {
+		System.out.println("find_password_name_id_email_confirm 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("login/find_password_name_id_email_confirm");
+		
+		String username = request.getParameter("username");
+		String userid = request.getParameter("userid");
+		String useremail = request.getParameter("useremail");
+
+		int flag = new LoginDAO().find_password_name_id_email_confirm(username, userid, useremail);
+		
+		modelAndView.addObject("flag", flag);
+		return modelAndView;
+	}
+
+	@RequestMapping("/find_password_mail_confirm.mysql")
+	public ModelAndView find_password_mail_confirm(HttpServletRequest request) {
+		System.out.println("find_id_mail_confirm 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("login/find_password_mail_confirm");
+		
+		String useremail = request.getParameter("useremail");
+		
+		String confirmNumber = new CreateConfirmNumber().confirmNumber();
+		
+		String mailContent = "<html><head><body>인증번호는 '" + confirmNumber + "' 입니다.</body></head></html>";
+
+		MailSender mailSender = new MailSender();
+		
+		int mailFlag = mailSender.sendMail(useremail, mailContent);
+		
+		// 메일이 성공적으로 보내졌다면 flag == 인증번호 아니라면 1,2,3중 하나가 간다.
+		if (mailFlag == 0) {
+			modelAndView.addObject("flag", confirmNumber);
+			System.out.println(confirmNumber);
+		} else {
+			modelAndView.addObject("flag", mailFlag);
+		}
+
+		return modelAndView;
+	}
+	
+	@RequestMapping("/find_password_change.mysql")
+	public ModelAndView find_password_change(UserTO userTO) {
+		System.out.println("find_password_change 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("login/find_password_change");
+		
+		userTO = new LoginDAO().find_password_change(userTO);
+		
+		modelAndView.addObject("userTO", userTO);
+		return modelAndView;
+	}
+	
+	@RequestMapping("/find_password_change_ok.mysql")
+	public ModelAndView find_password_change_ok(UserTO userTO) {
+		System.out.println("find_password_change_ok 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("login/find_password_change_ok");
+		
+		int flag = new LoginDAO().find_password_change_ok(userTO);
+		
+		modelAndView.addObject("flag", flag);
+		return modelAndView;
+	}
 }

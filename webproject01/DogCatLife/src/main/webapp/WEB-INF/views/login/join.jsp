@@ -274,7 +274,7 @@
 		var check2 = $('#password2').val().trim();
 		
 		if (check1 != check2) {
-			$('#passwordfocus2').html('<p style="color:red">암호가 다릅니다.</p>');
+			$('#passwordfocus2').html('<p style="color:red">암호가 일치하지 않습니다.</p>');
 			passwordBoolean2 = false;
 			return;
 		} else {
@@ -301,7 +301,8 @@
 	// 이메일 형식 확인
 	function emailCheck() {
 		var check = $('#email').val().trim();
-		var languageCheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		/* var languageCheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; */
+		var languageCheck = /\w+@\w+\.\w+/;
 		
 		if (languageCheck.test(check)) {
 			$('#emailfocus').html('<p style="color:blue"></p>');

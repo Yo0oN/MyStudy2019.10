@@ -1,222 +1,239 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!doctype html>
-<html class="no-js" lang="zxx">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
+
 <meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>SEO HTML-5 Template</title>
-<meta name="description" content="">
+<meta name="author" content="soledot">
+<meta name="description" content="애완동물을 위한, DogCatLife 입니다.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="ALL">
 
-<link rel="manifest" href="site.webmanifest">
-<link rel="shortcut icon" type="image/x-icon"
-	href="assets/img/favicon.ico">
+<meta property="og:title" content="DogCatLife">
+<meta property="og:description" content="애완동물을 위한, DogCatLife 입니다.">
+<meta property="og:image" content="resources/images/logo.png">
+<!-- <meta property="og:url" content="http://medisvc.com/home/fo/index.sd"> -->
+<meta property="og:type" content="website">
 
-<!-- CSS here -->
-<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="./assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="./assets/css/flaticon.css">
-<link rel="stylesheet" href="./assets/css/slicknav.css">
-<link rel="stylesheet" href="./assets/css/animate.min.css">
-<link rel="stylesheet" href="./assets/css/magnific-popup.css">
-<link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
-<link rel="stylesheet" href="./assets/css/themify-icons.css">
-<link rel="stylesheet" href="./assets/css/slick.css">
-<link rel="stylesheet" href="./assets/css/nice-select.css">
-<link rel="stylesheet" href="./assets/css/style.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>DogCatLife</title>
 
+<!-- commoncss -->
+
+<!-- Favicon and Touch Icons -->
+<link href="resources/sitedesign/images/favicon.png" rel="shortcut icon"
+	type="image/png">
+<link href="resources/sitedesign/images/apple-touch-icon.png"
+	rel="apple-touch-icon">
+<link href="resources/sitedesign/images/apple-touch-icon-72x72.png"
+	rel="apple-touch-icon" sizes="72x72">
+<link href="resources/sitedesign/images/apple-touch-icon-114x114.png"
+	rel="apple-touch-icon" sizes="114x114">
+<link href="resources/sitedesign/images/apple-touch-icon-144x144.png"
+	rel="apple-touch-icon" sizes="144x144">
+
+<!-- Stylesheet -->
+<link href="resources/sitedesign/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/jquery-ui.min.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/animate.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/sitedesign/css/css-plugin-collections.css"
+	rel="stylesheet" />
+<!-- CSS | menuzord megamenu skins -->
+
+<link id="menuzord-menu-skins"
+	href="resources/sitedesign/css/menuzord-skins/menuzord-subcolored.css"
+	rel="stylesheet" />
+
+<!-- CSS | Main style file -->
+<link href="resources/sitedesign/css/style-main.css" rel="stylesheet"
+	type="text/css">
+<!-- CSS | Preloader Styles -->
+
+<!-- CSS | Custom Margin Padding Collection -->
+<link
+	href="resources/sitedesign/css/custom-bootstrap-margin-padding.css"
+	rel="stylesheet" type="text/css">
+<!-- CSS | Responsive media queries -->
+<link href="resources/sitedesign/css/responsive.css" rel="stylesheet"
+	type="text/css">
+
+<!-- CSS | Theme Color -->
+<link href="resources/sitedesign/css/colors/theme-skin-blue.css"
+	rel="stylesheet" type="text/css">
+
+<link href="resources/soledot/css/fo/soledot.css" rel="stylesheet"
+	type="text/css">
+
+<!-- commonheaderjs -->
+
+<!-- external javascripts -->
+<script src="resources/sitedesign/js/jquery-2.2.0.min.js"></script>
+<script src="resources/sitedesign/js/jquery-ui.min.js"></script>
+<script src="resources/sitedesign/js/bootstrap.min.js"></script>
+<!-- JS | jquery plugin collection for this theme -->
+<script src="resources/sitedesign/js/jquery-plugin-collection.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+</script>
 </head>
 
-<body>
+<body
+	class="has-side-panel side-panel-right fullwidth-page side-push-panel">
 
-	<!-- Preloader Start -->
-	<!-- 페이지 시작할때 애니메이션 -->
-	<!-- <div id="preloader-active">
-		<div
-			class="preloader d-flex align-items-center justify-content-center">
-			<div class="preloader-inner position-relative">
-				<div class="preloader-circle"></div>
-				<div class="preloader-img pere-text">
-					<img src="./images/logo.png" alt="">
+	<div class="body-overlay"></div>
+	<div id="wrapper" class="clearfix">
+		<!-- Header -->
+		<jsp:include page="../login_menu.jsp"></jsp:include>
+
+		<!-- Start main-content -->
+		<div class="main-content">
+			<!-- Section: inner-header -->
+			<section class="inner-header divider layer-overlay overlay-light"
+				style="background-image: url('resources/images/dogcat_board_main.jpg');"
+				data-bg-img="resources/images/dogcat_board_main.jpg">
+				<div class="container pt-90 pb-50">
+					<!-- Section Content -->
+					<div class="section-content">
+						<div class="row">
+							<div class="col-md-12 xs-text-center">
+								<h3 class="text-theme-colored font-36">마이페이지</h3>
+								<ol class="breadcrumb white mt-10">
+									<li><a href="main.mysql">Home</a></li>
+									<li class="active text-theme-colored">마이페이지</li>
+								</ol>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- Preloader Start -->
+			</section>
 
-	<jsp:include page='../beforeLogin.jsp' />
-	<jsp:include page='../menu_logo_form.jsp' />
-
-
-
-	<div class="w3-container">
-
-		<h3>회원정보수정</h3>
-
-		<table border="1" aling="center" class="w3-table w3-striped w3-border">
-
-			<tr align="center">
-				<td width="150" heigth="150" align="center">아이디(ID)</td>
-				<td></td>
-
-			</tr>
-			<tr>
-				<td>이름</td>
-				<td></td>
-
-			</tr>
-			<tr>
-				<td>휴대폰번호</td>
-				<td></td>
-
-			</tr>
-			<tr>
-				<td>이메일</td>
-				<td></td>
-
-			</tr>
-			<tr>
-				<td>비밀번호변경</td>
-				<td></td>
-
-			</tr>
-				<tr>
-				<td>배송지</td>
-				<td></td>
-
-			</tr>
-				<tr>
-				<td>수신설정</td>
-				<td></td>
-
-			</tr>
-			
-		</table>
-	</div>
-
-
-
-
-
-
-
-
-
-
-	<hr>
-
-
-	<section class="blog_area single-post-area mb-30">
-		<div class="container">
-
-			<div class="row">
-				<div class="col-lg-12">
-					<h3>회원정보수정</h3>
-				</div>
-			</div>
-			<div class="row">
-				<form action="#">
+			<section>
+				<div class="container">
 					<div class="row">
-						<div class="mt-10 col-4">
-							<input type="text" name="id" value="ID">
-						</div>
-						<div class="mt-10 col-4">
-							<input type="text" name="id" placeholder="ID"
-								onfocus="this.placeholder = ''" onblur="this.placeholder = 'ID'"
-								required class="single-input-primary">
-						</div>
-						<div class="mt-10 col-4">
-							<input type="text" name="id" placeholder="ID"
-								onfocus="this.placeholder = ''" onblur="this.placeholder = 'ID'"
-								required class="single-input-primary">
-						</div>
-						<div class="mt-10 col-4">
-							<input type="text" name="name" placeholder="이름"
-								onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'"
-								required class="single-input-primary">
-						</div>
-						<div class="mt-10 col-4 default-select" id="default-select">
-							<select name="cars" class="custom-select">
-								<option value="f">여자</option>
-								<option value="m">남자</option>
-							</select>
-						</div>
-						<div class="mt-10 col-12">
-							<input type="text" name="email" placeholder="이메일"
-								onfocus="this.placeholder = ''"
-								onblur="this.placeholder = '이메일'" required
-								class="single-input-primary">
-						</div>
-						<div class="mt-10 col-12">
-							<input type="text" name="phone" placeholder="전화번호"
-								onfocus="this.placeholder = ''"
-								onblur="this.placeholder = '전화번호'" required
-								class="single-input-primary">
-						</div>
-						<div class="mt-10 col-12">
-							<input type="password" name="password" placeholder="암호"
-								onfocus="this.placeholder = ''" onblur="this.placeholder = '암호'"
-								required class="single-input-primary">
-						</div>
-						<div class="mt-10 col-12">
-							<input type="text" name="nickname" placeholder="별명"
-								onfocus="this.placeholder = ''" onblur="this.placeholder = '별명'"
-								required class="single-input-primary">
-						</div>
+						<div class="col-sm-12 col-md-3">
+							<div class="sidebar sidebar-left mt-sm-30">
+									<div class="widget">
+										<h5 class="widget-title line-bottom"><a href="/user/fo/myaccount.sd">내 계정</a></h5>
+										<div class="categories">
+											<ul class="list list-border angle-double-right">
+												<li><a href="mycontents_list.mysql">내가쓴 글</a></li>
+												<li><a href="mycomment_list.mysql">내가 쓴 댓글</a></li>
+												<li><a href="myquestion_list.mysql">1 대 1 질문</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+						<div class="col-md-8">
+							<form id="frm" name="frm" class="register-form" method="post" action="myinfo.mysql">
+								<div class="icon-box mb-0 p-0">
+									<h4 class="text-gray pt-10 mt-0 mb-30">회원정보 입력</h4>
+								</div>
+								<hr>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="mb_id">이메일</label>
+										<input id="email" name="email" class="form-control" type="email"
+											placeholder="예) email@dogcatlife.com" value="test@test.com">
+										<div class="col-12" id="emailfocus"></div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label class="sr-only">이메일 변경하기</label>
+										<button id="confirmbtn"
+											class="btn btn-theme-colored btn-flat btn-lg btn-block"
+											type="button">이메일 변경하기</button>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="name">이름</label>
+										<input id="name" name="name" class="form-control"
+											type="text" value="홍길동" readonly>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="nickname">닉네임</label> <input id="nickname"
+											name="nickname" class="form-control" type="text"
+											placeholder="닉네임" value="home">
+										<div class="col-12" id="nicknamefocus"></div>
+									</div>
+								</div>
+								
+								
 
-					</div>
-					<div class="col-12 mt-30" align="right">
-						<button type="button" style="min-width: 100px" class="btn bg-dark"
-							disabled>회원가입</button>
-					</div>
-				</form>
-			</div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="password">비밀번호</label> <input id="password"
+											name="password" class="form-control" type="password"
+											placeholder="비밀번호는 영문, 숫자, 특수문자가 반드시 포함되어야합니다.">
+										<div class="col-12" id="passwordfocus"></div>
+									</div>
+									<div class="form-group col-md-12">
+										<label for="password2" class="sr-only">비밀번호 확인</label> <input
+											id="password2" name="password2" class="form-control"
+											type="password" placeholder="비밀번호 확인">
+										<div class="col-12" id="passwordfocus2"></div>
+									</div>
+								</div>
 
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label for="phone">휴대전화</label> <input id="phone"
+											name="phone" class="form-control" type="text"
+											placeholder="휴대전화 예) 010-1234-5678" value="010-1234-5678">
+										<div class="col-12" id="phonefocus"></div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<button id="submit" class="btn btn-dark btn-flat btn-lg btn-block mt-15"
+										type="submit">정보 수정</button>
+								</div>
+								
+							</form>
+							
+						</div>
+					</div>
+				</div>
+			</section>
 		</div>
-	</section>
+		<!-- end main-content -->
+	</div>
+	
+	<!-- footer content -->
+	<jsp:include page="../footer.jsp"></jsp:include>
 
 
+	<!-- JS | Custom script for all pages -->
+	<script src="resources/sitedesign/js/custom.js"></script>
 
-	<jsp:include page='../footer.jsp' />
+	<!-- notify -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"></script>
 
-	<!-- JS here -->
+	<!-- jquery-cookie-->
+	<script src="resources/common/js/jquery-cookie/jquery.cookie.js"></script>
 
-	<!-- All JS Custom Plugins Link Here here -->
-	<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
-	<!-- Jquery, Popper, Bootstrap -->
-	<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-	<script src="./assets/js/popper.min.js"></script>
-	<script src="./assets/js/bootstrap.min.js"></script>
-	<!-- Jquery Mobile Menu -->
-	<script src="./assets/js/jquery.slicknav.min.js"></script>
+	<!-- soledot -->
+	<script src="resources/soledot/js/fo/soledot.js"></script>
 
-	<!-- Jquery Slick , Owl-Carousel Plugins -->
-	<script src="./assets/js/owl.carousel.min.js"></script>
-	<script src="./assets/js/slick.min.js"></script>
-	<!-- Date Picker -->
-	<script src="./assets/js/gijgo.min.js"></script>
-	<!-- One Page, Animated-HeadLin -->
-	<script src="./assets/js/wow.min.js"></script>
-	<script src="./assets/js/animated.headline.js"></script>
-	<script src="./assets/js/jquery.magnific-popup.js"></script>
-
-	<!-- Scrollup, nice-select, sticky -->
-	<script src="./assets/js/jquery.scrollUp.min.js"></script>
-	<script src="./assets/js/jquery.nice-select.min.js"></script>
-	<script src="./assets/js/jquery.sticky.js"></script>
-
-	<!-- contact js -->
-	<script src="./assets/js/contact.js"></script>
-	<script src="./assets/js/jquery.form.js"></script>
-	<script src="./assets/js/jquery.validate.min.js"></script>
-	<script src="./assets/js/mail-script.js"></script>
-	<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-
-	<!-- Jquery Plugins, main Jquery -->
-	<script src="./assets/js/plugins.js"></script>
-	<script src="./assets/js/main.js"></script>
+	<script src="resources/common/js/jquery-validation/jquery.validate.js"></script>
+	<script
+		src="resources/common/js/jquery-validation/additional-methods.js"></script>
+	<script
+		src="resources/common/js/jquery-validation/localization/messages_ko.js"></script>
 
 </body>
 </html>

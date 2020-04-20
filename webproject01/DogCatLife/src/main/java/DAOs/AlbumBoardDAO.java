@@ -1,4 +1,4 @@
-﻿package DAOs;
+package DAOs;
 
 import java.io.File;
 import java.sql.Connection;
@@ -15,12 +15,12 @@ import javax.sql.DataSource;
 import TOs.BoardListsTO;
 import TOs.BoardTO;
 
-public class CommunityBoardDAO {
+public class AlbumBoardDAO {
 	private DataSource dataSource = null;
 	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
 //	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLife202004201/resources/upload";
 	
-	public CommunityBoardDAO() {
+	public AlbumBoardDAO() {
 		try {
 			Context initCtx = new InitialContext();
 			Context envCtx = (Context) initCtx.lookup("java:comp/env");
@@ -30,7 +30,7 @@ public class CommunityBoardDAO {
 		}
 	}
 
-	public int boardWriteOk(BoardTO boardTO) {
+	public int album_boardWriteOk(BoardTO boardTO) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -73,13 +73,13 @@ public class CommunityBoardDAO {
 		return flag;
 	}
 
-	public BoardListsTO boardList(BoardListsTO boardListsTO) {
+	public BoardListsTO albumBoardList(BoardListsTO boardListsTO) {
 		// 현재 게시판
 		int pseq = boardListsTO.getPseq();
 		// 현재페이지
 		int cpage = boardListsTO.getCpage();
 		// 한 페이지에 몇개 보이는지? 10개
-		int recordPerPage = boardListsTO.getRecordPerPage();
+		int recordPerPage = 15;
 		// 한블럭에 몇개들어가는지? (5개)
 		int blockPerPage = boardListsTO.getBlockPerPage();
 		// 총 글 수
@@ -111,7 +111,7 @@ public class CommunityBoardDAO {
 
 			// 글 목록 - pseq에 따라 게시판번호, 글번호, 제목, 작성자번호, 닉네임, 조회수, 댓글수, 작성일, 수정일, 작성한지 얼마나
 			// 시간이흘렀는가를 한페이지에 보여줄 만큼만 가져온 후 seq로 내림차순
-			sql = "select pseq, seq, subject, mseq, writer, hit, cmt, date_format(wdate_ori, '%Y-%m-%d %H:%i') wdate_ori, date_format(wdate_mod, '%Y-%m-%d %H:%i') wdate_mod, hour(timediff(now(), wdate_ori)) wgap from board where pseq=? order by seq desc limit ?, ?";
+			sql = "select pseq, seq, subject, mseq, writer, hit, cmt, date_format(wdate_ori, '%Y-%m-%d %H:%i') wdate_ori, date_format(wdate_mod, '%Y-%m-%d %H:%i') wdate_mod, hour(timediff(now(), wdate_ori)) wgap, filename_new from board where pseq=? order by seq desc limit ?, ?";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, pseq);
@@ -132,6 +132,7 @@ public class CommunityBoardDAO {
 				boardTO.setWdate_ori(rs.getString("wdate_ori"));
 				boardTO.setWdate_mod(rs.getString("wdate_mod"));
 				boardTO.setWgap(rs.getInt("wgap"));
+				boardTO.setFilename_new(rs.getString("filename_new"));
 
 				boardLists.add(boardTO);
 			}
@@ -168,7 +169,7 @@ public class CommunityBoardDAO {
 		return boardListsTO;
 	}
 
-	public ArrayList<BoardTO> boardView(String seq) {
+	public ArrayList<BoardTO> albumBoardView(String seq) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -253,7 +254,7 @@ public class CommunityBoardDAO {
 		return toLists;
 	}
 
-	public int board_reply_ok(BoardTO boardTO) {
+	public int album_Board_reply_ok(BoardTO boardTO) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -292,7 +293,7 @@ public class CommunityBoardDAO {
 		return flag;
 	}
 
-	public BoardTO boardModify(BoardTO boardTO) {
+	public BoardTO album_BoardModify(BoardTO boardTO) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -339,7 +340,7 @@ public class CommunityBoardDAO {
 		return boardTO;
 	}
 
-	public int boardModifyOk(BoardTO boardTO) {
+	public int album_BoardModifyOk(BoardTO boardTO) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -417,7 +418,7 @@ public class CommunityBoardDAO {
 		return flag;
 	}
 
-	public int boardDeleteOk(BoardTO boardTO) {
+	public int album_BoardDeleteOk(BoardTO boardTO) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -489,7 +490,7 @@ public class CommunityBoardDAO {
 		return flag;
 	}
 	
-	public int boardCommentDeleteOk(BoardTO boardTO) {
+	public int album_BoardCommentDeleteOk(BoardTO boardTO) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

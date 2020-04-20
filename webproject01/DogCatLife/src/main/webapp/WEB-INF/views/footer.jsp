@@ -24,10 +24,9 @@
 				<div class="widget">
 					<h5 class="widget-title line-bottom">Quick Links</h5>
 					<ul class="list-border list theme-colored angle-double-right">
-						<li><a href="/user/fo/memberaddtype.sd">회원가입</a></li>
-						<li><a href="/help/fo/index.sd">고객센터</a></li>
-						<li><a href="/help/fo/noticelist.sd">공지사항</a></li>
-						<li><a href="/help/fo/faqlist.sd">FAQ</a></li>
+						<li><a href="join.mysql">회원가입</a></li>
+						<li><a href="#">공지사항</a></li>
+						<li><a href="#">Q & A</a></li>
 
 					</ul>
 				</div>
@@ -35,7 +34,7 @@
 
 			<div class="col-sm-6 col-md-3">
 				<div class="widget">
-					<h5 class="widget-title line-bottom">Quick Contact</h5>
+					<h5 class="widget-title line-bottom">Contact</h5>
 					<ul class="list list-border">
 						<li><a href="tel:010-0000-0000">010-0000-0000</a></li>
 						<li><a href="mailTo:admin@doccatlife.com">admin@doccatlife.com</a></li>

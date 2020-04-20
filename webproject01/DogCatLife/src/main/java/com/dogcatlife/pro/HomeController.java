@@ -25,4 +25,12 @@ public class HomeController {
 		modelAndView.setViewName("main");
 		return modelAndView;
 	}
+	
+	@RequestMapping({"/", "/adoption_board_view.mysql"})
+	public ModelAndView adoption_board_view() {
+		System.out.println("adoption_board_view 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("adoption_board/adoption_board_view");
+		return modelAndView;
+	}
 }
