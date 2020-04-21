@@ -11,6 +11,7 @@ public class BoardListsTO {
 	private int startBlock;
 	private int endBlock;
 	private int pseq;
+	private String mseq;
 
 	private ArrayList<BoardTO> boardLists;
 
@@ -25,6 +26,14 @@ public class BoardListsTO {
 		this.totalPage = 1;
 		// DB에서 아직 읽어오기 전이니까 총 글 수는 0개
 		this.totalRecord = 0;
+	}
+
+	public String getMseq() {
+		return mseq;
+	}
+
+	public void setMseq(String mseq) {
+		this.mseq = mseq;
 	}
 
 	public int getPseq() {

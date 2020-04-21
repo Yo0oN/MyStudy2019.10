@@ -1,12 +1,73 @@
+<%@page import="TOs.BoardTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="TOs.BoardListsTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%
-	String nowUrl = "com_board_list.mysql?" + request.getQueryString();
-	session.setAttribute("endUrl", nowUrl);
-	
+	session.removeAttribute("endUrl");
+
 	String sess_mseq = (String) session.getAttribute("sess_mseq");
 	String sess_nickname = (String) session.getAttribute("sess_nickname");
+	String selected = (String) request.getAttribute("selected");
+	if (sess_mseq == null || sess_mseq.equals("")) {
+		out.println("<script type='text/javascript'>");
+		out.println("location.href='login.mysql'");
+		out.println("alert('로그인을 해주세요.')");
+		out.println("</script>");
+	} else {
+		BoardListsTO boardListsTO = (BoardListsTO) request.getAttribute("boardListsTO");
+		
+		// 현재 게시판
+		String pseq = boardListsTO.getPseq() + "";
+		// 현재페이지
+		int cpage = boardListsTO.getCpage();
+		// 한 페이지당 출력 데이터 개수
+		int recordPerPage = boardListsTO.getRecordPerPage();
+		// 전체 페이지 개수 = 마지막 페이지
+		int totalPage = boardListsTO.getTotalPage();
+		// 전체 데이터(글) 개수
+		int totalRecord = boardListsTO.getTotalRecord();
+		// 페이지번호가 몇개씩 보이게 할지 설정
+		int blockPerPage = boardListsTO.getBlockPerPage();
+		// 보이는 페이지 번호의 시작부분이다.
+		int startBlock = boardListsTO.getStartBlock();
+		// 보이는 페이지 번호의 끝부분이다.
+		int endBlock = boardListsTO.getEndBlock();
+		// 목록을 받아옴
+		ArrayList<BoardTO> toLists = boardListsTO.getBoardLists();
+		
+		StringBuffer sbHTML = new StringBuffer();
+		if (toLists.size() == 0) {
+			sbHTML.append("<td class='text-center' colspan='5'>등록 된 게시글이 없습니다.</td>");
+		} else {
+			for (int i = 0; i < toLists.size(); i++) {
+				BoardTO boardTO = toLists.get(i);
+		
+				pseq = boardTO.getPseq();
+				String href = "";
+				if(pseq.equals("11")) {
+					href = "com_board_view.mysql";
+				} else {
+					href = "album_board_view.mysql";
+				}
+				String seq = boardTO.getSeq();
+				String subject = boardTO.getSubject();
+				String wdate = boardTO.getWdate_ori();
+				String cmt = boardTO.getCmt();
+				String hit = boardTO.getHit();
+		
+				sbHTML.append("<tr>");
+		
+				sbHTML.append("<th class='text-center'>" + seq + "</th>");
+				sbHTML.append("<th class='text-center'><a href='" + href + "?pseq=" + pseq + "&cpage=" + cpage + "&seq=" + seq + "&selected=" + selected + "' style='color: black'>" + subject + "</a></th>");
+				/* sbHTML.append("<th class='text-center'><a href='mycontents_view.mysql?cpage=" + cpage + "&selected=" + selected + "&seq=" + seq + "' style='color: black'>" + subject + "</a></th>"); */
+				sbHTML.append("<th class='text-center'>" + wdate + "</th>");
+				sbHTML.append("<th class='text-center'>" + cmt + "</th>");
+				sbHTML.append("<th class='text-center'>" + hit + "</th>");
+				sbHTML.append("</tr>");
+			}
+		}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -68,8 +129,6 @@
 <!-- CSS | Responsive media queries -->
 <link href="resources/sitedesign/css/responsive.css" rel="stylesheet"
 	type="text/css">
-<!-- CSS | Style css. This is the file where you can place your own custom css code. Just uncomment it and use it. -->
-<!-- <link href="resources/sitedesign/css/style.css" rel="stylesheet" type="text/css"> -->
 
 <!-- CSS | Theme Color -->
 <link href="resources/sitedesign/css/colors/theme-skin-blue.css"
@@ -80,7 +139,6 @@
 
 <!-- commonheaderjs -->
 
-
 <!-- external javascripts -->
 <script src="resources/sitedesign/js/jquery-2.2.0.min.js"></script>
 <script src="resources/sitedesign/js/jquery-ui.min.js"></script>
@@ -90,16 +148,23 @@
 
 <script data-ad-client="ca-pub-3935451468089596" async
 	src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<style type="text/css">
+a {
+	cursor:pointer
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
-	var sess_mseq = <%= sess_mseq %>;
-	var sess_nickname = <%= sess_nickname %>
+	var sess_mseq = '<%= sess_mseq %>';
+	var sess_nickname = '<%= sess_nickname %>';
 	$(document).ready(function() {
-		$('#writebtn').on('click', function() {
+		/* $('#writebtn').on('click', function() {
 			if(sess_mseq == null || sess_nickname == null) {
 				alert('글을 작성하시려면 로그인을 해주세요.');
 				return false;
 			}
-		});
+		}); */
 	});
 </script>
 </head>
@@ -140,8 +205,9 @@
 					<div class="row">
 						<div class="col-sm-12 col-md-12">
 							<div class="row">
-								<div class="col-md-12">
-
+								<jsp:include page="./mypagemenu.jsp"></jsp:include>
+								<div class="col-md-1"></div>
+								<div class="col-md-9">
 									<!-- 게시판 타이틀 -->
 									<div class="section-title mb-10">
 										<div class="row">
@@ -153,9 +219,29 @@
 										</div>
 									</div>
 
-
+									<form action="mycontents_list.mysql" id="frm" name="frm" method="post">
+										<input id="s_pagenum" name="s_pagenum" type="hidden" value="1" />
+										<div class="row">
+											<div class="form-group col-md-6">
+												<select class="form-control" id="searchField"
+													name="searchField">
+													<option value="0" selected="selected">== 전체게시판 ==</option>
+													<option value="11" >커뮤니티</option>
+													<option value="12">자랑하기</option>
+													<option value="21">실종동물등록</option>
+													<option value="22">재회성공사례</option>
+													<option value="32">입양후기</option>
+												</select>
+											</div>
+											<div class="form-group col-md-6">
+												<a href="javascript:dataSearch();"
+													class="btn btn-dark btn-transparent btn-theme-colored btn-lg btn-flat btn-block form-control"><i
+													class="fa fa-search"></i> 검색</a>
+											</div>
+										</div>
+									</form>
+									
 									<div>
-
 										<div class="row">
 											<div class="col-md-12">
 												<div class="table-responsive">
@@ -165,36 +251,33 @@
 															<col style="width: 7%;">
 															<col style="width: 56%;">
 															<col style="width: 15%;">
-															<col style="width: 15%;">
+															<col style="width: 7%;">
 															<col style="width: 7%;">
 														</colgroup>
 														<thead>
 															<tr class="bg-theme-colored" data-text-color="white">
 																<th class="text-center">No</th>
 																<th class="text-center">제목</th>
-																<th class="text-center">작성자</th>
 																<th class="text-center">작성일</th>
+																<th class="text-center">댓글</th>
 																<th class="text-center">조회</th>
 															</tr>
 														</thead>
 														<tbody>
-															1234
+														<%= sbHTML %>
+															<!-- <tr>
+																<th class="text-center">No</th>
+																<th class="text-center">제목</th>
+																<th class="text-center">작성일</th>
+																<th class="text-center">댓글</th>
+																<th class="text-center">조회</th>
+															</tr> -->
 														</tbody>
 													</table>
 												</div>
 
-												<!-- 글쓰기버튼 -->
-												<%-- <div class="row">
-													<div class="col-sm-12">
-														<a href="./com_board_write.mysql?pseq=<%=pseq%>">
-															<button type="button" id="writebtn"
-																class="btn btn-dark btn-flat pull-right m-0">글쓰기</button>
-														</a>
-													</div>
-												</div> --%>
-
 												<!-- 페이지 이동버튼 -->
-												<%-- <div class="row">
+												<div class="row">
 
 													<div class="col-sm-12">
 														<nav>
@@ -210,8 +293,8 @@
 																	if (startBlock == 1) {
 																		out.println("<li><a aria-label='Previous' href='#'><span aria-hidden='true'>&laquo;</span></a></li>");
 																	} else {
-																		out.println("<li><a aria-label='Previous' href='./com_board_list.mysql?pseq=" + pseq + "&cpage="
-																				+ (startBlock - blockPerPage) + "'><span aria-hidden='true'>&laquo;</span></a></li>");
+																		out.println("<li><a style='cursor:pointer' aria-label='Previous' href='./mycontents_list.mysql?cpage="
+																				+ (startBlock - blockPerPage) + "&selected=" + selected + "'><span aria-hidden='true'>&laquo;</span></a></li>");
 																	}
 
 																	// < 기호, 즉 한페이지 앞으로 가게 해주는 기호는 현재 페이지가 1페이질경우에는 아무 작동을 하지 않지만,
@@ -219,8 +302,8 @@
 																	if (cpage == 1) {
 																		out.println("<li><a aria-label='Previous' href='#'><span aria-hidden='true'>&lsaquo;</span></a></li>");
 																	} else {
-																		out.println("<li><a aria-label='Previous' href='./com_board_list.mysql?pseq=" + pseq + "&cpage="
-																				+ (cpage - 1) + "'><span aria-hidden='true'>&lsaquo;</span></a></li>");
+																		out.println("<li><a style='cursor:pointer' aria-label='Previous' href='./mycontents_list.mysql?cpage="
+																				+ (cpage - 1) + "&selected=" + selected + "'><span aria-hidden='true'>&lsaquo;</span></a></li>");
 																	}
 
 																	// 아무 이동도 하지 않고 이 게시판에 바로 들어왔을 때에는 주소창이 board_list1.jsp인 상태이다.
@@ -230,7 +313,7 @@
 																		if (cpage == i) {
 																			out.println("<li class='active'><a href='#'>" + i + "</a></li>");
 																		} else {
-																			out.println("<li class='active'><a href='./com_board_list.mysql?pseq=" + pseq + "&cpage=" + i + "'>"
+																			out.println("<li class='active'><a style='cursor:pointer' href='./mycontents_list.mysql?cpage=" + i + "&selected=" + selected + "'>"
 																					+ i + "</a></li>");
 																		}
 																	}
@@ -240,8 +323,8 @@
 																	if (cpage == totalPage) {
 																		out.println("<li><a aria-label='Next' href='#'> <span aria-hidden='true'>&rsaquo;</span></a></li>");
 																	} else {
-																		out.println("<li><a aria-label='Next' href='com_board_list.mysql?pseq=" + pseq + "&cpage=" + (cpage + 1)
-																				+ "'> <span aria-hidden='true'>&rsaquo;</span></a></li>");
+																		out.println("<li><a style='cursor:pointer' aria-label='Next' href='mycontents_list.mysql?cpage=" + (cpage + 1)
+																				 + "&selected=" + selected + "'> <span aria-hidden='true'>&rsaquo;</span></a></li>");
 																	}
 
 																	// >> 기호, 페이지 번호는 한번에 5개씩만 보여진다. >>를 누르면 다음 5개의 숫자가 보이고, 그 페이지로 이동할 수 있게 해주자.
@@ -250,40 +333,19 @@
 																	if (totalPage <= endBlock) {
 																		out.println("<li><a aria-label='Previous' href='#'><span aria-hidden='true'>&raquo;</span></a></li>");
 																	} else {
-																		out.println("<li><a aria-label='Previous' href='com_board_list.mysql?pseq=" + pseq + "&cpage="
-																				+ (startBlock + blockPerPage) + "'><span aria-hidden='true'>&raquo;</span></a></li>");
+																		out.println("<li><a style='cursor:pointer' aria-label='Previous' href='mycontents_list.mysql?cpage="
+																				+ (startBlock + blockPerPage) + "&selected=" + selected + "'><span aria-hidden='true'>&raquo;</span></a></li>");
 																	}
 																%>
 															</ul>
 														</nav>
 													</div>
-												</div> --%>
+												</div>
 
 											</div>
 										</div>
 									</div>
-									<form action="#" id="frm" name="frm" method="post">
-										<input id="s_pagenum" name="s_pagenum" type="hidden" value="1" />
-										<div class="row">
-											<div class="form-group col-md-4">
-												<select class="form-control" id="searchField"
-													name="searchField">
-													<option value="">== 검색분류 선택 ==</option>
-													<option value="1" selected="selected">제목</option>
-													<option value="2">내용</option>
-												</select>
-											</div>
-											<div class="form-group col-md-4">
-												<input type="text" class="form-control" id="searchWord"
-													name="searchWord" placeholder="검색어" value="">
-											</div>
-											<div class="form-group col-md-4">
-												<a href="javascript:dataSearch();"
-													class="btn btn-dark btn-transparent btn-theme-colored btn-lg btn-flat btn-block form-control"><i
-													class="fa fa-search"></i> 검색</a>
-											</div>
-										</div>
-									</form>
+									
 								</div>
 							</div>
 						</div>
@@ -342,3 +404,6 @@
 	</script>
 </body>
 </html>
+<%
+	}
+%>

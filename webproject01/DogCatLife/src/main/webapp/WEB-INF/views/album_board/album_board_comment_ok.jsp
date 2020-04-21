@@ -8,12 +8,12 @@
 
 	out.println("<script type='text/javascript'>");
 	if (flag == 0) {
-		out.println("alert('댓글을 달았습니다.')");
 		out.println(
 				"location.href='./album_board_view.mysql?pseq=" + pseq + "&cpage=" + cpage + "&seq=" + seq + "'");
+		out.println("alert('댓글을 달았습니다.')");
 	} else {
-		out.println("alert('댓글 달기에 실패하였습니다.');");
 		out.println("history.back();");
+		out.println("alert('댓글 달기에 실패하였습니다.');");
 	}
 	out.println("</script>");
 %>

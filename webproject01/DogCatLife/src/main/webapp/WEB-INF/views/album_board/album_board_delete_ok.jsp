@@ -8,11 +8,11 @@
 
 	out.println("<script type='text/javascript'>");
 	if (flag == 0) {
-		out.println("alert('삭제되었습니다.')");
 		out.println("location.href='./album_board_list.mysql?pseq=" + pseq + "&cpage=1'");
+		out.println("alert('삭제되었습니다.')");
 	} else {
-		out.println("alert('삭제에 실패하였습니다.');");
 		out.println("history.back();");
+		out.println("alert('삭제에 실패하였습니다.');");
 	}
 	out.println("</script>");
 %>

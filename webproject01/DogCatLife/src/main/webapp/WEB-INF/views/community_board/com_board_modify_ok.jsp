@@ -10,11 +10,11 @@
 
 	out.println("<script type='text/javascript'>");
 	if (flag == 0) {
-		out.println("alert('수정되었습니다.')");
 		out.println("location.href='./com_board_view.mysql?pseq=" + pseq + "&cpage=" + cpage + "&seq=" + seq + "'");
+		out.println("alert('수정되었습니다.')");
 	} else {
-		out.println("alert('수정에 실패하였습니다.');");
 		out.println("history.back();");
+		out.println("alert('수정에 실패하였습니다.');");
 	}
 	out.println("</script>");
 %>

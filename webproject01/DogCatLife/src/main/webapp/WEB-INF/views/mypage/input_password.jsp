@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	session.removeAttribute("endUrl");
+
+	String sess_mseq = (String) session.getAttribute("sess_mseq");
+	if (sess_mseq == null || sess_mseq.equals("")) {
+		out.println("<script type='text/javascript'>");
+		out.println("alert('로그인을 먼저 해주세요.')");
+		out.println("location.href='login.mysql'");
+		out.println("</script>");
+	} else{
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -79,10 +90,9 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		
 		$('#submit').on('click', function() {
-			if (nameBoolean == false || emailBoolean == false || name_email_Boolean == false || sendmailBoolean == false || confirmnumberBoolean == false) {
-				alert('메일을 인증해주세요.');
+			if ($('#password').val() == ""){
+				alert('비밀번호를 입력해주세요');
 				return false;
 			}
 			$('#frm').submit();
@@ -132,7 +142,7 @@
 						<div class="col-sm-6"> <!-- col-md-push-3 -->
 							
 							<form id="frm" name="frm" class="register-form" method="post" action="input_password_ok.mysql">
-								
+								<input type="hidden" name="mseq" value="<%= sess_mseq %>">
 								<div class="row">
 									<div class="form-group col-md-12">
 										<label for="password">비밀번호</label>
@@ -183,3 +193,6 @@
 
 </body>
 </html>
+<%
+	}
+%>

@@ -64,6 +64,7 @@ public class Com_Board_Controller {
 
 		modelAndView.addObject("toLists", toLists);
 		modelAndView.addObject("cpage", boardTO.getCpage());
+		modelAndView.addObject("selected", boardTO.getSelected());
 
 		return modelAndView;
 	}
@@ -78,6 +79,9 @@ public class Com_Board_Controller {
 
 		CommunityBoardDAO communityBoardDAO = new CommunityBoardDAO();
 		String cpage = boardTO.getCpage();
+		if (!boardTO.getSelected().equals("1")) {
+			cpage = "1";
+		}
 		String seq = boardTO.getSeq();
 		int flag = communityBoardDAO.board_reply_ok(boardTO);
 
@@ -94,7 +98,11 @@ public class Com_Board_Controller {
 		System.out.println("com_board_modify 컨트롤러 호출");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("community_board/com_board_modify");
-
+	
+		if (!boardTO.getSelected().equals("1")) {
+			boardTO.setCpage("1");
+			boardTO.setSelected("1");
+		}
 		boardTO = new CommunityBoardDAO().boardModify(boardTO);
 
 		modelAndView.addObject("boardTO", boardTO);
@@ -223,7 +231,9 @@ public class Com_Board_Controller {
 		System.out.println("com_board_comment_modify 컨트롤러 호출");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("community_board/com_board_comment_modify");
-
+		if (!boardTO.getSelected().equals("1")) {
+			boardTO.setCpage("1");
+		}
 		CommunityBoardDAO communityBoardDAO = new CommunityBoardDAO();
 
 		return modelAndView;
@@ -236,7 +246,9 @@ public class Com_Board_Controller {
 		modelAndView.setViewName("community_board/com_board_comment_delete_ok");
 
 		CommunityBoardDAO communityBoardDAO = new CommunityBoardDAO();
-
+		if (!boardTO.getSelected().equals("1")) {
+			boardTO.setCpage("1");
+		}
 		int flag = communityBoardDAO.boardCommentDeleteOk(boardTO);
 
 		modelAndView.addObject("flag", flag);

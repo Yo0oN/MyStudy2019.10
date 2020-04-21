@@ -273,6 +273,10 @@ public class CommunityBoardDAO {
 
 			if (result == 1) {
 				flag = 0;
+				sql = "update board set cmt = cmt+1 where seq=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, boardTO.getSeq());
+				pstmt.executeQuery();
 			}
 
 		} catch (SQLException e) {
@@ -498,6 +502,8 @@ public class CommunityBoardDAO {
 
 		try {
 			conn = dataSource.getConnection();
+			
+			System.out.println(1);
 
 			String sql = "delete from comment_board where cseq=?";
 
@@ -507,8 +513,15 @@ public class CommunityBoardDAO {
 
 			int result = pstmt.executeUpdate();
 			
+			System.out.println(2);
+			
 			if (result == 1) {
+				System.out.println(3);
 				flag = 0;
+				sql = "update board set cmt = cmt-1 where seq=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, boardTO.getSeq());
+				pstmt.executeQuery();
 			}
 		} catch (SQLException e) {
 			System.out.println("error : " + e.getMessage());

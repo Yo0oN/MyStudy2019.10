@@ -60,12 +60,17 @@ public class Album_Board_Controller {
 	public ModelAndView album_board_modify(BoardTO boardTO) {
 		System.out.println("album_board_modify 컨트롤러 호출");
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("album_board/album_board_modify");
+		
+		if (!boardTO.getSelected().equals("1")) {
+			boardTO.setCpage("1");
+			boardTO.setSelected("1");
+		}
 		
 		boardTO = new AlbumBoardDAO().album_BoardModify(boardTO);
 
 		modelAndView.addObject("boardTO", boardTO);
 		
-		modelAndView.setViewName("album_board/album_board_modify");
 		return modelAndView;
 	}
 
@@ -126,7 +131,8 @@ public class Album_Board_Controller {
 
 		modelAndView.addObject("toLists", toLists);
 		modelAndView.addObject("cpage", boardTO.getCpage());
-		
+		modelAndView.addObject("selected", boardTO.getSelected());
+
 		return modelAndView;
 	}
 
@@ -190,6 +196,10 @@ public class Album_Board_Controller {
 		
 		String pseq = boardTO.getPseq();
 
+		if (!boardTO.getSelected().equals("1")) {
+			boardTO.setCpage("1");
+		}
+		
 		AlbumBoardDAO albumBoardDAO = new AlbumBoardDAO();
 
 		int flag = albumBoardDAO.album_BoardDeleteOk(boardTO);
@@ -210,6 +220,9 @@ public class Album_Board_Controller {
 
 		AlbumBoardDAO albumBoardDAO = new AlbumBoardDAO();
 		String cpage = boardTO.getCpage();
+		if (!boardTO.getSelected().equals("1")) {
+			cpage = "1";
+		}
 		String seq = boardTO.getSeq();
 		int flag = albumBoardDAO.album_Board_reply_ok(boardTO);
 
@@ -239,7 +252,9 @@ public class Album_Board_Controller {
 		modelAndView.setViewName("album_board/album_board_comment_delete_ok");
 
 		AlbumBoardDAO albumBoardDAO = new AlbumBoardDAO();
-
+		if (!boardTO.getSelected().equals("1")) {
+			boardTO.setCpage("1");
+		}
 		int flag = albumBoardDAO.album_BoardCommentDeleteOk(boardTO);
 
 		modelAndView.addObject("flag", flag);

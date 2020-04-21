@@ -9,7 +9,6 @@
 	String sess_nickname = (String) session.getAttribute("sess_nickname");
 
 	ArrayList<BoardTO> toLists = (ArrayList) request.getAttribute("toLists");
-
 	
 	if (toLists == null || toLists.size() == 0) {
 		out.println("<script type='text/javascript'>");
@@ -18,6 +17,10 @@
 		out.println("</script>");
 	} else {
 		String cpage = (String) request.getAttribute("cpage");
+		String selected = (String) request.getAttribute("selected");
+		if (selected == null) {
+			selected = "1";
+		}
 
 		// 본문 설정
 		String pseq = toLists.get(0).getPseq();
@@ -56,9 +59,7 @@
 			sbHTML.append("<li>작성일 : <span class='text-theme-colored'>" + cwdate_ori + "</span></li>");
 			if (sess_mseq != null && sess_mseq.equals(cmseq)) {
 				sbHTML.append("<li><a class='comment_modify' cseq='" + cseq + "'><span>수정</span></a></li>");
-				sbHTML.append("<li><a href='./com_board_comment_delete_ok.mysql?pseq=" + pseq + "&cpage="
-						+ cpage + "&seq=" + seq + "&cseq=" + cseq
-						+ "' class='comment_delete' id='comment_delete_" + cseq + "'><span>삭제</span></a></li>");
+				sbHTML.append("<li><a class='comment_delete'><span>삭제</span></a></li>");
 				sbHTML.append("</ul>");
 			}
 			sbHTML.append("<ul class='list-inline'>");
@@ -150,15 +151,23 @@
 <script type="text/javascript">
 var sess_mseq = <%=sess_mseq%>;
 var sess_nickname = '<%=sess_nickname%>';
-$(document).ready(function() {
-	// 게시글 삭제
-	$('#delete').on('click', function() {
-		if (confirm('삭제하시겠습니까?')) {
-			location.href("./com_board_delete_ok.mysql?pseq=<%=pseq%>&seq=<%=seq%>");
+	$(document).ready(function() {
+		var selected = <%=selected %>;
+		// 목록 이동
+		$('#list').on('click', function(){
+			if (selected == null || selected == "1"){
+				location.href = 'com_board_list.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>';
+			} else {
+				location.href = 'mycontents_list.mysql?cpage=<%=cpage%>&selected=<%=selected%>';
+			}
+		});
+		// 게시글 삭제
+		$('#delete').on('click', function() {
+			if (confirm('삭제하시겠습니까?')) {
+				location.href = "./com_board_delete_ok.mysql?pseq=<%=pseq%>&seq=<%=seq%>";
 			} else {
 			}
 		});
-
 		// 게시글 작성
 		$('#writebtn').on('click', function() {
 			if (sess_mseq == null || sess_nickname == null) {
@@ -183,6 +192,7 @@ $(document).ready(function() {
 		// 댓글 삭제
 		$('.comment_delete').on('click', function() {
 			if (confirm('댓글을 삭제하시겠습니까?')) {
+				location.href='./com_board_comment_delete_ok.mysql?pseq=<%= pseq %>&cpage=1&seq=<%= seq %>&cseq=<%= cseq %>&selected=<%=selected%>';
 			} else {
 				return false;
 			}
@@ -279,8 +289,7 @@ $(document).ready(function() {
 													<%
 														if (sess_mseq != null && sess_mseq.equals(mseq)) {
 													%>
-													<li><a
-														href="com_board_modify.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq%>"><span
+													<li><a id="contentmodify" href="com_board_modify.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq%>&selected=<%=selected%>"><span
 															class="text-theme-colored">수정</span></a></li>
 													<li><a href="#" id="delete"><span
 															class="text-theme-colored">삭제</span></a></li>
@@ -317,9 +326,8 @@ $(document).ready(function() {
 											<div class="col-sm-12">
 												<a id="writebtn"
 													href="com_board_write.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>"
-													class="btn btn-dark btn-flat m-0">글쓰기</a> <a
-													href="com_board_list.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>"
-													class="btn btn-dark btn-flat pull-right m-0">목록</a>
+													class="btn btn-dark btn-flat m-0">글쓰기</a>
+												<a id="list" class="btn btn-dark btn-flat pull-right m-0">목록</a>
 											</div>
 										</div>
 									</div>
@@ -352,11 +360,12 @@ $(document).ready(function() {
 										<form class="comments-form contact-form"
 											action="./com_board_comment_ok.mysql" id="commentForm"
 											method="post">
-											<input type="hidden" name="pseq" value="<%=pseq%>" /> <input
-												type="hidden" name="cpage" value="<%=cpage%>" /> <input
-												type="hidden" name="seq" value="<%=seq%>" /> <input
-												type="hidden" name="cmseq" value="<%=sess_mseq%>" /> <input
-												type="hidden" name="cwriter" value="<%=sess_nickname%>" />
+											<input type="hidden" name="pseq" value="<%=pseq%>" />
+											<input type="hidden" id="replycpage" name="cpage" value="<%=cpage%>" />
+											<input type="hidden" name="seq" value="<%=seq%>" />
+											<input type="hidden" name="selected" value="<%=selected%>" />
+											<input type="hidden" name="cmseq" value="<%=sess_mseq%>" />
+											<input type="hidden" name="cwriter" value="<%=sess_nickname%>" />
 
 											<div class="form-group">
 												<label for="rqms_content">댓글 작성</label>
