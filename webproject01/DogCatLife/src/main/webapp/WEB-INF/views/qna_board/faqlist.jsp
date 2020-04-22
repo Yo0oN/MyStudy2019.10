@@ -1,22 +1,68 @@
-<%@page import="TOs.UserTO"%>
+<%@page import="TOs.BoardTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="TOs.BoardListsTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%
-	session.removeAttribute("endUrl");
-
-	String sess_mseq = (String) session.getAttribute("sess_mseq");
+	String nowUrl = "faqlist.mysql?" + request.getQueryString();
+	session.setAttribute("endUrl", nowUrl);
 	
-	if (sess_mseq == null || sess_mseq.equals("")) {
-		out.println("<script type='text/javascript'>");
-		out.println("alert('로그인을 먼저 해주세요.')");
-		out.println("location.href='login.mysql'");
-		out.println("</script>");
-	} else{
-		UserTO userTO = (UserTO) request.getAttribute("userTO");
-		String email = userTO.getEmail();
-		String name = userTO.getName();
-		String nickname = userTO.getNickname();
-		String phone = userTO.getPhone();
+	String sess_mseq = (String) session.getAttribute("sess_mseq");
+	String sess_nickname = (String) session.getAttribute("sess_nickname");
+	BoardListsTO boardListsTO = (BoardListsTO) request.getAttribute("boardListsTO");
+
+	// 현재 게시판
+	String pseq = boardListsTO.getPseq() + "";
+	
+	// 현재페이지
+	int cpage = boardListsTO.getCpage();
+	// 한 페이지당 출력 데이터 개수
+	int recordPerPage = boardListsTO.getRecordPerPage();
+	// 전체 페이지 개수 = 마지막 페이지
+	int totalPage = boardListsTO.getTotalPage();
+	// 전체 데이터(글) 개수
+	int totalRecord = boardListsTO.getTotalRecord();
+	// 페이지번호가 몇개씩 보이게 할지 설정
+	int blockPerPage = boardListsTO.getBlockPerPage();
+	// 보이는 페이지 번호의 시작부분이다.
+	int startBlock = boardListsTO.getStartBlock();
+	// 보이는 페이지 번호의 끝부분이다.
+	int endBlock = boardListsTO.getEndBlock();
+	// 목록을 받아옴
+	ArrayList<BoardTO> toLists = boardListsTO.getBoardLists();
+
+	StringBuffer sbHTML = new StringBuffer();
+	if (toLists.size() == 0) {
+		sbHTML.append("<td class='text-center' colspan='5'>등록 된 게시글이 없습니다.</td>");
+	} else {
+		for (int i = 0; i < toLists.size(); i++) {
+			BoardTO boardTO = toLists.get(i);
+
+			pseq = boardTO.getPseq();
+			String seq = boardTO.getSeq();
+			String subject = boardTO.getSubject();
+			String content = boardTO.getContent();
+			
+			
+			sbHTML.append("<div id=\"accordion1\" class=\"panel-group accordion\">");
+			
+			sbHTML.append("<div class=\"panel\">");
+			sbHTML.append("	<div class=\"panel-title\">");
+			sbHTML.append("		<a data-parent=\"#accordion1\" data-toggle=\"collapse\" href=\"#accordion_1\" aria-expanded=\"false\">");
+			sbHTML.append("			<span class=\"open-sub\"></span> <strong>"+subject+"</strong>");
+			sbHTML.append("		</a>");
+			sbHTML.append("	</div>");
+			sbHTML.append("	<div id=\"accordion_1\" class=\"panel-collapse collapse\" role=\"tablist\" aria-expanded=\"true\">");
+			sbHTML.append("		<div class=\"panel-content\">"+content+"</div>");
+			sbHTML.append("	</div>");
+			sbHTML.append("</div>");
+			sbHTML.append("</div>");
+			
+			
+
+			
+		}
+	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -37,6 +83,7 @@
 <title>DogCatLife</title>
 
 <!-- commoncss -->
+
 
 <!-- Favicon and Touch Icons -->
 <link href="resources/sitedesign/images/favicon.png" rel="shortcut icon"
@@ -77,6 +124,8 @@
 <!-- CSS | Responsive media queries -->
 <link href="resources/sitedesign/css/responsive.css" rel="stylesheet"
 	type="text/css">
+<!-- CSS | Style css. This is the file where you can place your own custom css code. Just uncomment it and use it. -->
+<!-- <link href="resources/sitedesign/css/style.css" rel="stylesheet" type="text/css"> -->
 
 <!-- CSS | Theme Color -->
 <link href="resources/sitedesign/css/colors/theme-skin-blue.css"
@@ -96,10 +145,13 @@
 
 <!-- commonheaderjs -->
 
+
 <!-- external javascripts -->
 <script src="resources/sitedesign/js/jquery-2.2.0.min.js"></script>
 <script src="resources/sitedesign/js/jquery-ui.min.js"></script>
 <script src="resources/sitedesign/js/bootstrap.min.js"></script>
+<!-- JS | jquery plugin collection for this theme -->
+<script src="resources/sitedesign/js/jquery-plugin-collection.js"></script>
 
 <!-- Revolution Slider 5.x SCRIPTS 메인에만 필요?-->
 <script
@@ -107,28 +159,15 @@
 <script
 	src="resources/sitedesign/js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
 
-<!-- JS | jquery plugin collection for this theme -->
-<script src="resources/sitedesign/js/jquery-plugin-collection.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#submit').on('click', function() {
-			if($('#password').val().trim() == "") {
-				alert('비밀번호를 입력해주세요.');
-				return false;
-			}
-			$('#frm').submit();
-		});
-	});
-</script>
 </head>
 
 <body
 	class="has-side-panel side-panel-right fullwidth-page side-push-panel">
 
 	<div class="body-overlay"></div>
+
 	<div id="wrapper" class="clearfix">
-		<!-- Header -->
-		<jsp:include page="../login_menu.jsp"></jsp:include>
+		<jsp:include page='../login_menu.jsp' />
 
 		<!-- Start main-content -->
 		<div class="main-content">
@@ -141,118 +180,75 @@
 					<div class="section-content">
 						<div class="row">
 							<div class="col-md-12 xs-text-center">
-								<h3 class="text-theme-colored font-36">마이페이지</h3>
+								<h3 class="text-theme-colored font-36">고객센터</h3>
 								<ol class="breadcrumb white mt-10">
 									<li><a href="main.mysql">Home</a></li>
-									<li><a>마이페이지</a></li>
-									<li class="active text-theme-colored">회원정보 조회/수정</li>
+									<li><a href="album_board_list.mysql?pseq=12">고객센터</a></li>
+									<li class="active text-theme-colored">공지사항</li>
 								</ol>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
-
+			
+			<!-- Section: event calendar -->
 			<section>
 				<div class="container">
 					<div class="row">
-					<jsp:include page="./mypagemenu.jsp"></jsp:include>
-						<!-- <div class="col-sm-12 col-md-2">
-							<div class="sidebar sidebar-left mt-sm-30">
-								<div class="widget">
-									<h5 class="widget-title line-bottom">
-										<a href="/user/fo/myaccount.sd">마이페이지</a>
-									</h5>
-									<div class="categories">
-										<ul class="list list-border angle-double-right">
-											<li><a href="myinfo.mysql">회원정보 조회 / 수정</a></li>
-											<li><a href="mycontents_list.mysql">내가쓴 글</a></li>
-											<li><a href="mycomment_list.mysql">내가 쓴 댓글</a></li>
-											<li><a href="myquestion_list.mysql">1 대 1 질문</a></li>
-										</ul>
+						<div class="col-sm-12 col-md-12">
+							<div class="row">
+								<div class="col-sm-12 col-md-2">
+									<div class="sidebar sidebar-left mt-sm-30">
+										<div class="widget">
+											<h5 class="widget-title line-bottom"><a href="">고객센터</a></h5>
+											<div class="categories">
+												<ul class="list list-border angle-double-right">
+													<li><a href="noticelist.mysql?pseq=41">공지사항</a></li>
+													<li><a href="faqlist.mysql?pseq=42">FAQ</a></li>
+													<li><a href="./commonagree.mysql">이용약관</a></li>
+													<li><a href="./commontext.mysql">개인정보처리방침</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-1"></div>
+								<div class="col-md-9">
+									<!-- 게시판 타이틀 -->
+									<div class="section-title mb-10">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="text-center">
+													<h2 class="title heading-line-bottom">FAQ</h2>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div>
+										<div class="row">
+											<div class="col-md-12">
+												<div>
+													<%=sbHTML %>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div> -->
-						<div class="col-md-1"></div>
-						<div class="col-md-7">
-							<form id="frm" name="frm" class="register-form" method="post"
-								action="myinfo_ok.mysql">
-								<input type="hidden" name="mseq" value="<%= sess_mseq %>">
-								<div class="icon-box mb-0 p-0">
-									<h4 class="text-gray pt-10 mt-0 mb-30">회원정보 조회 / 수정</h4>
-								</div>
-								<hr>
-
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label for="mb_id">이메일</label> <input id="email" name="email"
-											class="form-control" type="email"
-											value="<%= email %>" readonly>
-										<div class="col-12" id="emailfocus"></div>
-									</div>
-								</div>
-								
-								<!-- <div class="row">
-									<div class="form-group col-md-12">
-										<label class="sr-only">이메일 변경하기</label>
-										<button id="confirmbtn"
-											class="btn btn-theme-colored btn-flat btn-lg btn-block"
-											type="button" data-toggle="modal">이메일 변경하기</button>
-									</div>
-								</div> -->
-
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label for="name">이름</label> <input id="name" name="name"
-											class="form-control" type="text" value="<%= name %>" readonly>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label for="nickname">닉네임</label> <input id="nickname"
-											name="nickname" class="form-control" type="text"
-											value="<%= nickname %>">
-										<div class="col-12" id="nicknamefocus"></div>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label for="phone">휴대전화</label> <input id="phone" name="phone"
-											class="form-control" type="text" value="<%= phone %>">
-										<div class="col-12" id="phonefocus"></div>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label for="password">비밀번호</label> <input id="password"
-											name="password" class="form-control" type="password">
-										<div class="col-12" id="passwordfocus"></div>
-									</div>
-								</div>
-								
-								<div class="form-group">
-									<button id="submit"
-										class="btn btn-dark btn-flat btn-lg btn-block mt-15"
-										type="submit">정보 수정</button>
-								</div>
-
-							</form>
-
 						</div>
 					</div>
 				</div>
 			</section>
 		</div>
-		<!-- end main-content -->
 	</div>
+	<!-- end main-content -->
 
 	<!-- footer content -->
-	<jsp:include page="../footer.jsp"></jsp:include>
 
+
+	<jsp:include page="../footer.jsp"></jsp:include>
 
 	<!-- JS | Custom script for all pages -->
 	<script src="resources/sitedesign/js/custom.js"></script>
@@ -266,15 +262,5 @@
 
 	<!-- soledot -->
 	<script src="resources/soledot/js/fo/soledot.js"></script>
-
-	<script src="resources/common/js/jquery-validation/jquery.validate.js"></script>
-	<script
-		src="resources/common/js/jquery-validation/additional-methods.js"></script>
-	<script
-		src="resources/common/js/jquery-validation/localization/messages_ko.js"></script>
-
 </body>
 </html>
-<%
-	}
-%>

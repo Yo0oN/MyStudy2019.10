@@ -18,7 +18,7 @@ import TOs.BoardTO;
 public class CommunityBoardDAO {
 	private DataSource dataSource = null;
 	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
-//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLife202004201/resources/upload";
+//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeTest/resources/upload";
 	
 	public CommunityBoardDAO() {
 		try {
@@ -111,7 +111,7 @@ public class CommunityBoardDAO {
 
 			// 글 목록 - pseq에 따라 게시판번호, 글번호, 제목, 작성자번호, 닉네임, 조회수, 댓글수, 작성일, 수정일, 작성한지 얼마나
 			// 시간이흘렀는가를 한페이지에 보여줄 만큼만 가져온 후 seq로 내림차순
-			sql = "select pseq, seq, subject, mseq, writer, hit, cmt, date_format(wdate_ori, '%Y-%m-%d %H:%i') wdate_ori, date_format(wdate_mod, '%Y-%m-%d %H:%i') wdate_mod, hour(timediff(now(), wdate_ori)) wgap from board where pseq=? order by seq desc limit ?, ?";
+			sql = "select pseq, seq, subject, mseq, writer, content,hit, cmt, date_format(wdate_ori, '%Y-%m-%d %H:%i') wdate_ori, date_format(wdate_mod, '%Y-%m-%d %H:%i') wdate_mod, hour(timediff(now(), wdate_ori)) wgap from board where pseq=? order by seq desc limit ?, ?";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, pseq);
@@ -127,6 +127,7 @@ public class CommunityBoardDAO {
 				boardTO.setSubject(rs.getString("subject"));
 				boardTO.setMseq(rs.getString("mseq"));
 				boardTO.setWriter(rs.getString("writer"));
+				boardTO.setContent(rs.getString("content"));
 				boardTO.setHit(rs.getString("hit"));
 				boardTO.setCmt(rs.getString("cmt"));
 				boardTO.setWdate_ori(rs.getString("wdate_ori"));

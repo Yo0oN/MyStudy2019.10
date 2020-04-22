@@ -12,6 +12,15 @@ public class BoardListsTO {
 	private int endBlock;
 	private int pseq;
 	private String mseq;
+	private String pseq_kind = "";
+
+	public String getPseq_kind() {
+		return pseq_kind;
+	}
+
+	public void setPseq_kind(String pseq_kind) {
+		this.pseq_kind = pseq_kind;
+	}
 
 	private ArrayList<BoardTO> boardLists;
 

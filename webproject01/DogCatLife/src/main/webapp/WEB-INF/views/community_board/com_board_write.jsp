@@ -6,7 +6,10 @@
 	String sess_mseq = (String) session.getAttribute("sess_mseq");
 	String sess_nickname = (String) session.getAttribute("sess_nickname");
 
-	String pseq = (String)request.getAttribute("pseq");
+	BoardTO boardTO = (BoardTO) request.getAttribute("boardTO");
+	String pseq = boardTO.getPseq();
+	String cpage = boardTO.getCpage();
+	String seq = boardTO.getSeq();
 %>
 <% if (sess_mseq != null) {
 	%>
@@ -92,8 +95,18 @@
 	src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		var cpage = '<%=cpage%>';
+		var pseq = '<%=pseq%>';
+		var seq = '<%=seq%>';
+		
 		$('#back').on('click', function() {
-			history.back();
+			if (seq == 'null' || cpage == 'null') {
+				location.href="com_board_list.mysql?pseq=<%=pseq%>";
+			} else if (pseq == null) {
+				location.href="main.mysql";
+			} else {
+				location.href="com_board_view.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq %>";
+			}
 		});
 		$('#submit').on('click', function() {
 			if ($('#subject').val().trim() == "") {
@@ -150,7 +163,8 @@
 			<section class="divider">
 				<div class="container">
 					<div class="row pt-30">
-						<div class="col-md-8">
+						<div class="col-md-1"></div>
+						<div class="col-md-9">
 							<div class="aa-contact-address-left">
 								<form class="comments-form contact-form" action="./com_board_write_ok.mysql"
 									id="frm" name="frm" method="post" enctype="multipart/form-data">
@@ -185,6 +199,7 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-md-1"></div>
 					</div>
 				</div>
 			</section>

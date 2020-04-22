@@ -9,18 +9,15 @@
 	String sess_nickname = (String) session.getAttribute("sess_nickname");
 
 	ArrayList<BoardTO> toLists = (ArrayList) request.getAttribute("toLists");
+	String pseq1 = (String) request.getAttribute("pseq");
 	
 	if (toLists == null || toLists.size() == 0) {
 		out.println("<script type='text/javascript'>");
 		out.println("alert('존재하지 않는 게시물입니다.')");
-		out.println("location.href='album_board_list.mysql?pseq=12'");
+		out.println("location.href='album_board_list.mysql?pseq=" + pseq1 + "'");
 		out.println("</script>");
 	} else {
 		String cpage = (String) request.getAttribute("cpage");
-		String selected = (String) request.getAttribute("selected");
-		if (selected == null) {
-			selected = "1";
-		}
 
 		// 본문 설정
 		String pseq = toLists.get(0).getPseq();
@@ -58,10 +55,10 @@
 			sbHTML.append("<li>작성자 : <span class='text-theme-colored'>" + cwriter + "</span></li>");
 			sbHTML.append("<li>작성일 : <span class='text-theme-colored'>" + cwdate_ori + "</span></li>");
 			if (sess_mseq != null && sess_mseq.equals(cmseq)) {
-				sbHTML.append("<li><a class='comment_modify' cseq='" + cseq + "' style=''><span>수정</span></a></li>");
-				sbHTML.append("<li><a class='comment_delete'><span>삭제</span></a></li>");
-				sbHTML.append("</ul>");
+				sbHTML.append("<li><a id='comment_modify' cseq='" + cseq + "' style=''><span>수정</span></a></li>");
+				sbHTML.append("<li><a id='comment_delete'><span>삭제</span></a></li>");
 			}
+			sbHTML.append("</ul>");
 			sbHTML.append("<ul class='list-inline'>");
 			sbHTML.append("<li><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></li>");
 			sbHTML.append("</ul>");
@@ -170,23 +167,13 @@
 <script data-ad-client="ca-pub-3935451468089596" async
 	src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script type="text/javascript">
-	var sess_mseq = <%=sess_mseq%>;
-	var sess_nickname = '<%=sess_nickname%>';
+var sess_mseq = <%=sess_mseq%>;
+var sess_nickname = '<%=sess_nickname%>';
 	$(document).ready(function() {
-		var selected = <%=selected %>;
-		// 목록 이동
-		$('#list').on('click', function(){
-			if (selected == null || selected == "1"){
-				location.href = 'album_board_list.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>';
-			} else {
-				location.href = 'mycontents_list.mysql?cpage=<%=cpage%>&selected=<%=selected%>';
-			}
-			
-		});
 		// 게시글 삭제
 		$('#delete').on('click', function() {
 			if (confirm('삭제하시겠습니까?')) {
-				location.href("./album_board_delete_ok.mysql?pseq=<%=pseq%>&seq=<%=seq%>");
+				location.href = './album_board_delete_ok.mysql?pseq=<%=pseq%>&seq=<%=seq%>';
 			} else {
 			}
 		});
@@ -213,16 +200,16 @@
 		});
 
 		// 댓글 삭제
-		$('.comment_delete').on('click', function() {
+		$('#comment_delete').on('click', function() {
 			if (confirm('댓글을 삭제하시겠습니까?')) {
-				location.href='./album_board_comment_delete_ok.mysql?pseq=<%= pseq %>&cpage=1&seq=<%= seq %>&cseq=<%= cseq %>&selected=<%=selected%>';
+				location.href='./album_board_comment_delete_ok.mysql?pseq=<%= pseq %>&cpage=<%=cpage%>&seq=<%= seq %>&cseq=<%= cseq %>';
 			} else {
 				return false;
 			}
 		});
 
 		// 댓글 수정
-		$('.comment_modify').on('click',function() {
+		$('#comment_modify').on('click',function() {
 			var addAttr = 'li span[cseq=' + $(this).attr('cseq') + ']';
 			$(addAttr).attr('style', 'display:none');
 
@@ -250,13 +237,6 @@
 	class="has-side-panel side-panel-right fullwidth-page side-push-panel">
 
 	<div class="body-overlay"></div>
-	<!-- <div id="side-panel" class="dark" data-bg-img="http://placehold.it/1920x1280">
-		<div class="side-panel-wrap">
-			<div id="side-panel-trigger-close" class="side-panel-trigger">
-				<a href="#"><i class="icon_close font-30"></i></a>
-			</div>
-		</div>
-	</div> -->
 
 	<div id="wrapper" class="clearfix">
 		<jsp:include page='../login_menu.jsp' />
@@ -288,7 +268,8 @@
 			<section>
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-12 col-md-12">
+						<div class="col-md-1"></div>
+						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="blog-posts single-post">
@@ -313,7 +294,7 @@
 														if (sess_mseq != null && sess_mseq.equals(mseq)) {
 													%>
 													<li><a
-														href="album_board_modify.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq%>&selected=<%=selected%>"><span
+														href="album_board_modify.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq%>"><span
 															class="text-theme-colored">수정</span></a></li>
 													<li><a href="#" id="delete"><span
 															class="text-theme-colored">삭제</span></a></li>
@@ -324,7 +305,6 @@
 											</div>
 											<div class="entry-content mt-10"
 												style="word-break: break-all; overflow: auto">
-
 												<%
 													if (!filename_new.equals("")) {
 												%>
@@ -349,9 +329,9 @@
 										<div class="row mt-10 pb-10 border-bottom-gray">
 											<div class="col-sm-12">
 												<a id="writebtn"
-													href="album_board_write.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>"
+													href="album_board_write.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq %>"
 													class="btn btn-dark btn-flat m-0">글쓰기</a>
-													<a id="list" class="btn btn-dark btn-flat pull-right m-0">목록</a>
+													<a href='album_board_list.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>' class="btn btn-dark btn-flat pull-right m-0">목록</a>
 											</div>
 										</div>
 									</div>
@@ -380,14 +360,13 @@
 										</div>
 									</div>
 									<!-- 댓글작성 -->
-									<div class="col-md-8">
+									<div class="col-md-12">
 										<form class="comments-form contact-form"
 											action="./album_board_comment_ok.mysql" id="commentForm"
 											method="post">
 											<input type="hidden" name="pseq" value="<%=pseq%>" />
 											<input type="hidden" name="cpage" value="<%=cpage%>" />
 											<input type="hidden" name="seq" value="<%=seq%>" />
-											<input type="hidden" name="selected" value="<%=selected%>" />
 											<input type="hidden" name="cmseq" value="<%=sess_mseq%>" />
 											<input type="hidden" name="cwriter" value="<%=sess_nickname%>" />
 
@@ -409,6 +388,7 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-md-1"></div>
 					</div>
 				</div>
 			</section>

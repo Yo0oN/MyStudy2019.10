@@ -19,7 +19,7 @@ import mail.MailSender;
 
 public class MypageDAO {
 	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
-//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLife202004201/resources/upload";
+//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeTest/resources/upload";
 	private DataSource dataSource = null;
 	
 	public MypageDAO() {
@@ -164,9 +164,9 @@ public class MypageDAO {
 			int skip = (cpage - 1) * recordPerPage;
 			
 			if (selected == null || selected.equals("") || selected.equals("0")) {
-				sql = "select seq, pseq, subject, cmt, wdate_ori, hit from board where mseq=? order by seq desc limit ?, ?";
+				sql = "select seq, b.pseq, subject, wdate_ori, cmt, hit, pseq_kind from board b inner join board_kind bk on b.pseq=bk.pseq where b.mseq=? order by wdate_ori desc limit ?, ?";
 			} else {
-				sql = "select seq, pseq, subject, cmt, wdate_ori, hit from board where mseq=? and pseq=" + selected + "order by seq desc limit ?, ?";
+				sql = "select seq, b.pseq, subject, wdate_ori, cmt, hit, pseq_kind from board b inner join board_kind bk on b.pseq=bk.pseq where b.pseq=" + selected + " and b.mseq=? order by wdate_ori desc limit ?, ?";
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, boardListsTO.getMseq());
@@ -180,9 +180,10 @@ public class MypageDAO {
 				boardTO.setSeq(rs.getString("seq"));
 				boardTO.setPseq(rs.getString("pseq"));
 				boardTO.setSubject(rs.getString("subject"));
-				boardTO.setCmt(rs.getString("cmt"));
 				boardTO.setWdate_ori(rs.getString("wdate_ori"));
+				boardTO.setCmt(rs.getString("cmt"));
 				boardTO.setHit(rs.getString("hit"));
+				boardTO.setPseq_kind(rs.getString("pseq_kind"));
 				
 				boardLists.add(boardTO);
 			}
@@ -207,4 +208,124 @@ public class MypageDAO {
 		return boardListsTO;
 	}
 
+	public BoardListsTO mycomment_list(BoardListsTO boardListsTO, String selected) {
+		// 현재페이지
+		int cpage = boardListsTO.getCpage();
+		// 한 페이지에 몇개 보이는지? 10개
+		int recordPerPage = boardListsTO.getRecordPerPage();
+		// 한블럭에 몇개들어가는지? (5개)
+		int blockPerPage = boardListsTO.getBlockPerPage();
+		// 총 글 수
+		int totalRecord = boardListsTO.getTotalRecord();
+		// 글목록이 담길곳
+		ArrayList<BoardTO> boardLists = new ArrayList();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dataSource.getConnection();
+
+			String sql = "";
+			// 글 수
+			if (selected == null || selected.equals("") || selected.equals("0")) {
+				sql = "select count('seq') totalRecord from comment_board where cmseq=?";
+			} else {
+				sql = "select count('cb.seq') totalRecord from comment_board cb inner join board b on cb.seq = b.seq inner join board_kind bk on b.pseq=bk.pseq where cmseq=? and b.pseq=" + selected;
+			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardListsTO.getMseq());
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			totalRecord = rs.getInt("totalRecord");
+
+			boardListsTO.setTotalRecord(totalRecord);
+			
+			// 총 페이지 수
+			boardListsTO.setTotalPage(((totalRecord - 1) / recordPerPage) + 1);
+
+			// 페이지에서 보이는 시작 글 번호
+			int skip = (cpage - 1) * recordPerPage;
+			
+			if (selected == null || selected.equals("") || selected.equals("0")) {
+				sql = "select cb.seq, b.pseq, cseq, pseq_kind, cmseq, cwriter, comment, cwdate_ori "
+						+ " from comment_board cb inner join board b on cb.seq = b.seq inner join board_kind bk"
+						+ " on b.pseq=bk.pseq where cmseq=? order by wdate_ori desc limit ?, ?";
+			} else {
+				sql = "select cb.seq, b.pseq, cseq, pseq_kind, cmseq, cwriter, comment, cwdate_ori " + 
+						"from comment_board cb inner join board b on cb.seq = b.seq inner join board_kind bk " + 
+						"on b.pseq=bk.pseq where cmseq=? and b.pseq=" + selected + " order by wdate_ori desc limit ?, ?";
+			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardListsTO.getMseq());
+			pstmt.setInt(2, skip);
+			pstmt.setInt(3, recordPerPage);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BoardTO boardTO = new BoardTO();
+				
+				boardTO.setSeq(rs.getString("seq"));
+				boardTO.setPseq(rs.getString("pseq"));
+				boardTO.setCseq(rs.getString("cseq"));
+				boardTO.setPseq_kind(rs.getString("pseq_kind"));
+				boardTO.setCmseq(rs.getString("cmseq"));
+				boardTO.setCwriter(rs.getString("cwriter"));
+				boardTO.setComment(rs.getString("comment"));
+				boardTO.setCwdate_ori(rs.getString("cwdate_ori"));
+				
+				boardLists.add(boardTO);
+			}
+			// 글 목록
+			boardListsTO.setBoardLists(boardLists);
+			// 블럭 시작번호
+			boardListsTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
+			// 블럭 끝번호
+			boardListsTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
+
+			if (boardListsTO.getEndBlock() >= boardListsTO.getTotalPage()) {
+				boardListsTO.setEndBlock(boardListsTO.getTotalPage());
+			}
+		} catch(SQLException e) {
+			System.out.println("[에러1] : " + e.getMessage());
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+			if(rs != null) try { rs.close(); } catch(SQLException e) {}
+		}
+	
+		return boardListsTO;
+	}
+
+	public int password_change_ok(String password, String newpassword, String mseq) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		int flag = 2;
+		try {
+			conn = dataSource.getConnection();
+
+			String sql = "update user set password=? where mseq=? and password=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newpassword);
+			pstmt.setString(2, mseq);
+			pstmt.setString(3, password);
+			
+			int result = pstmt.executeUpdate();
+			
+			if (result == 1) {
+				flag = 0;
+			} else {
+				flag = 1;
+			}
+		} catch(SQLException e) {
+			System.out.println("[에러1] : " + e.getMessage());
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+		}
+	
+		return flag;
+	}
 }

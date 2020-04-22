@@ -86,8 +86,6 @@
 <script src="resources/sitedesign/js/bootstrap.min.js"></script>
 <!-- JS | jquery plugin collection for this theme -->
 <script src="resources/sitedesign/js/jquery-plugin-collection.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#submit').on('click', function() {
@@ -123,6 +121,7 @@
 								<h3 class="text-theme-colored font-36">마이페이지</h3>
 								<ol class="breadcrumb white mt-10">
 									<li><a href="main.mysql">Home</a></li>
+									<li><a>마이페이지</a></li>
 									<li class="active text-theme-colored">비밀번호 확인</li>
 								</ol>
 							</div>

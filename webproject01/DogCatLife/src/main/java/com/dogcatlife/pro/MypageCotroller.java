@@ -35,7 +35,7 @@ import mail.MailSender;
 @Controller
 public class MypageCotroller {
 	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
-//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLife202004201/resources/upload";
+//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeTest/resources/upload";
 
 	@RequestMapping("/input_password.mysql")
 	public ModelAndView mypage_input_password() {
@@ -117,16 +117,60 @@ public class MypageCotroller {
 		return modelAndView;
 	}
 
-		@RequestMapping("/mycomment_list.mysql")
+	@RequestMapping("/mycomment_list.mysql")
 	public ModelAndView mycomment_list(HttpServletRequest request) {
 		System.out.println("mycomment_list 호출");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("mypage/mycomment_list");
 
+		BoardListsTO boardListsTO = new BoardListsTO();
+
 		HttpSession session = request.getSession();
-		session.getAttribute("sess_mseq");
+		String mseq = (String) session.getAttribute("sess_mseq");
+		boardListsTO.setMseq(mseq);
+
+		String selected = request.getParameter("selected");
+		if (selected == null) {
+			selected = "0";
+			boardListsTO.setPseq(Integer.parseInt(selected));
+		} else {
+			boardListsTO.setPseq(Integer.parseInt(selected));
+		}
+
+		String cpage = request.getParameter("cpage");
+		if (cpage != null) {
+			boardListsTO.setCpage(Integer.parseInt(cpage));
+		}
+
+		boardListsTO = new MypageDAO().mycomment_list(boardListsTO, selected);
+
+		modelAndView.addObject("boardListsTO", boardListsTO);
+		modelAndView.addObject("selected", selected);
 
 		return modelAndView;
 	}
 
+	@RequestMapping("/password_change.mysql")
+	public ModelAndView password_change() {
+		System.out.println("password_change 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mypage/password_change");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/password_change_ok.mysql")
+	public ModelAndView password_change_ok(HttpServletRequest request) {
+		System.out.println("password_change_ok 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mypage/password_change_ok");
+		
+		String mseq = request.getParameter("mseq");
+		String password = request.getParameter("password");
+		String newpassword = request.getParameter("newpassword");
+		
+		int flag = new MypageDAO().password_change_ok(password, newpassword, mseq);
+		
+		modelAndView.addObject("flag", flag);
+		return modelAndView;
+	}
 }

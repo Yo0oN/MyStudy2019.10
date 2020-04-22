@@ -23,21 +23,19 @@ public class BoardTO {
 	private String comment;
 	private String cwdate_ori;
 	private String cwdate_mod;
+	private String pseq_kind;
+
+	public String getPseq_kind() {
+		return pseq_kind;
+	}
+
+	public void setPseq_kind(String pseq_kind) {
+		this.pseq_kind = pseq_kind;
+	}
 
 	// 현재 페이지
 	private String cpage;
-	private String selected;
 	
-	
-
-	public String getSelected() {
-		return selected;
-	}
-
-	public void setSelected(String selected) {
-		this.selected = selected;
-	}
-
 	public String getPseq() {
 		return pseq;
 	}

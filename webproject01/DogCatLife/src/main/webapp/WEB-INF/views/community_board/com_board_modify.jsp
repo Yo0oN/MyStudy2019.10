@@ -103,9 +103,6 @@
 	src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#back').on('click', function() {
-			history.back();
-		});
 		$('#submit').on('click', function() {
 			if ($('#subject').val().trim() == "") {
 				alert('제목을 입력하세요!');
@@ -162,7 +159,8 @@
 			<section class="divider">
 				<div class="container">
 					<div class="row pt-30">
-						<div class="col-md-8">
+						<div class="col-md-1"></div>
+						<div class="col-md-9">
 							<div class="aa-contact-address-left">
 								<form class="comments-form contact-form" action="./com_board_modify_ok.mysql"
 									id="frm" name="frm" method="post" enctype="multipart/form-data">
@@ -198,12 +196,13 @@
 								</form>
 								<div class="row mt-10">
 									<div class="col-sm-12">
-										<a id="back" class="btn btn-dark btn-flat m-0">취소</a>
+										<a href="com_board_view.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq %>" class="btn btn-dark btn-flat m-0">취소</a>
 										<a id="submit" class="btn btn-dark btn-flat pull-right m-0">글작성</a>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="col-md-1"></div>
 					</div>
 				</div>
 			</section>

@@ -39,7 +39,7 @@
 		
 		StringBuffer sbHTML = new StringBuffer();
 		if (toLists.size() == 0) {
-			sbHTML.append("<td class='text-center' colspan='5'>등록 된 게시글이 없습니다.</td>");
+			sbHTML.append("<td class='text-center' colspan='6'>등록 된 게시글이 없습니다.</td>");
 		} else {
 			for (int i = 0; i < toLists.size(); i++) {
 				BoardTO boardTO = toLists.get(i);
@@ -52,15 +52,18 @@
 					href = "album_board_view.mysql";
 				}
 				String seq = boardTO.getSeq();
+				pseq = boardTO.getPseq();
 				String subject = boardTO.getSubject();
 				String wdate = boardTO.getWdate_ori();
 				String cmt = boardTO.getCmt();
 				String hit = boardTO.getHit();
+				String pseq_kind = boardTO.getPseq_kind();
 		
 				sbHTML.append("<tr>");
-		
+
+				sbHTML.append("<th class='text-center'>" + pseq_kind + "</th>");
 				sbHTML.append("<th class='text-center'>" + seq + "</th>");
-				sbHTML.append("<th class='text-center'><a href='" + href + "?pseq=" + pseq + "&cpage=" + cpage + "&seq=" + seq + "&selected=" + selected + "' style='color: black'>" + subject + "</a></th>");
+				sbHTML.append("<th class='text-center'><a class='goMycomment' seq='" + seq + "' pseq='" + pseq + "' " + " style='color: black'>" + subject + "</a></th>");
 				/* sbHTML.append("<th class='text-center'><a href='mycontents_view.mysql?cpage=" + cpage + "&selected=" + selected + "&seq=" + seq + "' style='color: black'>" + subject + "</a></th>"); */
 				sbHTML.append("<th class='text-center'>" + wdate + "</th>");
 				sbHTML.append("<th class='text-center'>" + cmt + "</th>");
@@ -153,18 +156,26 @@ a {
 	cursor:pointer
 }
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	var sess_mseq = '<%= sess_mseq %>';
 	var sess_nickname = '<%= sess_nickname %>';
 	$(document).ready(function() {
-		/* $('#writebtn').on('click', function() {
-			if(sess_mseq == null || sess_nickname == null) {
-				alert('글을 작성하시려면 로그인을 해주세요.');
-				return false;
+		$('#selectedField').on('click', function() {
+			var selected = $('#searchField option:selected').val()
+			location.href='mycontents_list.mysql?cpage=1&selected=' + selected;
+		});
+		$('.goMycomment').on('click', function() {
+			var href= "";
+			var seq = $(this).attr('seq');
+			var pseq = $(this).attr('pseq');
+			
+			if (pseq == '11') {
+				href = "com_board_view.mysql?pseq=" + pseq + "&cpage=1&seq=" + seq;
+			} else {
+				href = "album_board_view.mysql?pseq=" + pseq + "&cpage=1&seq=" + seq;
 			}
-		}); */
+			window.open(href,'winopen','');
+		});
 	});
 </script>
 </head>
@@ -187,7 +198,7 @@ a {
 					<div class="section-content">
 						<div class="row">
 							<div class="col-md-12 xs-text-center">
-								<h3 class="text-theme-colored font-36">내가 쓴 글</h3>
+								<h3 class="text-theme-colored font-36">마이페이지</h3>
 								<ol class="breadcrumb white mt-10">
 									<li><a href="main.mysql">Home</a></li>
 									<li><a>마이페이지</a></li>
@@ -219,8 +230,7 @@ a {
 										</div>
 									</div>
 
-									<form action="mycontents_list.mysql" id="frm" name="frm" method="post">
-										<input id="s_pagenum" name="s_pagenum" type="hidden" value="1" />
+									<form action="" id="frm" name="frm" method="post">
 										<div class="row">
 											<div class="form-group col-md-6">
 												<select class="form-control" id="searchField"
@@ -234,9 +244,8 @@ a {
 												</select>
 											</div>
 											<div class="form-group col-md-6">
-												<a href="javascript:dataSearch();"
-													class="btn btn-dark btn-transparent btn-theme-colored btn-lg btn-flat btn-block form-control"><i
-													class="fa fa-search"></i> 검색</a>
+												<a id="selectedField" class="btn btn-dark btn-transparent btn-theme-colored btn-lg btn-flat btn-block form-control">
+													<i class="fa fa-search"></i> 검색</a>
 											</div>
 										</div>
 									</form>
@@ -244,10 +253,16 @@ a {
 									<div>
 										<div class="row">
 											<div class="col-md-12">
+												<div >
+													<h4 class="title heading-line-bottom"><%=totalRecord %> 개</h4>
+												</div>
+											</div>
+											<div class="col-md-12">
 												<div class="table-responsive">
 													<table
 														class="table table-striped table-hover table-bordered">
 														<colgroup>
+															<col style="width: 7%;">
 															<col style="width: 7%;">
 															<col style="width: 56%;">
 															<col style="width: 15%;">
@@ -256,6 +271,7 @@ a {
 														</colgroup>
 														<thead>
 															<tr class="bg-theme-colored" data-text-color="white">
+																<th class="text-center">게시판</th>
 																<th class="text-center">No</th>
 																<th class="text-center">제목</th>
 																<th class="text-center">작성일</th>
@@ -373,35 +389,6 @@ a {
 
 	<!-- soledot -->
 	<script src="resources/soledot/js/fo/soledot.js"></script>
-
-	<script type="text/javascript">
-		function dataList() {
-			$.soledot.move('insuranceboardarticlelist.sd');
-		}
-
-		function dataRowSize() {
-			$('#s_pagenum').val(1);
-			$.soledot.submit('', 'insuranceboardarticlelist.sd');
-		}
-
-		function dataSearch() {
-
-			var $searchField = $('#searchField');
-			var $searchWord = $('#searchWord');
-			if ('' != $searchWord.val() && '' == $searchField.val()) {
-				failNotify('검색 분류를 선택해주십시오.');
-				return;
-			}
-
-			$('#s_pagenum').val(1);
-			$.soledot.submit('', 'insuranceboardarticlelist.sd');
-		}
-
-		function dataView(isbda_seq) {
-			$.soledot.submit('', '/community/fo/kyobo/' + isbda_seq
-					+ '/insuranceboardarticleview.sd');
-		}
-	</script>
 </body>
 </html>
 <%

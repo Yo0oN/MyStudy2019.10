@@ -80,8 +80,6 @@
 <script src="resources/sitedesign/js/bootstrap.min.js"></script>
 <!-- JS | jquery plugin collection for this theme -->
 <script src="resources/sitedesign/js/jquery-plugin-collection.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 </script>
 </head>

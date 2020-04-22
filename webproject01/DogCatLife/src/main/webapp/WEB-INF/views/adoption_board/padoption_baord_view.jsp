@@ -9,7 +9,6 @@
 	String sess_nickname = (String) session.getAttribute("sess_nickname");
 
 	ArrayList<BoardTO> toLists = (ArrayList) request.getAttribute("toLists");
-
 	
 	if (toLists == null || toLists.size() == 0) {
 		out.println("<script type='text/javascript'>");
@@ -55,12 +54,10 @@
 			sbHTML.append("<li>작성자 : <span class='text-theme-colored'>" + cwriter + "</span></li>");
 			sbHTML.append("<li>작성일 : <span class='text-theme-colored'>" + cwdate_ori + "</span></li>");
 			if (sess_mseq != null && sess_mseq.equals(cmseq)) {
-				sbHTML.append("<li><a class='comment_modify' cseq='" + cseq + "'><span>수정</span></a></li>");
-				sbHTML.append("<li><a href='./com_board_comment_delete_ok.mysql?pseq=" + pseq + "&cpage="
-						+ cpage + "&seq=" + seq + "&cseq=" + cseq
-						+ "' class='comment_delete' id='comment_delete_" + cseq + "'><span>삭제</span></a></li>");
-				sbHTML.append("</ul>");
+				sbHTML.append("<li><a id='comment_modify' cseq='" + cseq + "'><span>수정</span></a></li>");
+				sbHTML.append("<li><a id='comment_delete'><span>삭제</span></a></li>");
 			}
+			sbHTML.append("</ul>");
 			sbHTML.append("<ul class='list-inline'>");
 			sbHTML.append("<li><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></li>");
 			sbHTML.append("</ul>");
@@ -147,83 +144,11 @@
 
 <script data-ad-client="ca-pub-3935451468089596" async
 	src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script type="text/javascript">
-var sess_mseq = <%=sess_mseq%>;
-var sess_nickname = '<%=sess_nickname%>';
-$(document).ready(function() {
-	// 게시글 삭제
-	$('#delete').on('click', function() {
-		if (confirm('삭제하시겠습니까?')) {
-			location.href("./com_board_delete_ok.mysql?pseq=<%=pseq%>&seq=<%=seq%>");
-			} else {
-			}
-		});
-
-		// 게시글 작성
-		$('#writebtn').on('click', function() {
-			if (sess_mseq == null || sess_nickname == null) {
-				alert('게시물을 작성하시려면 로그인을 해주세요.');
-				return false;
-			}
-		});
-
-		// 댓글 입력
-		$('#reply').on('click', function() {
-			if (sess_mseq == null || sess_nickname == null) {
-				alert('댓글을 작성하시려면 로그인을 해주세요.');
-				return false;
-			}
-			if ($('#comment').val().trim() == "") {
-				alert('댓글을 입력해주세요.');
-				return false;
-			}
-			$('#commentForm').submit();
-		});
-
-		// 댓글 삭제
-		$('.comment_delete').on('click', function() {
-			if (confirm('댓글을 삭제하시겠습니까?')) {
-			} else {
-				return false;
-			}
-		});
-
-		// 댓글 수정
-		$('.comment_modify').on( 'click', function() {
-			var addAttr = 'li span[cseq=' + $(this).attr('cseq') + ']';
-			$(addAttr).attr('style', 'display:none');
-	
-			/* alert('modify' + addAttr);
-			$.ajax({
-				url : './com_board_comment_modify.mysql',
-				data : {
-					cseq : $(this).attr('cseq')
-				},
-				type : 'get',
-				dataType : 'text',
-				success : function(data) {
-					$(addAttr).attr('style', 'display:none');
-					
-				},
-				error : function(error) {
-					alert('수정에 실패하였습니다.');
-				}
-			}); */
-		});
-	});
-</script>
 </head>
 <body
 	class="has-side-panel side-panel-right fullwidth-page side-push-panel">
 
 	<div class="body-overlay"></div>
-	<!-- <div id="side-panel" class="dark" data-bg-img="http://placehold.it/1920x1280">
-		<div class="side-panel-wrap">
-			<div id="side-panel-trigger-close" class="side-panel-trigger">
-				<a href="#"><i class="icon_close font-30"></i></a>
-			</div>
-		</div>
-	</div> -->
 
 	<div id="wrapper" class="clearfix">
 		<jsp:include page='../login_menu.jsp' />
@@ -239,25 +164,26 @@ $(document).ready(function() {
 					<div class="section-content">
 						<div class="row">
 							<div class="col-md-12 xs-text-center">
-								<h3 class="text-theme-colored font-36">마이페이지</h3>
+								<h3 class="text-theme-colored font-36">고객센터</h3>
 								<ol class="breadcrumb white mt-10">
 									<li><a href="main.mysql">Home</a></li>
-									<li><a>마이페이지</a></li>
-									<li class="active text-theme-colored">Q/A</li>
+									<li><a href="album_board_list.mysql?pseq=12">고객센터</a></li>
+									<li class="active text-theme-colored">공지사항</li>
 								</ol>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
-
+			
 			<!-- Section: Blog -->
 			<section>
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-12 col-md-12">
 							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-1"></div>
+								<div class="col-md-9">
 									<div class="blog-posts single-post">
 										<article class="post clearfix mb-0">
 											<div class="entry-title pt-0">
@@ -265,7 +191,6 @@ $(document).ready(function() {
 											</div>
 											<div class="entry-meta pb-10 border-bottom-gray">
 												<ul class="list-inline">
-													<li>작성자 : <span class="text-theme-colored"><%=writer%></span></li>
 													<li>작성일 : <span class="text-theme-colored"><%=wdate_ori%></span></li>
 													<%
 														if (!wdate_ori.equals(wdate_mod)) {
@@ -275,23 +200,10 @@ $(document).ready(function() {
 														}
 													%>
 													<li>조회수 : <span class="text-theme-colored"><%=hit%></span></li>
-													<li>댓글수 : <span class="text-theme-colored"><%=cmt%></span></li>
-													<%
-														if (sess_mseq != null && sess_mseq.equals(mseq)) {
-													%>
-													<li><a
-														href="com_board_modify.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq%>"><span
-															class="text-theme-colored">수정</span></a></li>
-													<li><a href="#" id="delete"><span
-															class="text-theme-colored">삭제</span></a></li>
-													<%
-														}
-													%>
 												</ul>
 											</div>
-											<div class="entry-content mt-10"
+											<div class="entry-content mt-10 text-center"
 												style="word-break: break-all; overflow: auto">
-
 												<%
 													if (!filename_new.equals("")) {
 												%>
@@ -305,75 +217,20 @@ $(document).ready(function() {
 												<%
 													}
 												%>
-
 												<p>
 													<span style="font-size: 16px;"><%=content%></span>
 												</p>
-
 											</div>
 										</article>
 
 										<div class="row mt-10 pb-10 border-bottom-gray">
 											<div class="col-sm-12">
-												<a id="writebtn"
-													href="com_board_write.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>"
-													class="btn btn-dark btn-flat m-0">글쓰기</a> <a
-													href="com_board_list.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>"
-													class="btn btn-dark btn-flat pull-right m-0">목록</a>
+												<a href='noticelist.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>' class="btn btn-dark btn-flat pull-right m-0">목록</a>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-12">
-									<div class="entry-title pt-0 pb-30">
-										<h3>
-											댓글
-											<%=cmt%></h3>
-									</div>
-									<div class="comments-area">
-										<div class="comment-list pb-10">
-											<%=sbHTML%>
-											<!-- <ul class="list-inline">
-												<li><i class="fa fa-user"></i> <span
-													class="">댓글작성자</span></li>
-												<li><i class="fa fa-calendar"></i> <span
-													class="">2020-04-18 02:24:18</span></li>
-												<li><a href=""><span class="">수정</span></a></li>
-												<li><a href="#" id="delete"><span class="">삭제</span></a></li>
-											</ul>
-											<ul class="list-inline">
-												<li><span style="font-size: 14px;">댓글 내용내용 댓글 내용내용 댓글 내용내용 댓글 내용내용 댓글 내용내용</span></li>
-											</ul>
-											<hr> -->
-										</div>
-									</div>
-									<!-- 댓글작성 -->
-									<div class="col-md-8">
-										<form class="comments-form contact-form"
-											action="./com_board_comment_ok.mysql" id="commentForm"
-											method="post">
-											<input type="hidden" name="pseq" value="<%=pseq%>" /> <input
-												type="hidden" name="cpage" value="<%=cpage%>" /> <input
-												type="hidden" name="seq" value="<%=seq%>" /> <input
-												type="hidden" name="cmseq" value="<%=sess_mseq%>" /> <input
-												type="hidden" name="cwriter" value="<%=sess_nickname%>" />
-
-											<div class="form-group">
-												<label for="rqms_content">댓글 작성</label>
-												<textarea id="comment" name="comment"
-													class="form-control required" rows="4">
-												</textarea>
-											</div>
-
-										</form>
-										<div class="row mt-10">
-											<div class="col-sm-12">
-												<a id="reply" class="btn btn-dark btn-flat pull-right m-0">댓글작성</a>
-											</div>
-										</div>
-									</div>
-
-								</div>
+								<div class="col-md-1"></div>
 							</div>
 						</div>
 					</div>

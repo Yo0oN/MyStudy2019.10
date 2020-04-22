@@ -5,12 +5,12 @@
 	pageEncoding="UTF-8"%>
 
 <%
-	String nowUrl = "com_board_list.mysql?" + request.getQueryString();
-	session.setAttribute("endUrl", nowUrl);
+	session.removeAttribute("endUrl");
+
 	
 	String sess_mseq = (String) session.getAttribute("sess_mseq");
 	String sess_nickname = (String) session.getAttribute("sess_nickname");
-	BoardListsTO boardListsTO = (BoardListsTO) request.getAttribute("boardListsTO");
+	/* BoardListsTO boardListsTO = (BoardListsTO) request.getAttribute("boardListsTO");
 
 	// 현재 게시판
 	String pseq = boardListsTO.getPseq() + "";
@@ -57,7 +57,7 @@
 			sbHTML.append("<th class='text-center'>" + hit + "</th>");
 			sbHTML.append("</tr>");
 		}
-	}
+	} */
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -144,14 +144,14 @@
 <script type="text/javascript">
 	var sess_mseq = <%= sess_mseq %>;
 	var sess_nickname = <%= sess_nickname %>
-	$(document).ready(function() {
+	/* $(document).ready(function() {
 		$('#writebtn').on('click', function() {
 			if(sess_mseq == null || sess_nickname == null) {
 				alert('글을 작성하시려면 로그인을 해주세요.');
 				return false;
 			}
 		});
-	});
+	}); */
 </script>
 </head>
 
@@ -173,11 +173,11 @@
 					<div class="section-content">
 						<div class="row">
 							<div class="col-md-12 xs-text-center">
-								<h3 class="text-theme-colored font-36">게시판</h3>
+								<h3 class="text-theme-colored font-36">마이페이지</h3>
 								<ol class="breadcrumb white mt-10">
 									<li><a href="main.mysql">Home</a></li>
-									<li><a>커뮤니티</a></li>
-									<li class="active text-theme-colored">게시판</li>
+									<li><a>마이페이지</a></li>
+									<li class="active text-theme-colored">Q/A</li>
 								</ol>
 							</div>
 						</div>
@@ -198,7 +198,7 @@
 										<div class="row">
 											<div class="col-md-12">
 												<div class="text-center">
-													<h2 class="title heading-line-bottom">게시판</h2>
+													<h2 class="title heading-line-bottom">Q/A</h2>
 												</div>
 											</div>
 										</div>
@@ -229,7 +229,7 @@
 															</tr>
 														</thead>
 														<tbody>
-															<%=sbHTML%>
+															<%-- <%=sbHTML%> --%>
 														</tbody>
 													</table>
 												</div>
@@ -237,7 +237,7 @@
 												<!-- 글쓰기버튼 -->
 												<div class="row">
 													<div class="col-sm-12">
-														<a href="./com_board_write.mysql?pseq=<%=pseq%>">
+														<a href="">
 															<button type="button" id="writebtn"
 																class="btn btn-dark btn-flat pull-right m-0">글쓰기</button>
 														</a>
@@ -251,7 +251,7 @@
 														<nav>
 															<ul
 																class="pagination theme-colored pull-right xs-pull-center mb-xs-40">
-																<%
+																<%-- <%
 																	if (endBlock >= totalPage) {
 																		endBlock = totalPage;
 																	}
@@ -304,7 +304,7 @@
 																		out.println("<li><a aria-label='Previous' href='com_board_list.mysql?pseq=" + pseq + "&cpage="
 																				+ (startBlock + blockPerPage) + "'><span aria-hidden='true'>&raquo;</span></a></li>");
 																	}
-																%>
+																%> --%>
 															</ul>
 														</nav>
 													</div>

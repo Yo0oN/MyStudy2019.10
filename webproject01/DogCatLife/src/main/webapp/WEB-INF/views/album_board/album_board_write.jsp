@@ -6,30 +6,33 @@
 	String sess_mseq = (String) session.getAttribute("sess_mseq");
 	String sess_nickname = (String) session.getAttribute("sess_nickname");
 
-	String pseq = (String)request.getAttribute("pseq");
+	BoardTO boardTO = (BoardTO) request.getAttribute("boardTO");
+	String pseq = boardTO.getPseq();
+	String cpage = boardTO.getCpage();
+	String seq = boardTO.getSeq();
 %>
 <% if (sess_mseq != null) {
-	String boardnow1 = "";
-	String boardnow2 = "";
-	String boardnow3 = "";
-	if (pseq.equals("12")) {
-		boardnow1 = "커뮤니티";
-		boardnow2 = "자랑하기";
-		boardnow3 = "글쓰기";
-	} else if (pseq.equals("21")) {
-		boardnow1 = "찾아주세요";
-		boardnow2 = "실종동물등록";
-		boardnow3 = "글쓰기";
-	} else if (pseq.equals("22")) {
-		boardnow1 = "찾아주세요";
-		boardnow2 = "재회성공사례";
-		boardnow3 = "글쓰기";
-	}  else if (pseq.equals("32")) {
-		boardnow1 = "입양";
-		boardnow2 = "입양후기";
-		boardnow3 = "글쓰기";
-	}
-	%>
+		String boardnow1 = "";
+		String boardnow2 = "";
+		String boardnow3 = "";
+		if (pseq.equals("12")) {
+			boardnow1 = "커뮤니티";
+			boardnow2 = "자랑하기";
+			boardnow3 = "글쓰기";
+		} else if (pseq.equals("21")) {
+			boardnow1 = "찾아주세요";
+			boardnow2 = "실종동물등록";
+			boardnow3 = "글쓰기";
+		} else if (pseq.equals("22")) {
+			boardnow1 = "찾아주세요";
+			boardnow2 = "재회성공사례";
+			boardnow3 = "글쓰기";
+		}  else if (pseq.equals("32")) {
+			boardnow1 = "입양";
+			boardnow2 = "입양후기";
+			boardnow3 = "글쓰기";
+		}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -112,8 +115,18 @@
 	src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		var cpage = '<%=cpage%>';
+		var pseq = '<%=pseq%>';
+		var seq = '<%=seq%>';
+		
 		$('#back').on('click', function() {
-			history.back();
+			if (seq == 'null' || cpage == 'null') {
+				location.href="album_board_list.mysql?pseq=<%=pseq%>";
+			} else if (pseq == null) {
+				location.href="main.mysql";
+			} else {
+				location.href="album_board_view.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq %>";
+			}
 		});
 		$('#submit').on('click', function() {
 			if ($('#subject').val().trim() == "") {
@@ -174,7 +187,8 @@
 			<section class="divider">
 				<div class="container">
 					<div class="row pt-30">
-						<div class="col-md-8">
+						<div class="col-md-1"></div>
+						<div class="col-md-9">
 							<div class="aa-contact-address-left">
 								<form class="comments-form contact-form" action="./album_board_write_ok.mysql"
 									id="frm" name="frm" method="post" enctype="multipart/form-data">
@@ -209,6 +223,7 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-md-1"></div>
 					</div>
 				</div>
 			</section>

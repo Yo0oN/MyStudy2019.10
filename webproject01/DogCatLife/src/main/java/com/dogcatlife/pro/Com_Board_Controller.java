@@ -24,7 +24,7 @@ import TOs.BoardTO;
 @Controller
 public class Com_Board_Controller {
 	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
-//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLife202004201/resources/upload";
+//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeTest/resources/upload";
 
 	@RequestMapping("/com_board_list.mysql")
 	public ModelAndView com_board_list(HttpServletRequest request) {
@@ -64,7 +64,6 @@ public class Com_Board_Controller {
 
 		modelAndView.addObject("toLists", toLists);
 		modelAndView.addObject("cpage", boardTO.getCpage());
-		modelAndView.addObject("selected", boardTO.getSelected());
 
 		return modelAndView;
 	}
@@ -79,9 +78,6 @@ public class Com_Board_Controller {
 
 		CommunityBoardDAO communityBoardDAO = new CommunityBoardDAO();
 		String cpage = boardTO.getCpage();
-		if (!boardTO.getSelected().equals("1")) {
-			cpage = "1";
-		}
 		String seq = boardTO.getSeq();
 		int flag = communityBoardDAO.board_reply_ok(boardTO);
 
@@ -99,10 +95,6 @@ public class Com_Board_Controller {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("community_board/com_board_modify");
 	
-		if (!boardTO.getSelected().equals("1")) {
-			boardTO.setCpage("1");
-			boardTO.setSelected("1");
-		}
 		boardTO = new CommunityBoardDAO().boardModify(boardTO);
 
 		modelAndView.addObject("boardTO", boardTO);
@@ -156,13 +148,13 @@ public class Com_Board_Controller {
 	}
 
 	@RequestMapping("/com_board_write.mysql")
-	public ModelAndView com_board_write(HttpServletRequest request) {
+	public ModelAndView com_board_write(BoardTO boardTO) {
 		System.out.println("com_board_write 컨트롤러 호출");
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("community_board/com_board_write");
 
-		modelAndView.addObject("pseq", request.getParameter("pseq"));
+		modelAndView.addObject("boardTO", boardTO);
 		 
 		return modelAndView;
 	}
@@ -231,9 +223,6 @@ public class Com_Board_Controller {
 		System.out.println("com_board_comment_modify 컨트롤러 호출");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("community_board/com_board_comment_modify");
-		if (!boardTO.getSelected().equals("1")) {
-			boardTO.setCpage("1");
-		}
 		CommunityBoardDAO communityBoardDAO = new CommunityBoardDAO();
 
 		return modelAndView;
@@ -246,9 +235,6 @@ public class Com_Board_Controller {
 		modelAndView.setViewName("community_board/com_board_comment_delete_ok");
 
 		CommunityBoardDAO communityBoardDAO = new CommunityBoardDAO();
-		if (!boardTO.getSelected().equals("1")) {
-			boardTO.setCpage("1");
-		}
 		int flag = communityBoardDAO.boardCommentDeleteOk(boardTO);
 
 		modelAndView.addObject("flag", flag);

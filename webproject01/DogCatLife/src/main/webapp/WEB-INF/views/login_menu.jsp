@@ -83,18 +83,20 @@
 						<li><a>입양</a>
 							<ul class="dropdown">
 								<li><a href="adoption_board_view.mysql">입양 절차</a></li>
-								<li><a href="#">입양 가능 아이들</a></li>
+								<li><a href="padoption_board_list.mysql?pseq=31">입양 가능 아이들</a></li>
 								<li><a href="album_board_list.mysql?pseq=32">입양 후기</a></li>
 							</ul></li>
 						<li><a>위치찾기</a>
 							<ul class="dropdown">
-								<li><a href="#">병원</a></li>
-								<li><a href="#">미용,호텔</a></li>
+								<li><a href="hospital_map.mysql">병원</a></li>
+								<li><a href="hotel_map.mysql">미용,호텔</a></li>
 							</ul></li>
 						<li><a>고객센터</a>
 							<ul class="dropdown">
-								<li><a href="#">Q & A</a></li>
-								<li><a href="#">공지사항</a></li>
+								<li><a href="noticelist.mysql?pseq=41">공지사항</a></li>
+								<li><a href="faqlist.mysql?pseq=42">FAQ</a></li>
+								<li><a href="commonagree.mysql">이용약관</a></li>
+								<li><a href="commontext.mysql">개인정보처리방침</a></li>
 							</ul></li>
 					</ul>
 				</nav>
