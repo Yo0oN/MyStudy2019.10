@@ -1,3 +1,4 @@
+<%@page import="TOs.NoticeTO"%>
 <%@page import="TOs.BoardTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="TOs.BoardListsTO"%>
@@ -7,42 +8,23 @@
 	String nowUrl = "faqlist.mysql?" + request.getQueryString();
 	session.setAttribute("endUrl", nowUrl);
 	
-	String sess_mseq = (String) session.getAttribute("sess_mseq");
-	String sess_nickname = (String) session.getAttribute("sess_nickname");
-	BoardListsTO boardListsTO = (BoardListsTO) request.getAttribute("boardListsTO");
-
-	// 현재 게시판
-	String pseq = boardListsTO.getPseq() + "";
-	
-	// 현재페이지
-	int cpage = boardListsTO.getCpage();
-	// 한 페이지당 출력 데이터 개수
-	int recordPerPage = boardListsTO.getRecordPerPage();
-	// 전체 페이지 개수 = 마지막 페이지
-	int totalPage = boardListsTO.getTotalPage();
-	// 전체 데이터(글) 개수
-	int totalRecord = boardListsTO.getTotalRecord();
-	// 페이지번호가 몇개씩 보이게 할지 설정
-	int blockPerPage = boardListsTO.getBlockPerPage();
-	// 보이는 페이지 번호의 시작부분이다.
-	int startBlock = boardListsTO.getStartBlock();
-	// 보이는 페이지 번호의 끝부분이다.
-	int endBlock = boardListsTO.getEndBlock();
-	// 목록을 받아옴
-	ArrayList<BoardTO> toLists = boardListsTO.getBoardLists();
+	ArrayList<NoticeTO> noticeLists = (ArrayList) request.getAttribute("noticeLists");
+	String selected = (String) request.getAttribute("selected");
 
 	StringBuffer sbHTML = new StringBuffer();
-	if (toLists.size() == 0) {
+	if (noticeLists.size() == 0) {
 		sbHTML.append("<td class='text-center' colspan='5'>등록 된 게시글이 없습니다.</td>");
 	} else {
-		for (int i = 0; i < toLists.size(); i++) {
-			BoardTO boardTO = toLists.get(i);
+		for (int i = 0; i < noticeLists.size(); i++) {
+			NoticeTO noticeTO = noticeLists.get(i);
 
-			pseq = boardTO.getPseq();
-			String seq = boardTO.getSeq();
-			String subject = boardTO.getSubject();
-			String content = boardTO.getContent();
-			
+			String seq = noticeTO.getSeq();
+			String qseq = noticeTO.getQseq();
+			String kinds = noticeTO.getKinds();
+			String subject = noticeTO.getSubject();
+			String content = noticeTO.getContent();
+			String wdate = noticeTO.getWdate();
+			String filename = noticeTO.getFilename();
 			
 			sbHTML.append("<div id=\"accordion1\" class=\"panel-group accordion\">");
 			
@@ -57,10 +39,10 @@
 			sbHTML.append("	</div>");
 			sbHTML.append("</div>");
 			sbHTML.append("</div>");
-			
-			
-
-			
+		}
+		
+		if (selected == null) {
+			selected = "0";
 		}
 	}
 %>
@@ -159,6 +141,17 @@
 <script
 	src="resources/sitedesign/js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
 
+<script type="text/javascript">
+var select = '#selectedField option[value=<%=selected%>]';
+$(select).attr('selected', 'selected');
+
+$(document).ready(function() {
+	$('#selectedField').on('click', function() {
+		var qseq = $('#searchField option:selected').val();
+		location.href='faqlist.mysql?qseq=' + qseq;
+	});
+});
+</script>
 </head>
 
 <body
@@ -196,12 +189,12 @@
 			<section>
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-12 col-md-12">
+						<div class="col-md-12">
 							<div class="row">
-								<div class="col-sm-12 col-md-2">
+								<div class="col-md-2">
 									<div class="sidebar sidebar-left mt-sm-30">
 										<div class="widget">
-											<h5 class="widget-title line-bottom"><a href="">고객센터</a></h5>
+											<h5 class="widget-title line-bottom">고객센터</h5>
 											<div class="categories">
 												<ul class="list list-border angle-double-right">
 													<li><a href="noticelist.mysql?pseq=41">공지사항</a></li>
@@ -225,7 +218,23 @@
 											</div>
 										</div>
 									</div>
-									
+									<form action="" id="frm" name="frm" method="post">
+										<!-- <input id="s_pagenum" name="s_pagenum" type="hidden" value="1" /> -->
+										<div class="row">
+											<div class="form-group col-md-6">
+												<select class="form-control" id="searchField"
+													name="searchField">
+													<option value="0" selected="selected">== 전체 ==</option>
+													<option value="1" >홈페이지</option>
+													<option value="2" >회원</option>
+												</select>
+											</div>
+											<div class="form-group col-md-6">
+												<a id="selectedField" class="btn btn-dark btn-transparent btn-theme-colored btn-lg btn-flat btn-block form-control">
+													<i class="fa fa-search"></i> 검색</a>
+											</div>
+										</div>
+									</form>
 									<div>
 										<div class="row">
 											<div class="col-md-12">

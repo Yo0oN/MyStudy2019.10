@@ -319,7 +319,7 @@ body {
 								<ol class="breadcrumb white mt-10">
 									<li><a href="main.mysql">Home</a></li>
 									<li><a>위치 찾기</a></li>
-									<li class="active text-theme-colored">호텔 찾기</li>
+									<li class="active text-theme-colored">병원 찾기</li>
 								</ol>
 							</div>
 						</div>

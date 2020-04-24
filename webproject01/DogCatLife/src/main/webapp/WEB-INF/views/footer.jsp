@@ -25,8 +25,8 @@
 					<h5 class="widget-title line-bottom">Quick Links</h5>
 					<ul class="list-border list theme-colored angle-double-right">
 						<li><a href="join.mysql">회원가입</a></li>
-						<li><a href="#">공지사항</a></li>
-						<li><a href="#">Q & A</a></li>
+						<li><a href="noticelist.mysql?pseq=41">공지사항</a></li>
+						<li><a href="faqlist.mysql?pseq=42">FAQ</a></li>
 
 					</ul>
 				</div>

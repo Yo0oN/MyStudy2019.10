@@ -173,4 +173,100 @@ public class MypageCotroller {
 		modelAndView.addObject("flag", flag);
 		return modelAndView;
 	}
+
+	@RequestMapping("/myquestion_list.mysql")
+	public ModelAndView myquestion_list(HttpServletRequest request) {
+		System.out.println("myquestion_list 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mypage/myquestion_list");
+		
+		HttpSession session = request.getSession();
+		BoardListsTO boardListsTO = new BoardListsTO();
+		
+		String mseq = (String) session.getAttribute("sess_mseq");
+		String cpage = request.getParameter("cpage");
+		if (cpage != null) {
+			boardListsTO.setCpage(Integer.parseInt(cpage));
+		}
+		boardListsTO.setMseq(mseq);
+		
+		boardListsTO = new MypageDAO().myquestion_list(boardListsTO);
+		
+		modelAndView.addObject("boardListsTO", boardListsTO);
+		return modelAndView;
+	}
+
+	@RequestMapping("/myquestion_write.mysql")
+	public ModelAndView myquestion_write(BoardTO boardTO) {
+		System.out.println("myquestion_write 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mypage/myquestion_write");
+		modelAndView.addObject("boardTO", boardTO);
+		return modelAndView;
+	}
+	
+	@RequestMapping("/myquestion_write_ok.mysql")
+	public ModelAndView myquestion_write_ok(HttpServletRequest request) {
+		System.out.println("myquestion_write_ok 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mypage/myquestion_write_ok");
+
+		BoardTO boardTO = new BoardTO();
+
+		try {
+			String path = uploadPath;
+			int filesize = 1024 * 1024 * 2;
+			String utf8 = "utf-8";
+
+			MultipartRequest multi = new MultipartRequest(request, path, filesize, utf8,
+					new DefaultFileRenamePolicy());
+
+			if (multi.getFile("upload") != null) {
+				boardTO.setFilename_ori(multi.getOriginalFileName("upload"));
+				boardTO.setFilename_new(multi.getFilesystemName("upload"));
+			} else {
+				boardTO.setFilename_new("");
+				boardTO.setFilename_ori("");
+			}
+
+			boardTO.setSubject(multi.getParameter("subject"));
+			boardTO.setWriter(multi.getParameter("writer"));
+			boardTO.setContent(multi.getParameter("content"));
+			boardTO.setMseq(multi.getParameter("mseq"));
+			MypageDAO mypageDAO = new MypageDAO();
+
+			int flag = mypageDAO.myquestionWriteOk(boardTO);
+
+			modelAndView.addObject("flag", flag);
+		} catch (IOException e) {
+		}
+
+		return modelAndView;
+	}
+
+	@RequestMapping("/myquestion_view.mysql")
+	public ModelAndView myquestion_view(HttpServletRequest request) {
+		System.out.println("myquestion_view 컨트롤러 호출");
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mypage/myquestion_view");
+
+		MypageDAO mypageDAO = new MypageDAO();
+
+		String aseq = request.getParameter("aseq");
+		String seq = request.getParameter("seq");
+		String cpage = request.getParameter("cpage");
+		BoardTO boardTO = new BoardTO();
+		if (aseq != null) {
+			boardTO = mypageDAO.myquestion_view(aseq, "personal_answers");
+		} else {
+			boardTO = mypageDAO.myquestion_view(seq, "personal_question");
+		}
+
+		System.out.println(boardTO.getSeq());
+		modelAndView.addObject("boardTO", boardTO);
+		modelAndView.addObject("cpage", cpage);
+
+		return modelAndView;
+	}
 }

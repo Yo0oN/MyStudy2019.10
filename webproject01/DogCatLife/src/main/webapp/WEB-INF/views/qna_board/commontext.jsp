@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	session.removeAttribute("endUrl");
+	String nowUrl = "commontext.mysql?" + request.getQueryString();
+	session.setAttribute("endUrl", nowUrl);
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -135,13 +136,13 @@
 			<section>
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-12 col-md-12">
+						<div class="col-md-12">
 							<div class="row">
-								<div class="col-sm-12 col-md-2">
+								<div class="col-md-2">
 									<div class="sidebar sidebar-left mt-sm-30">
 										<div class="widget">
 											<h5 class="widget-title line-bottom">
-												<a href="">고객센터</a>
+												고객센터
 											</h5>
 											<div class="categories">
 												<ul class="list list-border angle-double-right">

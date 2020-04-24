@@ -50,7 +50,7 @@
 			sbHTML.append("<div class='gallery-item branding'>");
 
 			sbHTML.append("<div class='thumb'>");
-			sbHTML.append("<a href='album_board_view.mysql?pseq=" + pseq + "&cpage=" + cpage + "&seq=" + seq
+			sbHTML.append("<a href='padoption_board_view.mysql?pseq=" + pseq + "&cpage=" + cpage + "&seq=" + seq
 					+ "'><img class='img-fullwidth' src='resources/upload/" + filename + "' alt='project' height='200'></a>");
 			sbHTML.append("</div>");
 			sbHTML.append("<div class='portfolio-description'>");
@@ -182,7 +182,7 @@
 					<div class="section-content">
 						<div class="row">
 							<div class="col-md-12 xs-text-center">
-								<h3 class="text-theme-colored font-36">입양 가능 아이들</h3>
+								<h3 class="text-theme-colored font-36">입양</h3>
 								<ol class="breadcrumb white mt-10">
 									<li><a href="main.mysql">Home</a></li>
 									<li><a>입양</a></li>

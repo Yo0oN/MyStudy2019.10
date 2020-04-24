@@ -86,6 +86,9 @@ public class CommunityBoardDAO {
 		int totalRecord = boardListsTO.getTotalRecord();
 		// 글목록이 담길곳
 		ArrayList<BoardTO> boardLists = new ArrayList();
+		// 검색어
+		String searchKeyWord = boardListsTO.getSearchKeyWord();
+		String searchField= boardListsTO.getSearchField();
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -94,9 +97,32 @@ public class CommunityBoardDAO {
 			conn = dataSource.getConnection();
 			
 			// 총 글 수 totalRecord
-			String sql = "select count('seq') totalRecord from board where pseq=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, pseq);
+			String sql="";
+			if (searchKeyWord != null) {
+				// 제목+내용검색
+				if (searchField.equals("0")) {
+					sql = "select count('seq') totalRecord from board where pseq=? and (subject like ? or content like ?)";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, pseq);
+					pstmt.setString(2, "%" + searchKeyWord + "%");
+					pstmt.setString(3, "%" + searchKeyWord + "%");
+				} else if (searchField.equals("1")) {
+					sql = "select count('seq') totalRecord from board where pseq=? and subject like ?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, pseq);
+					pstmt.setString(2, "%" + searchKeyWord + "%");
+				} else if (searchField.equals("2")) {
+					sql = "select count('seq') totalRecord from board where pseq=? and content like ?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, pseq);
+					pstmt.setString(2, "%" + searchKeyWord + "%");
+				}
+			} else {
+				sql = "select count('seq') totalRecord from board where pseq=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, pseq);
+			}
+			
 			rs = pstmt.executeQuery();
 			
 			rs.next();
@@ -111,13 +137,40 @@ public class CommunityBoardDAO {
 
 			// 글 목록 - pseq에 따라 게시판번호, 글번호, 제목, 작성자번호, 닉네임, 조회수, 댓글수, 작성일, 수정일, 작성한지 얼마나
 			// 시간이흘렀는가를 한페이지에 보여줄 만큼만 가져온 후 seq로 내림차순
-			sql = "select pseq, seq, subject, mseq, writer, content,hit, cmt, date_format(wdate_ori, '%Y-%m-%d %H:%i') wdate_ori, date_format(wdate_mod, '%Y-%m-%d %H:%i') wdate_mod, hour(timediff(now(), wdate_ori)) wgap from board where pseq=? order by seq desc limit ?, ?";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, pseq);
-			pstmt.setInt(2, skip);
-			pstmt.setInt(3, recordPerPage);
-
+			if (searchKeyWord != null) {
+				// 제목+내용검색
+				if (searchField.equals("0")) {
+					sql = "select pseq, seq, subject, mseq, writer, content,hit, cmt, date_format(wdate_ori, '%Y-%m-%d %H:%i') wdate_ori, date_format(wdate_mod, '%Y-%m-%d %H:%i') wdate_mod, hour(timediff(now(), wdate_ori)) wgap from board where pseq=? and (subject like ? or content like ?) order by seq desc limit ?, ?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, pseq);
+					pstmt.setString(2, "%" + searchKeyWord + "%");
+					pstmt.setString(3, "%" + searchKeyWord + "%");
+					pstmt.setInt(4, skip);
+					pstmt.setInt(5, recordPerPage);
+				} else if (searchField.equals("1")) {
+					// 제목검색
+					sql = "select pseq, seq, subject, mseq, writer, content,hit, cmt, date_format(wdate_ori, '%Y-%m-%d %H:%i') wdate_ori, date_format(wdate_mod, '%Y-%m-%d %H:%i') wdate_mod, hour(timediff(now(), wdate_ori)) wgap from board where pseq=? and subject like ? order by seq desc limit ?, ?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, pseq);
+					pstmt.setString(2, "%" + searchKeyWord + "%");
+					pstmt.setInt(3, skip);
+					pstmt.setInt(4, recordPerPage);
+				} else if (searchField.equals("2")) {
+					// 내용검색
+					sql = "select pseq, seq, subject, mseq, writer, content,hit, cmt, date_format(wdate_ori, '%Y-%m-%d %H:%i') wdate_ori, date_format(wdate_mod, '%Y-%m-%d %H:%i') wdate_mod, hour(timediff(now(), wdate_ori)) wgap from board where pseq=? and content like ? order by seq desc limit ?, ?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, pseq);
+					pstmt.setString(2, "%" + searchKeyWord + "%");
+					pstmt.setInt(3, skip);
+					pstmt.setInt(4, recordPerPage);
+				} 
+			} else {
+				sql = "select pseq, seq, subject, mseq, writer, content,hit, cmt, date_format(wdate_ori, '%Y-%m-%d %H:%i') wdate_ori, date_format(wdate_mod, '%Y-%m-%d %H:%i') wdate_mod, hour(timediff(now(), wdate_ori)) wgap from board where pseq=? order by seq desc limit ?, ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, pseq);
+				pstmt.setInt(2, skip);
+				pstmt.setInt(3, recordPerPage);
+			}
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardTO boardTO = new BoardTO();

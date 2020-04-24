@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="TOs.BoardTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="TOs.BoardListsTO"%>
@@ -28,6 +29,13 @@
 	int startBlock = boardListsTO.getStartBlock();
 	// 보이는 페이지 번호의 끝부분이다.
 	int endBlock = boardListsTO.getEndBlock();
+	
+	String searchKeyWord = boardListsTO.getSearchKeyWord();
+	if (searchKeyWord != null) {
+		searchKeyWord = URLEncoder.encode(searchKeyWord,"utf-8");
+	}
+	String searchField= boardListsTO.getSearchField();
+
 	// 목록을 받아옴
 	ArrayList<BoardTO> toLists = boardListsTO.getBoardLists();
 
@@ -50,8 +58,13 @@
 			sbHTML.append("<tr>");
 
 			sbHTML.append("<th class='text-center'>" + seq + "</th>");
-			sbHTML.append("<th class='text-center'><a href='com_board_view.mysql?pseq=" + pseq + "&cpage="
-					+ cpage + "&seq=" + seq + "' style='color: black'>" + subject + "</a></th>");
+			if (searchField != null && !searchField.equals("")) {
+				sbHTML.append("<th class='text-center'><a onclick='window.open(\"com_board_view.mysql?pseq=" + pseq + "&cpage=1&seq="
+					+ seq + "\",\"winopen\", \"\")' style='color: black'>" + subject + "</a></th>");
+			} else {
+				sbHTML.append("<th class='text-center'><a href='com_board_view.mysql?pseq=" + pseq + "&cpage="
+						+ cpage + "&seq=" + seq + "' style='color: black'>" + subject + "</a></th>");
+			}
 			sbHTML.append("<th class='text-center'>" + writer + "</th>");
 			sbHTML.append("<th class='text-center'>" + wdate + "</th>");
 			sbHTML.append("<th class='text-center'>" + hit + "</th>");
@@ -77,9 +90,11 @@
 
 <title>DogCatLife</title>
 
-<!-- commoncss -->
-
-
+<style type="text/css">
+a {
+	cursor:pointer;
+}
+</style>
 <!-- Favicon and Touch Icons -->
 <link href="resources/sitedesign/images/favicon.png" rel="shortcut icon"
 	type="image/png">
@@ -151,7 +166,31 @@
 				return false;
 			}
 		});
+		$('#searchbtn').on('click', function() {
+			search();
+		});
+		$('html').bind('keypress', function(e) {
+		   if(e.keyCode == 13)
+		   {
+		      return false;
+		   }
+		});
+		
 	});
+	var search = function () {
+		var searchKeyWord = $('#searchKeyWord').val().trim();
+		var searchField = $('#searchField option:selected').val();
+		if (searchKeyWord == "") {
+			alert('검색어를 입력해주세요.');
+			return false;
+		}
+		if (searchField == "") {
+			alert('검색 조건을 선택해주세요.');
+			return false;
+		}
+		searchKeyWord = encodeURIComponent(searchKeyWord);
+		location.href = 'com_board_list.mysql?pseq=<%=pseq%>&cpage=1&searchKeyWord=' + searchKeyWord + '&searchField=' + searchField;
+	}
 </script>
 </head>
 
@@ -177,7 +216,7 @@
 								<ol class="breadcrumb white mt-10">
 									<li><a href="main.mysql">Home</a></li>
 									<li><a>커뮤니티</a></li>
-									<li class="active text-theme-colored">게시판</li>
+									<li class="active text-theme-colored"><a href="com_board_list.mysql?pseq=11">게시판</a></li>
 								</ol>
 							</div>
 						</div>
@@ -237,8 +276,8 @@
 												<!-- 글쓰기버튼 -->
 												<div class="row">
 													<div class="col-sm-12">
-														<a href="./com_board_write.mysql?pseq=<%=pseq%>">
-															<button type="button" id="writebtn"
+														<a id="writebtn" href="./com_board_write.mysql?pseq=<%=pseq%>">
+															<button type="button"
 																class="btn btn-dark btn-flat pull-right m-0">글쓰기</button>
 														</a>
 													</div>
@@ -261,8 +300,13 @@
 																	if (startBlock == 1) {
 																		out.println("<li><a aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>");
 																	} else {
-																		out.println("<li><a aria-label='Previous' href='./com_board_list.mysql?pseq=" + pseq + "&cpage="
-																				+ (startBlock - blockPerPage) + "'><span aria-hidden='true'>&laquo;</span></a></li>");
+																		if (searchField != null) {
+																			out.println("<li><a aria-label='Previous' href='./com_board_list.mysql?pseq=" + pseq + "&cpage="
+																					+ (startBlock - blockPerPage) + "&searchKeyWord=" + searchKeyWord + "&searchField=" + searchField + "'><span aria-hidden='true'>&laquo;</span></a></li>");
+																		} else {
+																			out.println("<li><a aria-label='Previous' href='./com_board_list.mysql?pseq=" + pseq + "&cpage="
+																					+ (startBlock - blockPerPage) + "'><span aria-hidden='true'>&laquo;</span></a></li>");
+																		}
 																	}
 
 																	// < 기호, 즉 한페이지 앞으로 가게 해주는 기호는 현재 페이지가 1페이질경우에는 아무 작동을 하지 않지만,
@@ -270,8 +314,13 @@
 																	if (cpage == 1) {
 																		out.println("<li><a aria-label='Previous'><span aria-hidden='true'>&lsaquo;</span></a></li>");
 																	} else {
-																		out.println("<li><a aria-label='Previous' href='./com_board_list.mysql?pseq=" + pseq + "&cpage="
-																				+ (cpage - 1) + "'><span aria-hidden='true'>&lsaquo;</span></a></li>");
+																		if (searchField != null) {
+																			out.println("<li><a aria-label='Previous' href='./com_board_list.mysql?pseq=" + pseq + "&cpage="
+																					+ (cpage - 1) + "&searchKeyWord=" + searchKeyWord + "&searchField=" + searchField + "'><span aria-hidden='true'>&lsaquo;</span></a></li>");
+																		} else {
+																			out.println("<li><a aria-label='Previous' href='./com_board_list.mysql?pseq=" + pseq + "&cpage="
+																					+ (cpage - 1) + "'><span aria-hidden='true'>&lsaquo;</span></a></li>");
+																		}
 																	}
 
 																	// 아무 이동도 하지 않고 이 게시판에 바로 들어왔을 때에는 주소창이 board_list1.jsp인 상태이다.
@@ -281,8 +330,13 @@
 																		if (cpage == i) {
 																			out.println("<li class='active'><a>" + i + "</a></li>");
 																		} else {
-																			out.println("<li class=''><a href='./com_board_list.mysql?pseq=" + pseq + "&cpage=" + i + "'>"
-																					+ i + "</a></li>");
+																			if (searchField != null) {
+																				out.println("<li class=''><a href='./com_board_list.mysql?pseq=" + pseq + "&cpage=" + i + "&searchKeyWord=" + searchKeyWord + "&searchField=" + searchField + "'>"
+																						+ i + "</a></li>");
+																			} else {
+																				out.println("<li class=''><a href='./com_board_list.mysql?pseq=" + pseq + "&cpage=" + i + "'>"
+																						+ i + "</a></li>");
+																			}
 																		}
 																	}
 
@@ -291,8 +345,14 @@
 																	if (cpage == totalPage) {
 																		out.println("<li><a aria-label='Next'> <span aria-hidden='true'>&rsaquo;</span></a></li>");
 																	} else {
-																		out.println("<li><a aria-label='Next' href='com_board_list.mysql?pseq=" + pseq + "&cpage=" + (cpage + 1)
-																				+ "'> <span aria-hidden='true'>&rsaquo;</span></a></li>");
+																		if (searchField != null) {
+																			out.println("<li><a aria-label='Next' href='com_board_list.mysql?pseq=" + pseq + "&cpage=" + (cpage + 1)
+																					 + "&searchKeyWord=" + searchKeyWord + "&searchField=" + searchField + "'> <span aria-hidden='true'>&rsaquo;</span></a></li>");
+																		} else {
+																			out.println("<li><a aria-label='Next' href='com_board_list.mysql?pseq=" + pseq + "&cpage=" + (cpage + 1)
+																					+ "'> <span aria-hidden='true'>&rsaquo;</span></a></li>");
+																		}
+																		
 																	}
 
 																	// >> 기호, 페이지 번호는 한번에 5개씩만 보여진다. >>를 누르면 다음 5개의 숫자가 보이고, 그 페이지로 이동할 수 있게 해주자.
@@ -301,8 +361,13 @@
 																	if (totalPage <= endBlock) {
 																		out.println("<li><a aria-label='Previous'><span aria-hidden='true'>&raquo;</span></a></li>");
 																	} else {
-																		out.println("<li><a aria-label='Previous' href='com_board_list.mysql?pseq=" + pseq + "&cpage="
-																				+ (startBlock + blockPerPage) + "'><span aria-hidden='true'>&raquo;</span></a></li>");
+																		if (searchField != null) {
+																			out.println("<li><a aria-label='Previous' href='com_board_list.mysql?pseq=" + pseq + "&cpage="
+																					+ (startBlock + blockPerPage) + "&searchKeyWord=" + searchKeyWord + "&searchField=" + searchField + "'><span aria-hidden='true'>&raquo;</span></a></li>");
+																		} else {
+																			out.println("<li><a aria-label='Previous' href='com_board_list.mysql?pseq=" + pseq + "&cpage="
+																					+ (startBlock + blockPerPage) + "'><span aria-hidden='true'>&raquo;</span></a></li>");
+																		}
 																	}
 																%>
 															</ul>
@@ -313,24 +378,22 @@
 											</div>
 										</div>
 									</div>
-									<form action="#" id="frm" name="frm" method="post">
-										<input id="s_pagenum" name="s_pagenum" type="hidden" value="1" />
+									<form action="" id="frm" name="frm" method="get">
 										<div class="row">
 											<div class="form-group col-md-4">
 												<select class="form-control" id="searchField"
 													name="searchField">
-													<option value="">== 검색분류 선택 ==</option>
-													<option value="1" selected="selected">제목</option>
+													<option value="0">제목/내용</option>
+													<option value="1">제목</option>
 													<option value="2">내용</option>
 												</select>
 											</div>
 											<div class="form-group col-md-4">
-												<input type="text" class="form-control" id="searchWord"
-													name="searchWord" placeholder="검색어" value="">
+												<input type="text" class="form-control" id="searchKeyWord"
+													name="searchKeyWord" placeholder="검색어를 입력하세요." value="">
 											</div>
 											<div class="form-group col-md-4">
-												<a href="javascript:dataSearch();"
-													class="btn btn-dark btn-transparent btn-theme-colored btn-lg btn-flat btn-block form-control"><i
+												<a id="searchbtn" class="btn btn-dark btn-transparent btn-theme-colored btn-lg btn-flat btn-block form-control"><i
 													class="fa fa-search"></i> 검색</a>
 											</div>
 										</div>
@@ -362,34 +425,5 @@
 
 	<!-- soledot -->
 	<script src="resources/soledot/js/fo/soledot.js"></script>
-
-	<script type="text/javascript">
-		function dataList() {
-			$.soledot.move('insuranceboardarticlelist.sd');
-		}
-
-		function dataRowSize() {
-			$('#s_pagenum').val(1);
-			$.soledot.submit('', 'insuranceboardarticlelist.sd');
-		}
-
-		function dataSearch() {
-
-			var $searchField = $('#searchField');
-			var $searchWord = $('#searchWord');
-			if ('' != $searchWord.val() && '' == $searchField.val()) {
-				failNotify('검색 분류를 선택해주십시오.');
-				return;
-			}
-
-			$('#s_pagenum').val(1);
-			$.soledot.submit('', 'insuranceboardarticlelist.sd');
-		}
-
-		function dataView(isbda_seq) {
-			$.soledot.submit('', '/community/fo/kyobo/' + isbda_seq
-					+ '/insuranceboardarticleview.sd');
-		}
-	</script>
 </body>
 </html>

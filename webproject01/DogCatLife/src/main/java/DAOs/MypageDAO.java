@@ -328,4 +328,210 @@ public class MypageDAO {
 	
 		return flag;
 	}
+
+	public BoardListsTO myquestion_list(BoardListsTO boardListsTO) {
+		// 현재페이지
+		int cpage = boardListsTO.getCpage();
+		// 한 페이지에 몇개 보이는지? 10개
+		int recordPerPage = boardListsTO.getRecordPerPage();
+		// 한블럭에 몇개들어가는지? (5개)
+		int blockPerPage = boardListsTO.getBlockPerPage();
+		// 총 글 수
+		int totalRecord = boardListsTO.getTotalRecord();
+		// 글목록이 담길곳
+		ArrayList<BoardTO> boardLists = new ArrayList();
+		// 회원
+		String mseq = boardListsTO.getMseq();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dataSource.getConnection();
+			
+			// 총 글 수 totalRecord
+			String sql = "select count('seq') totalRecord from personal_question where mseq=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mseq);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			totalRecord = rs.getInt("totalRecord");
+			boardListsTO.setTotalRecord(totalRecord);
+
+			// 총 페이지 수
+			boardListsTO.setTotalPage(((totalRecord - 1) / recordPerPage) + 1);
+
+			// 페이지에서 보이는 시작 글 번호
+			int skip = (cpage - 1) * recordPerPage;
+
+			// 글 목록 - pseq에 따라 게시판번호, 글번호, 제목, 작성자번호, 닉네임, 조회수, 댓글수, 작성일, 수정일, 작성한지 얼마나
+			// 시간이흘렀는가를 한페이지에 보여줄 만큼만 가져온 후 seq로 내림차순
+			sql = "select seq, '' aseq, subject, content, wdate, 'q' pseq from personal_question where mseq=? " + 
+					"UNION ALL " + 
+					"select  a.seq, a.aseq, a.subject, a.content, a.wdate, 'a' pseq from personal_answers a " + 
+					"inner join " + 
+					"(select seq from personal_question where mseq=?) q " + 
+					"on q.seq=a.seq " + 
+					"order by seq desc, aseq";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, mseq);
+			pstmt.setString(2, mseq);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				BoardTO boardTO = new BoardTO();
+
+				boardTO.setSeq(rs.getString("seq"));
+				boardTO.setAseq(rs.getString("aseq"));
+				boardTO.setSubject(rs.getString("subject"));
+				boardTO.setContent(rs.getString("content"));
+				boardTO.setWdate_ori(rs.getString("wdate"));
+				boardTO.setPseq(rs.getString("pseq"));
+
+				boardLists.add(boardTO);
+			}
+
+			// 글 목록
+			boardListsTO.setBoardLists(boardLists);
+			// 블럭 시작번호
+			boardListsTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
+			// 블럭 끝번호
+			boardListsTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
+
+			if (boardListsTO.getEndBlock() >= boardListsTO.getTotalPage()) {
+				boardListsTO.setEndBlock(boardListsTO.getTotalPage());
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러] : " + e.getMessage());
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+		}
+		return boardListsTO;
+	}
+
+	public int myquestionWriteOk(BoardTO boardTO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		int flag = 1;
+
+		try {
+			conn = dataSource.getConnection();
+			String sql = "insert into personal_question values (0, ?, ?, ?, ?, now(), ?, ?)";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, boardTO.getMseq());
+			pstmt.setString(2, boardTO.getWriter());
+			pstmt.setString(3, boardTO.getSubject());
+			pstmt.setString(4, boardTO.getContent());
+			pstmt.setString(5, boardTO.getFilename_ori());
+			pstmt.setString(6, boardTO.getFilename_new());
+
+			int result = pstmt.executeUpdate();
+
+			if (result == 1) {
+				flag = 0;
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러] : " + e.getMessage());
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+		}
+
+		return flag;
+	}
+
+	public BoardTO myquestion_view(String seq, String table) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardTO boardTO = new BoardTO();
+		try {
+			conn = dataSource.getConnection();
+
+			String sql = "";
+
+			// 게시물 가져오기
+			if (table.equals("personal_answers")) {
+				System.out.println(1);
+				sql = "select seq, aseq, subject, content, date_format(wdate,'%Y-%m-%d %H:%i:%s') wdate, filename_new, filename_ori from personal_question  where aseq=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, seq);
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					boardTO.setSeq(rs.getString("seq"));
+					boardTO.setAseq(rs.getString("aseq"));
+					boardTO.setSubject(rs.getString("subject"));
+					boardTO.setContent(rs.getString("content"));
+					boardTO.setWdate_ori(rs.getString("wdate"));
+					boardTO.setFilename_new(rs.getString("filename_new"));
+					boardTO.setFilename_ori(rs.getString("filename_ori"));
+				}
+			} else {
+				System.out.println(2);
+				sql = "select seq, subject, content, date_format(wdate,'%Y-%m-%d %H:%i:%s') wdate, filename_new, filename_ori from personal_answers  where seq=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, seq);
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					boardTO.setSeq(rs.getString("seq"));
+					boardTO.setSubject(rs.getString("subject"));
+					boardTO.setContent(rs.getString("content"));
+					boardTO.setWdate_ori(rs.getString("wdate"));
+					boardTO.setFilename_new(rs.getString("filename_new"));
+					boardTO.setFilename_ori(rs.getString("filename_ori"));
+					System.out.println(rs.getString("seq") + 1);
+					System.out.println(rs.getString("subject"));
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러] : " + e.getMessage());
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+		}
+
+		return boardTO;
+	}
 }

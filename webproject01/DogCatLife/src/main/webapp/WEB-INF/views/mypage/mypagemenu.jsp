@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<div class="col-sm-12 col-md-2">
+<div class="col-md-2">
 	<div class="sidebar sidebar-left mt-sm-30">
 		<div class="widget">
 			<h5 class="widget-title line-bottom">
-				<a href="/user/fo/myaccount.sd">마이페이지</a>
+				마이페이지
 			</h5>
 			<div class="categories">
 				<ul class="list list-border angle-double-right">

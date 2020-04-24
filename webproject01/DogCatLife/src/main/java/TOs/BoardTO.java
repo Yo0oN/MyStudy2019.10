@@ -15,6 +15,7 @@ public class BoardTO {
 	private String cmt;
 	private String wdate_ori;
 	private String wdate_mod;
+	private String aseq;
 
 	// 댓글 관련 부분
 	private String cseq;
@@ -24,6 +25,33 @@ public class BoardTO {
 	private String cwdate_ori;
 	private String cwdate_mod;
 	private String pseq_kind;
+	
+	private String searchKeyWord;
+	private String searchField;
+	
+	public String getAseq() {
+		return aseq;
+	}
+
+	public void setAseq(String aseq) {
+		this.aseq = aseq;
+	}
+
+	public String getSearchKeyWord() {
+		return searchKeyWord;
+	}
+
+	public void setSearchKeyWord(String searchKeyWord) {
+		this.searchKeyWord = searchKeyWord;
+	}
+
+	public String getSearchField() {
+		return searchField;
+	}
+
+	public void setSearchField(String searchField) {
+		this.searchField = searchField;
+	}
 
 	public String getPseq_kind() {
 		return pseq_kind;

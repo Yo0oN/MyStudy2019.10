@@ -229,7 +229,6 @@ a {
 											</div>
 										</div>
 									</div>
-
 									<form action="" id="frm" name="frm" method="post">
 										<div class="row">
 											<div class="form-group col-md-6">

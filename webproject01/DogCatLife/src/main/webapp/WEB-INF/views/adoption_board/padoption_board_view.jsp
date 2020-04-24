@@ -41,7 +41,7 @@
 		String cwdate_ori = "";
 		String cmt = toLists.size() - 1 + "";
 		
-		StringBuffer sbHTML = new StringBuffer();
+		/* StringBuffer sbHTML = new StringBuffer();
 		
 		for (int i = 1; i < toLists.size(); i++) {
 			cseq = toLists.get(i).getCseq();
@@ -62,7 +62,7 @@
 			sbHTML.append("<li><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></li>");
 			sbHTML.append("</ul>");
 			sbHTML.append("<hr>");
-		}
+		} */
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -164,11 +164,11 @@
 					<div class="section-content">
 						<div class="row">
 							<div class="col-md-12 xs-text-center">
-								<h3 class="text-theme-colored font-36">고객센터</h3>
+								<h3 class="text-theme-colored font-36">입양</h3>
 								<ol class="breadcrumb white mt-10">
 									<li><a href="main.mysql">Home</a></li>
-									<li><a href="album_board_list.mysql?pseq=12">고객센터</a></li>
-									<li class="active text-theme-colored">공지사항</li>
+									<li><a href="padoption_board_list.mysql?pseq=31">입양 가능 아이들</a></li>
+									<li class="active text-theme-colored">입양 가능 아이들</li>
 								</ol>
 							</div>
 						</div>
@@ -225,7 +225,7 @@
 
 										<div class="row mt-10 pb-10 border-bottom-gray">
 											<div class="col-sm-12">
-												<a href='noticelist.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>' class="btn btn-dark btn-flat pull-right m-0">목록</a>
+												<a href='padoption_board_list.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>' class="btn btn-dark btn-flat pull-right m-0">목록</a>
 											</div>
 										</div>
 									</div>

@@ -130,7 +130,7 @@
 										</div>
 										<div class="row">
 											<div class="col-sm-12" align="center">
-												<a href="padoption_board_list.mysql">
+												<a href="padoption_board_list.mysql?pseq=31">
 													<button type="button" id="writebtn"
 														class="btn btn-dark btn-flat pull-right m-0">입양하러가기</button>
 												</a>

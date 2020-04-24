@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="TOs.BoardTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="TOs.BoardListsTO"%>
@@ -30,6 +31,12 @@
 	int endBlock = boardListsTO.getEndBlock();
 	// 목록을 받아옴
 	ArrayList<BoardTO> toLists = boardListsTO.getBoardLists();
+	
+	String searchKeyWord = boardListsTO.getSearchKeyWord();
+	if (searchKeyWord != null) {
+		searchKeyWord = URLEncoder.encode(searchKeyWord,"utf-8");
+	}
+	String searchField= boardListsTO.getSearchField();
 
 	StringBuffer sbHTML = new StringBuffer();
 	if (toLists.size() == 0) {
@@ -48,10 +55,16 @@
 			String countComment = boardTO.getCmt();
 
 			sbHTML.append("<div class='gallery-item branding'>");
-
 			sbHTML.append("<div class='thumb'>");
-			sbHTML.append("<a href='album_board_view.mysql?pseq=" + pseq + "&cpage=" + cpage + "&seq=" + seq
-					+ "'><img class='img-fullwidth' src='resources/upload/" + filename + "' alt='project' height='200'></a>");
+			
+			if (searchField != null && !searchField.equals("")) {
+				sbHTML.append("<a onclick='window.open(\"album_board_view.mysql?pseq=" + pseq + "&cpage=1&seq=" + seq
+						+ "\",\"winopen\",\"\")'><img class='img-fullwidth' src='resources/upload/" + filename + "' alt='project' height='200'></a>");
+			} else {
+				sbHTML.append("<a href='album_board_view.mysql?pseq=" + pseq + "&cpage=" + cpage + "&seq=" + seq
+						+ "'><img class='img-fullwidth' src='resources/upload/" + filename + "' alt='project' height='200'></a>");
+			}
+			
 			sbHTML.append("</div>");
 			sbHTML.append("<div class='portfolio-description'>");
 			sbHTML.append("<h5 class='title'>");
@@ -181,7 +194,30 @@
 				return false;
 			}
 		});
+		$('#searchbtn').on('click', function() {
+			search();
+		});
+		$('html').bind('keypress', function(e) {
+		   if(e.keyCode == 13)
+		   {
+		      return false;
+		   }
+		});
 	});
+	var search = function () {
+		var searchKeyWord = $('#searchKeyWord').val().trim();
+		var searchField = $('#searchField option:selected').val();
+		if (searchKeyWord == "") {
+			alert('검색어를 입력해주세요.');
+			return false;
+		}
+		if (searchField == "") {
+			alert('검색 조건을 선택해주세요.');
+			return false;
+		}
+		searchKeyWord = encodeURIComponent(searchKeyWord);
+		location.href = 'album_board_list.mysql?pseq=<%=pseq%>&cpage=1&searchKeyWord=' + searchKeyWord + '&searchField=' + searchField;
+	}
 </script>
 </head>
 
@@ -207,7 +243,7 @@
 								<ol class="breadcrumb white mt-10">
 									<li><a href="main.mysql">Home</a></li>
 									<li><a><%= boardnow1 %></a></li>
-									<li class="active text-theme-colored"><%= boardnow2 %></li>
+									<li class="active text-theme-colored"><a href='album_board_list.mysql?pseq=<%=pseq%>'><%= boardnow2 %></a></li>
 								</ol>
 							</div>
 						</div>
@@ -243,25 +279,6 @@
 												<div id="grid"
 													class="gallery-isotope grid-3 gutter clearfix last2">
 													<%= sbHTML %>
-													<%-- <div class="gallery-item branding">
-														<div class="thumb">
-															<a href="#" onclick="hospitalbdaList('417');return false;">
-																<img class="img-fullwidth"
-																	src="resources/upload/2.jpg" alt="project">
-															</a>
-														</div>
-														<div class="portfolio-description">
-															<h5 class="title">
-																<a href="./album_board_view.mysql?pseq=<%=pseq%>" onclick="hospitalbdaList('417');return false;">제목</a>
-															</h5>
-															<span class="category">
-																<span>
-																	<a href="#">작성자 | 2020-02-02 13:05:05 | 3</a>
-															</span>
-															</span>
-														</div>
-													</div> --%>
-													
 												</div>
 												<!-- Portfolio Item End -->
 												
@@ -345,24 +362,22 @@
 											</div>
 										</div>
 									</div>
-									<form action="#" id="frm" name="frm" method="post">
-										<input id="s_pagenum" name="s_pagenum" type="hidden" value="1" />
+									<form action="" id="frm" name="frm" method="get">
 										<div class="row">
 											<div class="form-group col-md-4">
 												<select class="form-control" id="searchField"
 													name="searchField">
-													<option value="">== 검색분류 선택 ==</option>
-													<option value="1" selected="selected">제목</option>
+													<option value="0">제목/내용</option>
+													<option value="1">제목</option>
 													<option value="2">내용</option>
 												</select>
 											</div>
 											<div class="form-group col-md-4">
-												<input type="text" class="form-control" id="searchWord"
-													name="searchWord" placeholder="검색어" value="">
+												<input type="text" class="form-control" id="searchKeyWord"
+													name="searchKeyWord" placeholder="검색어를 입력하세요." value="">
 											</div>
 											<div class="form-group col-md-4">
-												<a href="javascript:dataSearch();"
-													class="btn btn-dark btn-transparent btn-theme-colored btn-lg btn-flat btn-block form-control"><i
+												<a id="searchbtn" class="btn btn-dark btn-transparent btn-theme-colored btn-lg btn-flat btn-block form-control"><i
 													class="fa fa-search"></i> 검색</a>
 											</div>
 										</div>

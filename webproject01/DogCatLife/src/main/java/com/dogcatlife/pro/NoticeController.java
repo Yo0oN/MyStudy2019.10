@@ -15,8 +15,10 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import DAOs.CommunityBoardDAO;
+import DAOs.NoticeDAO;
 import TOs.BoardListsTO;
 import TOs.BoardTO;
+import TOs.NoticeTO;
 
 /**
  * Handles requests for the application home page.
@@ -24,7 +26,7 @@ import TOs.BoardTO;
 @Controller
 public class NoticeController {
 	
-	@RequestMapping({"/noticelist.mysql"})
+	@RequestMapping("/noticelist.mysql")
 	public ModelAndView noticelist(HttpServletRequest request) {
 		System.out.println("고객센터 공지사항 호출");
 		ModelAndView modelAndView = new ModelAndView();
@@ -48,7 +50,7 @@ public class NoticeController {
 		return modelAndView;
 	}
 	
-	@RequestMapping({"/noticeview.mysql"})
+	@RequestMapping("/noticeview.mysql")
 	public ModelAndView noticeview(BoardTO boardTO) {
 		System.out.println("고객센터 공지사항뷰 호출");
 		ModelAndView modelAndView = new ModelAndView();
@@ -65,31 +67,24 @@ public class NoticeController {
 	}
 	
 	
-	@RequestMapping({"/faqlist.mysql"})
+	@RequestMapping("/faqlist.mysql")
 	public ModelAndView question(HttpServletRequest request) {
 		System.out.println("고객센터 FAQ 호출");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("qna_board/faqlist");
 
-		CommunityBoardDAO communityBoardDAO = new CommunityBoardDAO();
-		BoardListsTO boardListsTO = new BoardListsTO();
-
-		String cpage = request.getParameter("cpage");
-		String pseq = request.getParameter("pseq");
-
-		if (cpage != null) {
-			boardListsTO.setCpage(Integer.parseInt(cpage));
-		}
-		boardListsTO.setPseq(Integer.parseInt(pseq));
-
-		boardListsTO = communityBoardDAO.boardList(boardListsTO);
-
-		modelAndView.addObject("boardListsTO", boardListsTO);
+		NoticeDAO noticeBoardDAO = new NoticeDAO();
+		String qseq = request.getParameter("qseq");
+		
+		ArrayList<NoticeTO> noticeLists = new NoticeDAO().boardList(qseq);
+		
+		modelAndView.addObject("noticeLists", noticeLists);
+		modelAndView.addObject("selected", qseq);
 
 		return modelAndView;
 	}
 	
-	@RequestMapping({"/commonagree.mysql"})
+	@RequestMapping("/commonagree.mysql")
 	public ModelAndView cmagree() {
 		System.out.println("고객센터 이용약관동의 호출");
 		ModelAndView modelAndView = new ModelAndView();
@@ -97,15 +92,11 @@ public class NoticeController {
 		return modelAndView;
 	}
 	
-	@RequestMapping({"/commontext.mysql"})
+	@RequestMapping("/commontext.mysql")
 	public ModelAndView cmtext() {
 		System.out.println("고객센터 개인정보 호출");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("qna_board/commontext");
 		return modelAndView;
 	}
-	
-	
-	
-	
 }

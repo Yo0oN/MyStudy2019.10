@@ -1,6 +1,8 @@
 package com.dogcatlife.pro;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,10 +45,21 @@ public class Album_Board_Controller {
 
 		String cpage = request.getParameter("cpage");
 		String pseq = request.getParameter("pseq");
-
+		String searchKeyWord;
+		String searchField;
+		
 		if (cpage != null) {
 			boardListsTO.setCpage(Integer.parseInt(cpage));
 		}
+		if (request.getParameter("searchKeyWord") != null && request.getParameter("searchField") != null) {
+			try {
+				boardListsTO.setSearchKeyWord(URLDecoder.decode(request.getParameter("searchKeyWord"),"utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				System.out.println("error : " + e.getMessage());
+			}
+			boardListsTO.setSearchField(request.getParameter("searchField"));
+		}
+		
 		boardListsTO.setPseq(Integer.parseInt(pseq));
 
 		boardListsTO = albumBoardDAO.albumBoardList(boardListsTO);

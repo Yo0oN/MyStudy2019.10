@@ -86,7 +86,7 @@
 	var newpasswordBoolean = false;
 	// 암호2 일치 확인
 	var newpasswordBoolean2 = false;
-	
+
 	$(document).ready(function() {
 		// 암호 형식 확인
 		$('#newpassword').focus().on('keyup', function() {
@@ -96,13 +96,13 @@
 		$('#newpassword2').focus().on('keyup', function() {
 			passwordCheck2();
 		});
-		
+
 		$('#submit').on('click', function() {
 			if (newpasswordBoolean == false || newpasswordBoolean2 == false) {
 				alert('암호를 확인하세요.');
 				return false;
 			}
-			
+
 			$('#frm').submit();
 		});
 	});
@@ -112,11 +112,14 @@
 		var languageCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*-+])(?=.*[0-9]).{8,16}$/g;
 
 		if (languageCheck.test(check)) {
-			$('#newpasswordfocus').html('<p style="color:blue">사용 가능한 암호입니다.</p>');
+			$('#newpasswordfocus').html(
+					'<p style="color:blue">사용 가능한 암호입니다.</p>');
 			newpasswordBoolean = true;
 			return;
 		} else {
-			$('#newpasswordfocus').html('<p style="color:red">8~20 길이 중 알파벳, 숫자, 특수기호는 최소 1개 이상씩 필수로 들어가야합니다.</p>');
+			$('#newpasswordfocus')
+					.html(
+							'<p style="color:red">8~20 길이 중 알파벳, 숫자, 특수기호는 최소 1개 이상씩 필수로 들어가야합니다.</p>');
 			newpasswordBoolean = false;
 			return;
 		}
@@ -125,9 +128,10 @@
 	function passwordCheck2() {
 		var check1 = $('#newpassword').val().trim();
 		var check2 = $('#newpassword2').val().trim();
-		
+
 		if (check1 != check2) {
-			$('#newpasswordfocus2').html('<p style="color:red">암호가 일치하지 않습니다.</p>');
+			$('#newpasswordfocus2').html(
+					'<p style="color:red">암호가 일치하지 않습니다.</p>');
 			newpasswordBoolean2 = false;
 			return;
 		} else {
@@ -173,50 +177,63 @@
 			<section>
 				<div class="container">
 					<div class="row">
-						<div class="col-md-6 col-md-push-3">
-							
-							<form id="frm" name="frm" class="register-form" method="post" action="password_change_ok.mysql">
-								<input type="hidden" name="mseq" value="<%= mseq%>">
-								<div class="icon-box mb-0 p-0">
-									<h4 class="text-gray pt-10 mt-0 mb-30">비밀번호 변경</h4>
-								</div>
-								<hr>
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label for="password">현재 비밀번호</label> <input id="password"
-											name="password" class="form-control" type="password">
+						<div class="col-sm-12 col-md-12">
+							<div class="row">
+								<jsp:include page="./mypagemenu.jsp"></jsp:include>
+								<div class="col-md-1"></div>
+								<div class="col-md-9">
+									<!-- 게시판 타이틀 -->
+									<div class="section-title mb-10">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="text-center">
+													<h2 class="title heading-line-bottom">비밀번호 변경</h2>
+												</div>
+											</div>
+										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label for="newpassword">새 비밀번호</label> <input id="newpassword"
-											name="newpassword" class="form-control" type="password"
-											placeholder="비밀번호는 영문, 숫자, 특수문자가 반드시 포함되어야합니다.">
-										<div class="col-12" id="newpasswordfocus"></div>
-									</div>
-									<div class="form-group col-md-12">
-										<label for="newpassword2" class="sr-only">비밀번호 확인</label> <input
-											id="newpassword2" name="newpassword2" class="form-control"
-											type="password" placeholder="비밀번호 확인">
-										<div class="col-12" id="newpasswordfocus2"></div>
-									</div>
-								</div>
+									<form id="frm" name="frm" class="register-form" method="post"
+										action="password_change_ok.mysql">
+										<input type="hidden" name="mseq" value="<%=mseq%>">
+										<hr>
+										<div class="row">
+											<div class="form-group col-md-12">
+												<label for="password">현재 비밀번호</label> <input id="password"
+													name="password" class="form-control" type="password">
+											</div>
+										</div>
+										<div class="row">
+											<div class="form-group col-md-12">
+												<label for="newpassword">새 비밀번호</label> <input
+													id="newpassword" name="newpassword" class="form-control"
+													type="password"
+													placeholder="비밀번호는 영문, 숫자, 특수문자가 반드시 포함되어야합니다.">
+												<div class="col-12" id="newpasswordfocus"></div>
+											</div>
+											<div class="form-group col-md-12">
+												<label for="newpassword2" class="sr-only">비밀번호 확인</label> <input
+													id="newpassword2" name="newpassword2" class="form-control"
+													type="password" placeholder="비밀번호 확인">
+												<div class="col-12" id="newpasswordfocus2"></div>
+											</div>
+										</div>
 
-								<div class="form-group">
-									<button id="submit" class="btn btn-dark btn-flat btn-lg btn-block mt-15"
-										type="submit">비밀번호 변경</button>
+										<div class="form-group">
+											<button id="submit"
+												class="btn btn-dark btn-flat btn-lg btn-block mt-15"
+												type="submit">비밀번호 변경</button>
+										</div>
+
+									</form>
+
 								</div>
-								
-							</form>
-							
+							</div>
 						</div>
-					</div>
-				</div>
 			</section>
 		</div>
 		<!-- end main-content -->
 	</div>
-	
+
 	<!-- footer content -->
 	<jsp:include page="../footer.jsp"></jsp:include>
 

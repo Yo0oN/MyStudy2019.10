@@ -55,8 +55,8 @@
 			sbHTML.append("<li>작성자 : <span class='text-theme-colored'>" + cwriter + "</span></li>");
 			sbHTML.append("<li>작성일 : <span class='text-theme-colored'>" + cwdate_ori + "</span></li>");
 			if (sess_mseq != null && sess_mseq.equals(cmseq)) {
-				sbHTML.append("<li><a id='comment_modify' cseq='" + cseq + "' style=''><span>수정</span></a></li>");
-				sbHTML.append("<li><a id='comment_delete'><span>삭제</span></a></li>");
+				sbHTML.append("<li><a class='comment_modify' cseq='" + cseq + "' style=''><span>수정</span></a></li>");
+				sbHTML.append("<li><a class='comment_delete' cseq='" + cseq + "' ><span>삭제</span></a></li>");
 			}
 			sbHTML.append("</ul>");
 			sbHTML.append("<ul class='list-inline'>");
@@ -200,16 +200,16 @@ var sess_nickname = '<%=sess_nickname%>';
 		});
 
 		// 댓글 삭제
-		$('#comment_delete').on('click', function() {
+		$('.comment_delete').on('click', function() {
 			if (confirm('댓글을 삭제하시겠습니까?')) {
-				location.href='./album_board_comment_delete_ok.mysql?pseq=<%= pseq %>&cpage=<%=cpage%>&seq=<%= seq %>&cseq=<%= cseq %>';
+				location.href='./album_board_comment_delete_ok.mysql?pseq=<%= pseq %>&cpage=<%=cpage%>&seq=<%= seq %>&cseq=' + $(this).attr('cseq');
 			} else {
 				return false;
 			}
 		});
 
 		// 댓글 수정
-		$('#comment_modify').on('click',function() {
+		$('.comment_modify').on('click',function() {
 			var addAttr = 'li span[cseq=' + $(this).attr('cseq') + ']';
 			$(addAttr).attr('style', 'display:none');
 

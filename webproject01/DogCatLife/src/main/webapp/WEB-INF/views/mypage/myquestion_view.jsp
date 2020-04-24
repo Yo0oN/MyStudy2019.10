@@ -3,69 +3,36 @@
 <%@page import="TOs.BoardTO"%>
 <%@page import="java.util.ArrayList"%>
 <%
-	String nowUrl = "com_board_view.mysql?" + request.getQueryString();
-	session.setAttribute("endUrl", nowUrl);
+	session.removeAttribute("endUrl");
+
 	String sess_mseq = (String) session.getAttribute("sess_mseq");
 	String sess_nickname = (String) session.getAttribute("sess_nickname");
 
-	ArrayList<BoardTO> toLists = (ArrayList) request.getAttribute("toLists");
-
+	BoardTO boardTO = (BoardTO) request.getAttribute("boardTO");
 	
-	if (toLists == null || toLists.size() == 0) {
+	if (boardTO == null) {
 		out.println("<script type='text/javascript'>");
 		out.println("alert('존재하지 않는 게시물입니다.')");
-		out.println("location.href='com_board_list.mysql?pseq=11'");
+		out.println("location.href='myquestion_list.mysql'");
 		out.println("</script>");
 	} else {
 		String cpage = (String) request.getAttribute("cpage");
 
 		// 본문 설정
-		String pseq = toLists.get(0).getPseq();
-		String seq = toLists.get(0).getSeq();
-		String subject = toLists.get(0).getSubject();
-		String mseq = toLists.get(0).getMseq();
-		String writer = toLists.get(0).getWriter();
-		String content = toLists.get(0).getContent().replaceAll("\n", "<br>");
-		String hit = toLists.get(0).getHit();
+		String seq = boardTO.getSeq();
+		System.out.println(seq);
+		String aseq = boardTO.getAseq();
+		System.out.println(aseq);
+		String subject = boardTO.getSubject();
+		System.out.println(subject);
+		String content = boardTO.getContent().replaceAll("\n", "<br>");
+		System.out.println(content);
 		String filename_new = "";
-		if (!toLists.get(0).getFilename_new().equals("")) {
-			filename_new = "resources/upload/" + toLists.get(0).getFilename_new();
+		if (!boardTO.getFilename_new().equals("")) {
+			filename_new = "resources/upload/" + boardTO.getFilename_new();
 		}
-		String wdate_ori = toLists.get(0).getWdate_ori();
-		String wdate_mod = toLists.get(0).getWdate_mod();
+		String wdate_ori = boardTO.getWdate_ori();
 
-		// 댓글 설정
-		String cseq = "";
-		String cmseq = "";
-		String cwriter = "";
-		String comment = "";
-		String cwdate_ori = "";
-		String cmt = toLists.size() - 1 + "";
-		
-		StringBuffer sbHTML = new StringBuffer();
-		
-		for (int i = 1; i < toLists.size(); i++) {
-			cseq = toLists.get(i).getCseq();
-			cmseq = toLists.get(i).getCmseq();
-			cwriter = toLists.get(i).getCwriter();
-			comment = toLists.get(i).getComment().replaceAll("\n", "<br>");
-			cwdate_ori = toLists.get(i).getCwdate_ori();
-
-			sbHTML.append("<ul class='list-inline'>");
-			sbHTML.append("<li>작성자 : <span class='text-theme-colored'>" + cwriter + "</span></li>");
-			sbHTML.append("<li>작성일 : <span class='text-theme-colored'>" + cwdate_ori + "</span></li>");
-			if (sess_mseq != null && sess_mseq.equals(cmseq)) {
-				sbHTML.append("<li><a class='comment_modify' cseq='" + cseq + "'><span>수정</span></a></li>");
-				sbHTML.append("<li><a href='./com_board_comment_delete_ok.mysql?pseq=" + pseq + "&cpage="
-						+ cpage + "&seq=" + seq + "&cseq=" + cseq
-						+ "' class='comment_delete' id='comment_delete_" + cseq + "'><span>삭제</span></a></li>");
-				sbHTML.append("</ul>");
-			}
-			sbHTML.append("<ul class='list-inline'>");
-			sbHTML.append("<li><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></li>");
-			sbHTML.append("</ul>");
-			sbHTML.append("<hr>");
-		}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -154,61 +121,9 @@ $(document).ready(function() {
 	// 게시글 삭제
 	$('#delete').on('click', function() {
 		if (confirm('삭제하시겠습니까?')) {
-			location.href("./com_board_delete_ok.mysql?pseq=<%=pseq%>&seq=<%=seq%>");
+			location.href("./com_board_delete_ok.mysql?seq=<%=seq%>");
 			} else {
 			}
-		});
-
-		// 게시글 작성
-		$('#writebtn').on('click', function() {
-			if (sess_mseq == null || sess_nickname == null) {
-				alert('게시물을 작성하시려면 로그인을 해주세요.');
-				return false;
-			}
-		});
-
-		// 댓글 입력
-		$('#reply').on('click', function() {
-			if (sess_mseq == null || sess_nickname == null) {
-				alert('댓글을 작성하시려면 로그인을 해주세요.');
-				return false;
-			}
-			if ($('#comment').val().trim() == "") {
-				alert('댓글을 입력해주세요.');
-				return false;
-			}
-			$('#commentForm').submit();
-		});
-
-		// 댓글 삭제
-		$('.comment_delete').on('click', function() {
-			if (confirm('댓글을 삭제하시겠습니까?')) {
-			} else {
-				return false;
-			}
-		});
-
-		// 댓글 수정
-		$('.comment_modify').on( 'click', function() {
-			var addAttr = 'li span[cseq=' + $(this).attr('cseq') + ']';
-			$(addAttr).attr('style', 'display:none');
-	
-			/* alert('modify' + addAttr);
-			$.ajax({
-				url : './com_board_comment_modify.mysql',
-				data : {
-					cseq : $(this).attr('cseq')
-				},
-				type : 'get',
-				dataType : 'text',
-				success : function(data) {
-					$(addAttr).attr('style', 'display:none');
-					
-				},
-				error : function(error) {
-					alert('수정에 실패하였습니다.');
-				}
-			}); */
 		});
 	});
 </script>
@@ -265,22 +180,10 @@ $(document).ready(function() {
 											</div>
 											<div class="entry-meta pb-10 border-bottom-gray">
 												<ul class="list-inline">
-													<li>작성자 : <span class="text-theme-colored"><%=writer%></span></li>
 													<li>작성일 : <span class="text-theme-colored"><%=wdate_ori%></span></li>
-													<%
-														if (!wdate_ori.equals(wdate_mod)) {
-													%>
-													<li>수정일 : <span class="text-theme-colored"><%=wdate_mod%></span></li>
-													<%
-														}
-													%>
-													<li>조회수 : <span class="text-theme-colored"><%=hit%></span></li>
-													<li>댓글수 : <span class="text-theme-colored"><%=cmt%></span></li>
-													<%
-														if (sess_mseq != null && sess_mseq.equals(mseq)) {
-													%>
+													<% if (aseq != null) { %>
 													<li><a
-														href="com_board_modify.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq%>"><span
+														href="myquestion_modify.mysql?cpage=<%=cpage%>"><span
 															class="text-theme-colored">수정</span></a></li>
 													<li><a href="#" id="delete"><span
 															class="text-theme-colored">삭제</span></a></li>
@@ -307,7 +210,7 @@ $(document).ready(function() {
 												%>
 
 												<p>
-													<span style="font-size: 16px;"><%=content%></span>
+													<%-- <span style="font-size: 16px;"><%=content%></span> --%>
 												</p>
 
 											</div>
@@ -316,63 +219,13 @@ $(document).ready(function() {
 										<div class="row mt-10 pb-10 border-bottom-gray">
 											<div class="col-sm-12">
 												<a id="writebtn"
-													href="com_board_write.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>"
-													class="btn btn-dark btn-flat m-0">글쓰기</a> <a
-													href="com_board_list.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>"
+													href="myquestion_write.mysql?cpage=<%=cpage%>"
+													class="btn btn-dark btn-flat m-0">질문하기</a> <a
+													href="myquestion_list.mysql?cpage=<%=cpage%>"
 													class="btn btn-dark btn-flat pull-right m-0">목록</a>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="entry-title pt-0 pb-30">
-										<h3>
-											댓글
-											<%=cmt%></h3>
-									</div>
-									<div class="comments-area">
-										<div class="comment-list pb-10">
-											<%=sbHTML%>
-											<!-- <ul class="list-inline">
-												<li><i class="fa fa-user"></i> <span
-													class="">댓글작성자</span></li>
-												<li><i class="fa fa-calendar"></i> <span
-													class="">2020-04-18 02:24:18</span></li>
-												<li><a href=""><span class="">수정</span></a></li>
-												<li><a href="#" id="delete"><span class="">삭제</span></a></li>
-											</ul>
-											<ul class="list-inline">
-												<li><span style="font-size: 14px;">댓글 내용내용 댓글 내용내용 댓글 내용내용 댓글 내용내용 댓글 내용내용</span></li>
-											</ul>
-											<hr> -->
-										</div>
-									</div>
-									<!-- 댓글작성 -->
-									<div class="col-md-8">
-										<form class="comments-form contact-form"
-											action="./com_board_comment_ok.mysql" id="commentForm"
-											method="post">
-											<input type="hidden" name="pseq" value="<%=pseq%>" /> <input
-												type="hidden" name="cpage" value="<%=cpage%>" /> <input
-												type="hidden" name="seq" value="<%=seq%>" /> <input
-												type="hidden" name="cmseq" value="<%=sess_mseq%>" /> <input
-												type="hidden" name="cwriter" value="<%=sess_nickname%>" />
-
-											<div class="form-group">
-												<label for="rqms_content">댓글 작성</label>
-												<textarea id="comment" name="comment"
-													class="form-control required" rows="4">
-												</textarea>
-											</div>
-
-										</form>
-										<div class="row mt-10">
-											<div class="col-sm-12">
-												<a id="reply" class="btn btn-dark btn-flat pull-right m-0">댓글작성</a>
-											</div>
-										</div>
-									</div>
-
 								</div>
 							</div>
 						</div>

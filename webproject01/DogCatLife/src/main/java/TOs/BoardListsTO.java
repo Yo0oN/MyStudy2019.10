@@ -13,6 +13,24 @@ public class BoardListsTO {
 	private int pseq;
 	private String mseq;
 	private String pseq_kind = "";
+	private String searchKeyWord;
+	private String searchField;
+
+	public String getSearchField() {
+		return searchField;
+	}
+
+	public void setSearchField(String searchField) {
+		this.searchField = searchField;
+	}
+
+	public String getSearchKeyWord() {
+		return searchKeyWord;
+	}
+
+	public void setSearchKeyWord(String searchKeyWord) {
+		this.searchKeyWord = searchKeyWord;
+	}
 
 	public String getPseq_kind() {
 		return pseq_kind;

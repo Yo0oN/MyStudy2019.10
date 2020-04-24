@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="TOs.BoardTO"%>
@@ -7,7 +8,12 @@
 	session.setAttribute("endUrl", nowUrl);
 	String sess_mseq = (String) session.getAttribute("sess_mseq");
 	String sess_nickname = (String) session.getAttribute("sess_nickname");
-
+	String searchKeyWord = (String) request.getAttribute("searchKeyWord");
+	if (searchKeyWord != null) {
+		searchKeyWord = URLEncoder.encode(searchKeyWord,"utf-8");
+	}
+	String searchField= (String) request.getAttribute("searchKeyWord");
+	
 	ArrayList<BoardTO> toLists = (ArrayList) request.getAttribute("toLists");
 	
 	if (toLists == null || toLists.size() == 0) {
@@ -50,18 +56,34 @@
 			comment = toLists.get(i).getComment().replaceAll("\n", "<br>");
 			cwdate_ori = toLists.get(i).getCwdate_ori();
 
-			sbHTML.append("<ul class='list-inline'>");
+			/* sbHTML.append("<ul class='list-inline'>");
 			sbHTML.append("<li>작성자 : <span class='text-theme-colored'>" + cwriter + "</span></li>");
 			sbHTML.append("<li>작성일 : <span class='text-theme-colored'>" + cwdate_ori + "</span></li>");
 			if (sess_mseq != null && sess_mseq.equals(cmseq)) {
-				sbHTML.append("<li><a id='comment_modify' cseq='" + cseq + "'><span>수정</span></a></li>");
-				sbHTML.append("<li><a id='comment_delete'><span>삭제</span></a></li>");
+				sbHTML.append("<li><a class='comment_modify' cseq='" + cseq + "'><span>수정</span></a></li>");
+				sbHTML.append("<li><a class='comment_delete' cseq='" + cseq + "'><span>삭제</span></a></li>");
 			}
 			sbHTML.append("</ul>");
-			sbHTML.append("<ul class='list-inline'>");
-			sbHTML.append("<li><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></li>");
+			sbHTML.append("<ul class='list-inline>");
+			sbHTML.append("<li class='col-12'><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></li>");
 			sbHTML.append("</ul>");
-			sbHTML.append("<hr>");
+			sbHTML.append("<hr>"); */
+			
+			sbHTML.append("<tr>");
+			sbHTML.append("<td>작성자 : <span class='text-theme-colored'>" + cwriter + "</span></td>");
+			sbHTML.append("<td>작성일 : <span class='text-theme-colored'>" + cwdate_ori + "</span></td>");
+			sbHTML.append("<td><span> </span></th>");
+			if (sess_mseq != null && sess_mseq.equals(cmseq)) {
+				sbHTML.append("<td><a class='comment_modify' cseq='" + cseq + "'><span>수정</span></a></td>");
+				sbHTML.append("<td><a class='comment_delete' cseq='" + cseq + "'><span>삭제</span></a></td>");
+			} else {
+				sbHTML.append("<td></td><td></td>");
+			}
+			sbHTML.append("</tr>");
+			
+			sbHTML.append("<tr>");
+			sbHTML.append("<td colspan='5' style='padding-bottom:30px;' cseq='" + cseq + "'><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></td>");
+			sbHTML.append("</tr>");
 		}
 %>
 <!DOCTYPE html>
@@ -178,19 +200,25 @@ var sess_nickname = '<%=sess_nickname%>';
 		});
 
 		// 댓글 삭제
-		$('#comment_delete').on('click', function() {
+		$('.comment_delete').on('click', function() {
 			if (confirm('댓글을 삭제하시겠습니까?')) {
-				location.href='./com_board_comment_delete_ok.mysql?pseq=<%= pseq %>&cpage=<%=cpage%>&seq=<%= seq %>&cseq=<%= cseq %>';
+				location.href='./com_board_comment_delete_ok.mysql?pseq=<%= pseq %>&cpage=<%=cpage%>&seq=<%= seq %>&cseq=' + $(this).attr('cseq');
 			} else {
 				return false;
 			}
 		});
 
 		// 댓글 수정
-		$('#comment_modify').on( 'click', function() {
-			var addAttr = 'li span[cseq=' + $(this).attr('cseq') + ']';
+		$('.comment_modify').on( 'click', function() {
+			var addAttr = 'td[cseq=' + $(this).attr('cseq') + ']';
+			var addAttrVal = 'td span[cseq=' + $(this).attr('cseq') + ']';
+			
+			var comment_modify_text = '<td colspan="4"><div class="col-12"><textarea id="comment_text" maxlength="500" style="overflow: hidden;" title="댓글수정">' + $(addAttrVal).val() + '</textarea></div></td>'
+				+ '<td><div class="row"><a>취소</a></div><div class="row"><a id="comment_modify" class="btn btn-dark btn-flat pull-right m-0">댓글 수정</a></div></td>';
+			
+			$(addAttr).after(comment_modify_text);
 			$(addAttr).attr('style', 'display:none');
-	
+			
 			/* alert('modify' + addAttr);
 			$.ajax({
 				url : './com_board_comment_modify.mysql',
@@ -324,21 +352,20 @@ var sess_nickname = '<%=sess_nickname%>';
 											댓글
 											<%=cmt%></h3>
 									</div>
-									<div class="comments-area">
-										<div class="comment-list pb-10">
-											<%=sbHTML%>
-											<!-- <ul class="list-inline">
-												<li><i class="fa fa-user"></i> <span
-													class="">댓글작성자</span></li>
-												<li><i class="fa fa-calendar"></i> <span
-													class="">2020-04-18 02:24:18</span></li>
-												<li><a href=""><span class="">수정</span></a></li>
-												<li><a href="#" id="delete"><span class="">삭제</span></a></li>
-											</ul>
-											<ul class="list-inline">
-												<li><span style="font-size: 14px;">댓글 내용내용 댓글 내용내용 댓글 내용내용 댓글 내용내용 댓글 내용내용</span></li>
-											</ul>
-											<hr> -->
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="table">
+												<colgroup>
+													<col style='width:20%'>
+													<col style='width:30%'>
+													<col style='width:30%' >
+													<col style='width:10%'>
+													<col style='width:10%'>
+												</colgroup>
+												<tbody>
+													<%=sbHTML%>
+												</tbody>
+											</table>
 										</div>
 									</div>
 									<!-- 댓글작성 -->

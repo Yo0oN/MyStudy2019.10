@@ -10,10 +10,11 @@
 	
 	String sess_mseq = (String) session.getAttribute("sess_mseq");
 	String sess_nickname = (String) session.getAttribute("sess_nickname");
-	/* BoardListsTO boardListsTO = (BoardListsTO) request.getAttribute("boardListsTO");
+	
+	BoardListsTO boardListsTO = (BoardListsTO) request.getAttribute("boardListsTO");
 
 	// 현재 게시판
-	String pseq = boardListsTO.getPseq() + "";
+	// String pseq = boardListsTO.getPseq() + "";
 	// 현재페이지
 	int cpage = boardListsTO.getCpage();
 	// 한 페이지당 출력 데이터 개수
@@ -38,26 +39,29 @@
 		for (int i = 0; i < toLists.size(); i++) {
 			BoardTO boardTO = toLists.get(i);
 
-			pseq = boardTO.getPseq();
 			String seq = boardTO.getSeq();
+			String aseq = boardTO.getAseq();
 			String subject = boardTO.getSubject();
-			String writer = boardTO.getWriter();
 			String wdate = boardTO.getWdate_ori();
-			String hit = boardTO.getHit();
-			String filename = boardTO.getFilename_new();
-			String countComment = boardTO.getCmt();
+			String content = boardTO.getContent();
+			String pseq = boardTO.getPseq();
 
 			sbHTML.append("<tr>");
-
-			sbHTML.append("<th class='text-center'>" + seq + "</th>");
-			sbHTML.append("<th class='text-center'><a href='com_board_view.mysql?pseq=" + pseq + "&cpage="
-					+ cpage + "&seq=" + seq + "' style='color: black'>" + subject + "</a></th>");
-			sbHTML.append("<th class='text-center'>" + writer + "</th>");
+			if (aseq.equals("")) {
+				sbHTML.append("<th class='text-center'>Q</th>");
+			} else {
+				sbHTML.append("<th class='text-center'>A</th>");
+			}
+			
+			if (aseq.equals("")) {
+				sbHTML.append("<th><a href='myquestion_view.mysql?seq=" + seq + "' style='color: black'>" + subject + "</a></th>");
+			} else {
+				sbHTML.append("<th><a href='myquestion_view.mysql?aseq" + aseq + "' style='color: black'>&nbsp;&nbsp;ㄴ" + subject + "</a></th>");
+			}
 			sbHTML.append("<th class='text-center'>" + wdate + "</th>");
-			sbHTML.append("<th class='text-center'>" + hit + "</th>");
 			sbHTML.append("</tr>");
 		}
-	} */
+	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -144,14 +148,14 @@
 <script type="text/javascript">
 	var sess_mseq = <%= sess_mseq %>;
 	var sess_nickname = <%= sess_nickname %>
-	/* $(document).ready(function() {
+	$(document).ready(function() {
 		$('#writebtn').on('click', function() {
 			if(sess_mseq == null || sess_nickname == null) {
 				alert('글을 작성하시려면 로그인을 해주세요.');
 				return false;
 			}
 		});
-	}); */
+	});
 </script>
 </head>
 
@@ -189,7 +193,9 @@
 			<section>
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-12 col-md-12">
+					<jsp:include page="./mypagemenu.jsp"></jsp:include>
+						<div class="col-md-1"></div>
+						<div class="col-md-7">
 							<div class="row">
 								<div class="col-md-12">
 
@@ -216,20 +222,16 @@
 															<col style="width: 7%;">
 															<col style="width: 56%;">
 															<col style="width: 15%;">
-															<col style="width: 15%;">
-															<col style="width: 7%;">
 														</colgroup>
 														<thead>
 															<tr class="bg-theme-colored" data-text-color="white">
-																<th class="text-center">No</th>
+																<th class="text-center"></th>
 																<th class="text-center">제목</th>
-																<th class="text-center">작성자</th>
 																<th class="text-center">작성일</th>
-																<th class="text-center">조회</th>
 															</tr>
 														</thead>
 														<tbody>
-															<%-- <%=sbHTML%> --%>
+															<%=sbHTML%>
 														</tbody>
 													</table>
 												</div>
@@ -237,9 +239,9 @@
 												<!-- 글쓰기버튼 -->
 												<div class="row">
 													<div class="col-sm-12">
-														<a href="">
+														<a href="myquestion_write.mysql">
 															<button type="button" id="writebtn"
-																class="btn btn-dark btn-flat pull-right m-0">글쓰기</button>
+																class="btn btn-dark btn-flat pull-right m-0">질문하기</button>
 														</a>
 													</div>
 												</div>
@@ -313,28 +315,6 @@
 											</div>
 										</div>
 									</div>
-									<form action="#" id="frm" name="frm" method="post">
-										<input id="s_pagenum" name="s_pagenum" type="hidden" value="1" />
-										<div class="row">
-											<div class="form-group col-md-4">
-												<select class="form-control" id="searchField"
-													name="searchField">
-													<option value="">== 검색분류 선택 ==</option>
-													<option value="1" selected="selected">제목</option>
-													<option value="2">내용</option>
-												</select>
-											</div>
-											<div class="form-group col-md-4">
-												<input type="text" class="form-control" id="searchWord"
-													name="searchWord" placeholder="검색어" value="">
-											</div>
-											<div class="form-group col-md-4">
-												<a href="javascript:dataSearch();"
-													class="btn btn-dark btn-transparent btn-theme-colored btn-lg btn-flat btn-block form-control"><i
-													class="fa fa-search"></i> 검색</a>
-											</div>
-										</div>
-									</form>
 								</div>
 							</div>
 						</div>
@@ -363,33 +343,5 @@
 	<!-- soledot -->
 	<script src="resources/soledot/js/fo/soledot.js"></script>
 
-	<script type="text/javascript">
-		function dataList() {
-			$.soledot.move('insuranceboardarticlelist.sd');
-		}
-
-		function dataRowSize() {
-			$('#s_pagenum').val(1);
-			$.soledot.submit('', 'insuranceboardarticlelist.sd');
-		}
-
-		function dataSearch() {
-
-			var $searchField = $('#searchField');
-			var $searchWord = $('#searchWord');
-			if ('' != $searchWord.val() && '' == $searchField.val()) {
-				failNotify('검색 분류를 선택해주십시오.');
-				return;
-			}
-
-			$('#s_pagenum').val(1);
-			$.soledot.submit('', 'insuranceboardarticlelist.sd');
-		}
-
-		function dataView(isbda_seq) {
-			$.soledot.submit('', '/community/fo/kyobo/' + isbda_seq
-					+ '/insuranceboardarticleview.sd');
-		}
-	</script>
 </body>
 </html>

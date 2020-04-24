@@ -5,13 +5,13 @@
 	session.removeAttribute("endUrl");
 
 	String sess_mseq = (String) session.getAttribute("sess_mseq");
-	
+
 	if (sess_mseq == null || sess_mseq.equals("")) {
 		out.println("<script type='text/javascript'>");
 		out.println("alert('로그인을 먼저 해주세요.')");
 		out.println("location.href='login.mysql'");
 		out.println("</script>");
-	} else{
+	} else {
 		UserTO userTO = (UserTO) request.getAttribute("userTO");
 		String email = userTO.getEmail();
 		String name = userTO.getName();
@@ -112,7 +112,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#submit').on('click', function() {
-			if($('#password').val().trim() == "") {
+			if ($('#password').val().trim() == "") {
 				alert('비밀번호를 입력해주세요.');
 				return false;
 			}
@@ -156,44 +156,34 @@
 			<section>
 				<div class="container">
 					<div class="row">
-					<jsp:include page="./mypagemenu.jsp"></jsp:include>
-						<!-- <div class="col-sm-12 col-md-2">
-							<div class="sidebar sidebar-left mt-sm-30">
-								<div class="widget">
-									<h5 class="widget-title line-bottom">
-										<a href="/user/fo/myaccount.sd">마이페이지</a>
-									</h5>
-									<div class="categories">
-										<ul class="list list-border angle-double-right">
-											<li><a href="myinfo.mysql">회원정보 조회 / 수정</a></li>
-											<li><a href="mycontents_list.mysql">내가쓴 글</a></li>
-											<li><a href="mycomment_list.mysql">내가 쓴 댓글</a></li>
-											<li><a href="myquestion_list.mysql">1 대 1 질문</a></li>
-										</ul>
+						<div class="col-sm-12 col-md-12">
+							<div class="row">
+								<jsp:include page="./mypagemenu.jsp"></jsp:include>
+								<div class="col-md-1"></div>
+								<div class="col-md-9">
+									<!-- 게시판 타이틀 -->
+									<div class="section-title mb-10">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="text-center">
+													<h2 class="title heading-line-bottom">회원정보 조회 / 수정</h2>
+												</div>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-						</div> -->
-						<div class="col-md-1"></div>
-						<div class="col-md-7">
-							<form id="frm" name="frm" class="register-form" method="post"
-								action="myinfo_ok.mysql">
-								<input type="hidden" name="mseq" value="<%= sess_mseq %>">
-								<div class="icon-box mb-0 p-0">
-									<h4 class="text-gray pt-10 mt-0 mb-30">회원정보 조회 / 수정</h4>
-								</div>
-								<hr>
+									<form id="frm" name="frm" class="register-form" method="post"
+										action="myinfo_ok.mysql">
+										<input type="hidden" name="mseq" value="<%=sess_mseq%>">
+										<div class="row">
+											<div class="form-group col-md-12">
+												<label for="mb_id">이메일</label> <input id="email"
+													name="email" class="form-control" type="email"
+													value="<%=email%>" readonly>
+												<div class="col-12" id="emailfocus"></div>
+											</div>
+										</div>
 
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label for="mb_id">이메일</label> <input id="email" name="email"
-											class="form-control" type="email"
-											value="<%= email %>" readonly>
-										<div class="col-12" id="emailfocus"></div>
-									</div>
-								</div>
-								
-								<!-- <div class="row">
+										<!-- <div class="row">
 									<div class="form-group col-md-12">
 										<label class="sr-only">이메일 변경하기</label>
 										<button id="confirmbtn"
@@ -202,46 +192,50 @@
 									</div>
 								</div> -->
 
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label for="name">이름</label> <input id="name" name="name"
-											class="form-control" type="text" value="<%= name %>" readonly>
-									</div>
-								</div>
+										<div class="row">
+											<div class="form-group col-md-12">
+												<label for="name">이름</label> <input id="name" name="name"
+													class="form-control" type="text" value="<%=name%>"
+													readonly>
+											</div>
+										</div>
 
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label for="nickname">닉네임</label> <input id="nickname"
-											name="nickname" class="form-control" type="text"
-											value="<%= nickname %>">
-										<div class="col-12" id="nicknamefocus"></div>
-									</div>
-								</div>
+										<div class="row">
+											<div class="form-group col-md-12">
+												<label for="nickname">닉네임</label> <input id="nickname"
+													name="nickname" class="form-control" type="text"
+													value="<%=nickname%>">
+												<div class="col-12" id="nicknamefocus"></div>
+											</div>
+										</div>
 
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label for="phone">휴대전화</label> <input id="phone" name="phone"
-											class="form-control" type="text" value="<%= phone %>">
-										<div class="col-12" id="phonefocus"></div>
-									</div>
-								</div>
+										<div class="row">
+											<div class="form-group col-md-12">
+												<label for="phone">휴대전화</label> <input id="phone"
+													name="phone" class="form-control" type="text"
+													value="<%=phone%>">
+												<div class="col-12" id="phonefocus"></div>
+											</div>
+										</div>
 
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label for="password">비밀번호</label> <input id="password"
-											name="password" class="form-control" type="password">
-										<div class="col-12" id="passwordfocus"></div>
-									</div>
-								</div>
-								
-								<div class="form-group">
-									<button id="submit"
-										class="btn btn-dark btn-flat btn-lg btn-block mt-15"
-										type="submit">정보 수정</button>
-								</div>
+										<div class="row">
+											<div class="form-group col-md-12">
+												<label for="password">비밀번호</label> <input id="password"
+													name="password" class="form-control" type="password">
+												<div class="col-12" id="passwordfocus"></div>
+											</div>
+										</div>
 
-							</form>
+										<div class="form-group">
+											<button id="submit"
+												class="btn btn-dark btn-flat btn-lg btn-block mt-15"
+												type="submit">정보 수정</button>
+										</div>
 
+									</form>
+
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

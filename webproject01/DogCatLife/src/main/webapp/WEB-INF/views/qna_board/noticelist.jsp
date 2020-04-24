@@ -203,10 +203,10 @@
 					<div class="row">
 						<div class="col-sm-12 col-md-12">
 							<div class="row">
-								<div class="col-sm-12 col-md-2">
+								<div class="col-md-2">
 									<div class="sidebar sidebar-left mt-sm-30">
 										<div class="widget">
-											<h5 class="widget-title line-bottom"><a href="">고객센터</a></h5>
+											<h5 class="widget-title line-bottom">고객센터</h5>
 											<div class="categories">
 												<ul class="list list-border angle-double-right">
 													<li><a href="noticelist.mysql?pseq=41">공지사항</a></li>
