@@ -207,34 +207,27 @@ var sess_nickname = '<%=sess_nickname%>';
 				return false;
 			}
 		});
+		
+		// 댓글 수정 취소
+		$('#modifycancel').on('click', function(){
+			alert(취소);
+		})
+		
+		// 댓글 수정
+		$('#comment_modify').on('click', function() {
+			alert('수정');
+		})
 
 		// 댓글 수정
 		$('.comment_modify').on( 'click', function() {
 			var addAttr = 'td[cseq=' + $(this).attr('cseq') + ']';
 			var addAttrVal = 'td span[cseq=' + $(this).attr('cseq') + ']';
 			
-			var comment_modify_text = '<td colspan="4"><div class="col-12"><textarea id="comment_text" maxlength="500" style="overflow: hidden;" title="댓글수정">' + $(addAttrVal).val() + '</textarea></div></td>'
-				+ '<td><div class="row"><a>취소</a></div><div class="row"><a id="comment_modify" class="btn btn-dark btn-flat pull-right m-0">댓글 수정</a></div></td>';
+			var comment_modify_text = '<td colspan="3"><div class="col-12"><textarea id="comment_text" maxlength="500" style="overflow: hidden;" title="댓글수정">' + $(addAttrVal).html() + '</textarea></div></td>'
+				+ '<td colspan="2"><a id="modifycancel">취소</a><br><a id="comment_modify" class="btn btn-dark btn-flat m-0">댓글 수정</a></td>';
 			
 			$(addAttr).after(comment_modify_text);
 			$(addAttr).attr('style', 'display:none');
-			
-			/* alert('modify' + addAttr);
-			$.ajax({
-				url : './com_board_comment_modify.mysql',
-				data : {
-					cseq : $(this).attr('cseq')
-				},
-				type : 'get',
-				dataType : 'text',
-				success : function(data) {
-					$(addAttr).attr('style', 'display:none');
-					
-				},
-				error : function(error) {
-					alert('수정에 실패하였습니다.');
-				}
-			}); */
 		});
 	});
 </script>
@@ -243,13 +236,6 @@ var sess_nickname = '<%=sess_nickname%>';
 	class="has-side-panel side-panel-right fullwidth-page side-push-panel">
 
 	<div class="body-overlay"></div>
-	<!-- <div id="side-panel" class="dark" data-bg-img="http://placehold.it/1920x1280">
-		<div class="side-panel-wrap">
-			<div id="side-panel-trigger-close" class="side-panel-trigger">
-				<a href="#"><i class="icon_close font-30"></i></a>
-			</div>
-		</div>
-	</div> -->
 
 	<div id="wrapper" class="clearfix">
 		<jsp:include page='../login_menu.jsp' />

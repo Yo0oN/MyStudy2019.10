@@ -1,26 +1,35 @@
-<%@page import="TOs.BoardTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="TOs.BoardTO"%>
+<%@page import="java.util.ArrayList"%>
 <%
 	session.removeAttribute("endUrl");
+
 	String sess_mseq = (String) session.getAttribute("sess_mseq");
 	String sess_nickname = (String) session.getAttribute("sess_nickname");
-	BoardTO boardTO = (BoardTO) request.getAttribute("boardTO");
 
-	String pseq = boardTO.getPseq();
-	String cpage = boardTO.getCpage();
-	String seq = boardTO.getSeq();
-	String mseq = boardTO.getMseq();
-	String writer = boardTO.getWriter();
-	String content = boardTO.getContent();
-	String subject = boardTO.getSubject();
-	String filename_ori = boardTO.getFilename_ori();
-	if (filename_ori.equals("")) {
-		filename_ori = "없음";
-	}
+	BoardTO boardTO = (BoardTO) request.getAttribute("boardTO");
+	
+	if (boardTO == null) {
+		out.println("<script type='text/javascript'>");
+		out.println("alert('존재하지 않는 게시물입니다.')");
+		out.println("location.href='myquestion_list.mysql'");
+		out.println("</script>");
+	} else {
+		String cpage = (String) request.getAttribute("cpage");
+
+		// 본문 설정
+		String seq = boardTO.getSeq();
+		String aseq = boardTO.getAseq();
+		String subject = boardTO.getSubject();
+		String content = boardTO.getContent().replaceAll("\n", "<br>");
+		String filename_new = "";
+		if (!boardTO.getFilename_new().equals("")) {
+			filename_new = "resources/upload/" + boardTO.getFilename_new();
+		}
+		String wdate_ori = boardTO.getWdate_ori();
+
 %>
-<% if (sess_mseq != null) {
-		if (sess_mseq.equals(mseq)) {%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -102,17 +111,15 @@
 <script data-ad-client="ca-pub-3935451468089596" async
 	src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('#submit').on('click', function() {
-			if ($('#subject').val().trim() == "") {
-				alert('제목을 입력하세요!');
-				return false;
+var sess_mseq = <%=sess_mseq%>;
+var sess_nickname = '<%=sess_nickname%>';
+$(document).ready(function() {
+	// 게시글 삭제
+	$('#delete').on('click', function() {
+		if (confirm('삭제하시겠습니까?')) {
+			location.href("./com_board_delete_ok.mysql?seq=<%=seq%>");
+			} else {
 			}
-			if ($('#content').val().trim() == "") {
-				alert('내용을 입력하세요!');
-				return false;
-			}
-			document.frm.submit();
 		});
 	});
 </script>
@@ -130,7 +137,7 @@
 	</div> -->
 
 	<div id="wrapper" class="clearfix">
-	<jsp:include page='../login_menu.jsp' />
+		<jsp:include page='../login_menu.jsp' />
 
 		<!-- Start main-content -->
 		<div class="main-content">
@@ -143,11 +150,11 @@
 					<div class="section-content">
 						<div class="row">
 							<div class="col-md-12 xs-text-center">
-								<h3 class="text-theme-colored font-36">게시판</h3>
+								<h3 class="text-theme-colored font-36">마이페이지</h3>
 								<ol class="breadcrumb white mt-10">
 									<li><a href="main.mysql">Home</a></li>
-									<li><a href="com_board_list.mysql?pseq=11">커뮤니티</a></li>
-									<li class="active text-theme-colored">게시글 수정</li>
+									<li><a>마이페이지</a></li>
+									<li class="active text-theme-colored">Q/A</li>
 								</ol>
 							</div>
 						</div>
@@ -156,53 +163,59 @@
 			</section>
 
 			<!-- Section: Blog -->
-			<section class="divider">
+			<section>
 				<div class="container">
-					<div class="row pt-30">
-						<div class="col-md-1"></div>
-						<div class="col-md-9">
-							<div class="aa-contact-address-left">
-								<form class="comments-form contact-form" action="./com_board_modify_ok.mysql"
-									id="frm" name="frm" method="post" enctype="multipart/form-data">
-									<input type="hidden" name="pseq" value="<%=pseq%>" />
-									<input type="hidden" name="cpage" value="<%=cpage%>" />
-									<input type="hidden" name="seq" value="<%=seq%>" />
-									<input type="hidden" name="mseq" value="<%=sess_mseq%>" />
-									<input type="hidden" name="writer" value="<%=sess_nickname%>" />
+					<div class="row">
+						<div class="col-sm-12 col-md-12">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="blog-posts single-post">
+										<article class="post clearfix mb-0">
+											<div class="entry-title pt-0">
+												<h3><%=subject%></h3>
+											</div>
+											<div class="entry-meta pb-10 border-bottom-gray">
+												<ul class="list-inline">
+													<li>작성일 : <span class="text-theme-colored"><%=wdate_ori%></span></li>
+												</ul>
+											</div>
+											<div class="entry-content mt-10"
+												style="word-break: break-all; overflow: auto">
 
-									<div class="form-group">
-										<label for="rqms_title">제목 <small>*</small></label>
-										<input id="subject" name="subject" class="form-control required" type="text" value="<%=subject%>">
-									</div>
+												<%
+													if (!filename_new.equals("")) {
+												%>
+												<p style="text-align: center;">&nbsp;</p>
+												<p>
+													<span style="font-size: 16px;"> <img height="50%"
+														src="<%=filename_new%>" width="50%" />
+													</span>
+												</p>
+												<p style="text-align: center;">&nbsp;</p>
+												<%
+													}
+												%>
 
-									<div class="form-group">
-										<label for="rqms_content">내용</label>
-										<textarea id="content" name="content"
-											class="form-control required" rows="10">
-											<%=content %>
-										</textarea>
-									</div>
-									
-									<div class="form-group">
-										<label for="rqms_content">첨부</label>
-										<% if (!filename_ori.equals("")) { %>
-											<label for="rqms_content"> / 원본 : <%= filename_ori %></label>
-										<% } %>
-										
-										<input type="file" name="upload" value=""
-											class="board_write_input" />
-									</div>
-									
-								</form>
-								<div class="row mt-10">
-									<div class="col-sm-12">
-										<a href="com_board_view.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq %>" class="btn btn-dark btn-flat m-0">취소</a>
-										<a id="submit" class="btn btn-dark btn-flat pull-right m-0">글작성</a>
+												<p>
+													<span style="font-size: 16px;"><%=content%></span>
+												</p>
+
+											</div>
+										</article>
+
+										<div class="row mt-10 pb-10 border-bottom-gray">
+											<div class="col-sm-12">
+												<a id="writebtn"
+													href="myquestion_write.mysql?cpage=<%=cpage%>"
+													class="btn btn-dark btn-flat m-0">질문하기</a> <a
+													href="myquestion_list.mysql?cpage=<%=cpage%>"
+													class="btn btn-dark btn-flat pull-right m-0">목록</a>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-1"></div>
 					</div>
 				</div>
 			</section>
@@ -230,16 +243,5 @@
 </body>
 </html>
 <%
-		} else {
-			out.println("<script type='text/javascript'>");
-			out.println("alert('글을 수정할 수 없습니다.')");
-			out.println("location.href='./main.mysql'");
-			out.println("</script>");
-		}
-	} else {
-		out.println("<script type='text/javascript'>");
-		out.println("alert('글을 수정할 수 없습니다.')");
-		out.println("location.href='./main.mysql'");
-		out.println("</script>");
 	}
 %>

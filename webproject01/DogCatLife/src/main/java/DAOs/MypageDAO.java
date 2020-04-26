@@ -18,8 +18,9 @@ import TOs.UserTO;
 import mail.MailSender;
 
 public class MypageDAO {
-	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
-//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeTest/resources/upload";
+//	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
+//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeUpload";
+	private String uploadPath = "D:\\MyFirstGit\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
 	private DataSource dataSource = null;
 	
 	public MypageDAO() {
@@ -467,7 +468,7 @@ public class MypageDAO {
 		return flag;
 	}
 
-	public BoardTO myquestion_view(String seq, String table) {
+	public BoardTO myquestion_view(String seq) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -475,42 +476,19 @@ public class MypageDAO {
 		try {
 			conn = dataSource.getConnection();
 
-			String sql = "";
+			String sql = "select seq, subject, content, date_format(wdate,'%Y-%m-%d %H:%i:%s') wdate, filename_new, filename_ori from personal_question where seq=?";
 
-			// 게시물 가져오기
-			if (table.equals("personal_answers")) {
-				System.out.println(1);
-				sql = "select seq, aseq, subject, content, date_format(wdate,'%Y-%m-%d %H:%i:%s') wdate, filename_new, filename_ori from personal_question  where aseq=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, seq);
-				rs = pstmt.executeQuery();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, seq);
+			rs = pstmt.executeQuery();
 
-				if (rs.next()) {
-					boardTO.setSeq(rs.getString("seq"));
-					boardTO.setAseq(rs.getString("aseq"));
-					boardTO.setSubject(rs.getString("subject"));
-					boardTO.setContent(rs.getString("content"));
-					boardTO.setWdate_ori(rs.getString("wdate"));
-					boardTO.setFilename_new(rs.getString("filename_new"));
-					boardTO.setFilename_ori(rs.getString("filename_ori"));
-				}
-			} else {
-				System.out.println(2);
-				sql = "select seq, subject, content, date_format(wdate,'%Y-%m-%d %H:%i:%s') wdate, filename_new, filename_ori from personal_answers  where seq=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, seq);
-				rs = pstmt.executeQuery();
-
-				if (rs.next()) {
-					boardTO.setSeq(rs.getString("seq"));
-					boardTO.setSubject(rs.getString("subject"));
-					boardTO.setContent(rs.getString("content"));
-					boardTO.setWdate_ori(rs.getString("wdate"));
-					boardTO.setFilename_new(rs.getString("filename_new"));
-					boardTO.setFilename_ori(rs.getString("filename_ori"));
-					System.out.println(rs.getString("seq") + 1);
-					System.out.println(rs.getString("subject"));
-				}
+			if (rs.next()) {
+				boardTO.setSeq(rs.getString("seq"));
+				boardTO.setSubject(rs.getString("subject"));
+				boardTO.setContent(rs.getString("content"));
+				boardTO.setWdate_ori(rs.getString("wdate"));
+				boardTO.setFilename_new(rs.getString("filename_new"));
+				boardTO.setFilename_ori(rs.getString("filename_ori"));
 			}
 		} catch (SQLException e) {
 			System.out.println("[에러] : " + e.getMessage());
@@ -533,5 +511,116 @@ public class MypageDAO {
 		}
 
 		return boardTO;
+	}
+	
+	public BoardTO myquestion_answer(String aseq) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardTO boardTO = new BoardTO();
+		try {
+			conn = dataSource.getConnection();
+			// 게시물 가져오기
+			String sql = "select seq, aseq, subject, content, date_format(wdate,'%Y-%m-%d %H:%i:%s') wdate, filename_new, filename_ori from personal_answers where aseq=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, aseq);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				boardTO.setSeq(rs.getString("seq"));
+				boardTO.setAseq(rs.getString("aseq"));
+				boardTO.setSubject(rs.getString("subject"));
+				boardTO.setContent(rs.getString("content"));
+				boardTO.setWdate_ori(rs.getString("wdate"));
+				boardTO.setFilename_new(rs.getString("filename_new"));
+				boardTO.setFilename_ori(rs.getString("filename_ori"));
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러] : " + e.getMessage());
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+		}
+
+		return boardTO;
+	}
+
+	public int myquestion_delete_ok(String seq) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int flag = 2;
+
+		try {
+			conn = dataSource.getConnection();
+
+			String sql = "select filename_new from personal_question where seq =?";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, seq);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				String filename_new = rs.getString("filename_new");
+
+				// 글 삭제
+				sql = "delete from personal_question where seq=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, seq);
+
+				int result = pstmt.executeUpdate();
+				
+				// 삭제성공했으면 flag는 0, 아니면 1
+				if (result == 1) {
+					flag = 0;
+					if (filename_new != null || !filename_new.equals("")) {
+						// 만약 파일이 있다면 파일 삭제
+						File file = new File(uploadPath + "\\" + filename_new);
+						file.delete();
+					}
+				} else if (result == 0) {
+					flag = 1;
+				}
+
+			} else if (!rs.next()) {
+				// 사진이름을 얻어오지못했다면 삭제불가능. 여기서 끝냄.
+				flag = 2;
+			}
+		} catch (SQLException e) {
+			System.out.println("error : " + e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+		}
+		return flag;
 	}
 }

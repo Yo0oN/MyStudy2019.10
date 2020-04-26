@@ -20,13 +20,8 @@
 
 		// 본문 설정
 		String seq = boardTO.getSeq();
-		System.out.println(seq);
-		String aseq = boardTO.getAseq();
-		System.out.println(aseq);
 		String subject = boardTO.getSubject();
-		System.out.println(subject);
 		String content = boardTO.getContent().replaceAll("\n", "<br>");
-		System.out.println(content);
 		String filename_new = "";
 		if (!boardTO.getFilename_new().equals("")) {
 			filename_new = "resources/upload/" + boardTO.getFilename_new();
@@ -121,11 +116,11 @@ $(document).ready(function() {
 	// 게시글 삭제
 	$('#delete').on('click', function() {
 		if (confirm('삭제하시겠습니까?')) {
-			location.href("./com_board_delete_ok.mysql?seq=<%=seq%>");
-			} else {
-			}
-		});
+			location.href("./myquestion_delete_ok.mysql?seq=<%=seq%>");
+		} else {
+		}
 	});
+});
 </script>
 </head>
 <body
@@ -181,15 +176,7 @@ $(document).ready(function() {
 											<div class="entry-meta pb-10 border-bottom-gray">
 												<ul class="list-inline">
 													<li>작성일 : <span class="text-theme-colored"><%=wdate_ori%></span></li>
-													<% if (aseq != null) { %>
-													<li><a
-														href="myquestion_modify.mysql?cpage=<%=cpage%>"><span
-															class="text-theme-colored">수정</span></a></li>
-													<li><a href="#" id="delete"><span
-															class="text-theme-colored">삭제</span></a></li>
-													<%
-														}
-													%>
+													<li><a id="delete"><span class="text-theme-colored">삭제</span></a></li>
 												</ul>
 											</div>
 											<div class="entry-content mt-10"
@@ -210,7 +197,7 @@ $(document).ready(function() {
 												%>
 
 												<p>
-													<%-- <span style="font-size: 16px;"><%=content%></span> --%>
+													<span style="font-size: 16px;"><%=content%></span>
 												</p>
 
 											</div>

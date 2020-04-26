@@ -54,9 +54,9 @@
 			}
 			
 			if (aseq.equals("")) {
-				sbHTML.append("<th><a href='myquestion_view.mysql?seq=" + seq + "' style='color: black'>" + subject + "</a></th>");
+				sbHTML.append("<th><a href='myquestion_view.mysql?cpage=" + cpage + "&seq=" + seq + "' style='color: black'>" + subject + "</a></th>");
 			} else {
-				sbHTML.append("<th><a href='myquestion_view.mysql?aseq" + aseq + "' style='color: black'>&nbsp;&nbsp;ㄴ" + subject + "</a></th>");
+				sbHTML.append("<th><a href='myquestion_answer.mysql?cpage=" + cpage + "&aseq=" + aseq + "' style='color: black'>&nbsp;&nbsp;ㄴ" + subject + "</a></th>");
 			}
 			sbHTML.append("<th class='text-center'>" + wdate + "</th>");
 			sbHTML.append("</tr>");
@@ -253,7 +253,7 @@
 														<nav>
 															<ul
 																class="pagination theme-colored pull-right xs-pull-center mb-xs-40">
-																<%-- <%
+																<%
 																	if (endBlock >= totalPage) {
 																		endBlock = totalPage;
 																	}
@@ -261,18 +261,18 @@
 																	// << 기호, 페이지 번호는 한번에 5개까지만 보여준다.
 																	// << 기호를 누르면 이전페이지 번호 5개를 보이게 하는 기능을 주자.
 																	if (startBlock == 1) {
-																		out.println("<li><a aria-label='Previous' href='#'><span aria-hidden='true'>&laquo;</span></a></li>");
+																		out.println("<li><a aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>");
 																	} else {
-																		out.println("<li><a aria-label='Previous' href='./com_board_list.mysql?pseq=" + pseq + "&cpage="
+																		out.println("<li><a aria-label='Previous' href='./myquestion_list.mysql?cpage="
 																				+ (startBlock - blockPerPage) + "'><span aria-hidden='true'>&laquo;</span></a></li>");
 																	}
 
 																	// < 기호, 즉 한페이지 앞으로 가게 해주는 기호는 현재 페이지가 1페이질경우에는 아무 작동을 하지 않지만,
 																	// 1페이지가 아닐경우에는 한페이지 앞으로 가게 하는 기능을 준다.
 																	if (cpage == 1) {
-																		out.println("<li><a aria-label='Previous' href='#'><span aria-hidden='true'>&lsaquo;</span></a></li>");
+																		out.println("<li><a aria-label='Previous'><span aria-hidden='true'>&lsaquo;</span></a></li>");
 																	} else {
-																		out.println("<li><a aria-label='Previous' href='./com_board_list.mysql?pseq=" + pseq + "&cpage="
+																		out.println("<li><a aria-label='Previous' href='./myquestion_list.mysql?cpage="
 																				+ (cpage - 1) + "'><span aria-hidden='true'>&lsaquo;</span></a></li>");
 																	}
 
@@ -281,9 +281,9 @@
 																	// 그렇게 넘어간 i페이지는 현재페이지를 나타내는 cpage에 할당되어 해당 페이지에서 보여야할 글 목록을 보여준다. 
 																	for (int i = startBlock; i <= endBlock; i++) {
 																		if (cpage == i) {
-																			out.println("<li class='active'><a href='#'>" + i + "</a></li>");
+																			out.println("<li class='active'><a>" + i + "</a></li>");
 																		} else {
-																			out.println("<li class='active'><a href='./com_board_list.mysql?pseq=" + pseq + "&cpage=" + i + "'>"
+																			out.println("<li class='active'><a href='./myquestion_list.mysql?cpage=" + i + "'>"
 																					+ i + "</a></li>");
 																		}
 																	}
@@ -291,9 +291,9 @@
 																	// > 기호, 즉 한페이지 뒤로 가게 해주는 기호는 현재 페이지가 마지막 페이질경우에는 아무 작동을 하지 않지만,
 																	// 마지막 페이지가 아닐경우에는 뒷페이지로 가게 하는 기능을 준다.
 																	if (cpage == totalPage) {
-																		out.println("<li><a aria-label='Next' href='#'> <span aria-hidden='true'>&rsaquo;</span></a></li>");
+																		out.println("<li><a aria-label='Next'> <span aria-hidden='true'>&rsaquo;</span></a></li>");
 																	} else {
-																		out.println("<li><a aria-label='Next' href='com_board_list.mysql?pseq=" + pseq + "&cpage=" + (cpage + 1)
+																		out.println("<li><a aria-label='Next' href='myquestion_list.mysql?cpage=" + (cpage + 1)
 																				+ "'> <span aria-hidden='true'>&rsaquo;</span></a></li>");
 																	}
 
@@ -301,12 +301,12 @@
 																	// 현재 페이지가 마지막 페이질경우에는 아무 작동을 하지 않지만,
 																	// 마지막 페이지가 아닐경우에는 마지막 페이지로 가게 하는 기능을 준다.
 																	if (totalPage <= endBlock) {
-																		out.println("<li><a aria-label='Previous' href='#'><span aria-hidden='true'>&raquo;</span></a></li>");
+																		out.println("<li><a aria-label='Previous'><span aria-hidden='true'>&raquo;</span></a></li>");
 																	} else {
-																		out.println("<li><a aria-label='Previous' href='com_board_list.mysql?pseq=" + pseq + "&cpage="
+																		out.println("<li><a aria-label='Previous' href='myquestion_list.mysql?cpage="
 																				+ (startBlock + blockPerPage) + "'><span aria-hidden='true'>&raquo;</span></a></li>");
 																	}
-																%> --%>
+																%>
 															</ul>
 														</nav>
 													</div>

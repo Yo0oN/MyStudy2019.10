@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import DAOs.AlbumBoardDAO;
 import DAOs.CommunityBoardDAO;
 import DAOs.LoginDAO;
 import DAOs.MypageDAO;
@@ -34,9 +35,10 @@ import mail.MailSender;
  */
 @Controller
 public class MypageCotroller {
-	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
-//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeTest/resources/upload";
-
+//	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
+//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeUpload";
+	private String uploadPath = "D:\\MyFirstGit\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
+	
 	@RequestMapping("/input_password.mysql")
 	public ModelAndView mypage_input_password() {
 		System.out.println("mypage_input_password컨트롤러 호출");
@@ -251,22 +253,47 @@ public class MypageCotroller {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("mypage/myquestion_view");
 
-		MypageDAO mypageDAO = new MypageDAO();
-
-		String aseq = request.getParameter("aseq");
 		String seq = request.getParameter("seq");
 		String cpage = request.getParameter("cpage");
-		BoardTO boardTO = new BoardTO();
-		if (aseq != null) {
-			boardTO = mypageDAO.myquestion_view(aseq, "personal_answers");
-		} else {
-			boardTO = mypageDAO.myquestion_view(seq, "personal_question");
-		}
+		BoardTO boardTO = new MypageDAO().myquestion_view(seq);
 
-		System.out.println(boardTO.getSeq());
 		modelAndView.addObject("boardTO", boardTO);
 		modelAndView.addObject("cpage", cpage);
 
+		return modelAndView;
+	}
+	
+	@RequestMapping("/myquestion_answer.mysql")
+	public ModelAndView myquesetion_answer(HttpServletRequest request) {
+		System.out.println("myquestion_answer 컨트롤러 호출");
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mypage/myquestion_answer");
+
+		MypageDAO mypageDAO = new MypageDAO();
+
+		String aseq = request.getParameter("aseq");
+		String cpage = request.getParameter("cpage");
+		BoardTO boardTO = new MypageDAO().myquestion_answer(aseq);
+
+		modelAndView.addObject("boardTO", boardTO);
+		modelAndView.addObject("cpage", cpage);
+
+		return modelAndView;
+	}
+
+	@RequestMapping("/myquestion_delete_ok.mysql")
+	public ModelAndView myquestion_delete_ok(HttpServletRequest request) {
+		System.out.println("myquestion_delete_ok 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mypage/myquestion_delete_ok");
+		
+		String seq = request.getParameter("seq");
+		
+		int flag = new MypageDAO().myquestion_delete_ok(seq);
+
+		modelAndView.addObject("flag", flag);
+		
 		return modelAndView;
 	}
 }

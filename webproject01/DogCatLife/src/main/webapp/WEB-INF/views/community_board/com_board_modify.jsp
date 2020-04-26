@@ -177,10 +177,7 @@
 
 									<div class="form-group">
 										<label for="rqms_content">내용</label>
-										<textarea id="content" name="content"
-											class="form-control required" rows="10">
-											<%=content %>
-										</textarea>
+										<textarea id="content" name="content" class="form-control required" rows="10"><%=content %></textarea>
 									</div>
 									
 									<div class="form-group">

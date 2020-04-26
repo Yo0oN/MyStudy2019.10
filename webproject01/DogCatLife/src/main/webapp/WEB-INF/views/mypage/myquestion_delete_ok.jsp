@@ -8,7 +8,7 @@
 
 	out.println("<script type='text/javascript'>");
 	if (flag == 0) {
-		out.println("location.href='./com_board_list.mysql?pseq=" + pseq + "&cpage=1'");
+		out.println("location.href='./myquestion_list.mysql?cpage=1'");
 		out.println("alert('삭제되었습니다.')");
 	} else {
 		out.println("history.back();");
